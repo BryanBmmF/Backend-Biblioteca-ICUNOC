@@ -1,5 +1,7 @@
 package com.icunoc.biblioteca.model;
 
+import com.icunoc.biblioteca.enums.Rol;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,13 +20,13 @@ public class Usuario {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUsuario;
 	
-	@Column(name="usuario", nullable=false, length=50)
+	@Column(nullable=false, length=50)
 	private String usuario;
-	@Column(name="password", nullable=false, length=75)
+	@Column(nullable=false, length=75)
 	private String password;
-	@Column(name="nombre", nullable=false, length=100)
+	@Column(nullable=false, length=100)
 	private String nombre;
-	@Column(name="registroAcademico", nullable=false, length=15)
+	@Column(nullable=false, length=15)
 	private String registroAcademico;
 	@Enumerated(EnumType.ORDINAL)
 	private Rol rol;
