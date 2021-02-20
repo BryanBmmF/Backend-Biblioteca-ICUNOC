@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p th:text="'Hello, ' + ${name} + '!'" />
+    
+    <!-- Desplegando una simple tabla atraves de un for each -->
+    <table>
+        <th:block th:each="lib : ${libros}">
+            <tr>
+                <td th:text= "${lib.idLibro}">...</td>
+                <td th:text= "${lib.nombre}">...</td>
+            </tr>
+        </th:block>
+    </table>
+
+
+
+</body>
+</html>
