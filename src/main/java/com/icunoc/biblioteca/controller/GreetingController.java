@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.icunoc.biblioteca.model.Libro;
-import com.icunoc.biblioteca.repositorio.InterLibroRepo;
+import com.icunoc.biblioteca.repository.InterLibroRepo;
 
 //Clase de MVC que redirecciona las peticiones de usuario hacia una logica de negocios
 @Controller

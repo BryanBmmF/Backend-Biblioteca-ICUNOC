@@ -1,4 +1,4 @@
-package com.icunoc.biblioteca.repositorio;
+package com.icunoc.biblioteca.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
