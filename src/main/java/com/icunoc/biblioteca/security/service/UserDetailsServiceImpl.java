@@ -1,4 +1,4 @@
-package com.icunoc.biblioteca.service;
+package com.icunoc.biblioteca.security.service;
 
 import com.icunoc.biblioteca.security.entity.Usuario;
 import com.icunoc.biblioteca.security.entity.UsuarioPrincipal;
@@ -13,9 +13,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UsuarioService usuarioService;
+
     @Override
-    public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {
-        Usuario user = usuarioService.getByUsuario(usuario).get();
-        return UsuarioPrincipal.build(user);
+    public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
+        Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
+        return UsuarioPrincipal.build(usuario);
     }
 }

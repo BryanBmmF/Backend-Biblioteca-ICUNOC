@@ -1,4 +1,4 @@
-package com.icunoc.biblioteca.service;
+package com.icunoc.biblioteca.security.service;
 
 import com.icunoc.biblioteca.security.entity.Usuario;
 import com.icunoc.biblioteca.security.repository.UsuarioRepository;
@@ -11,26 +11,24 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UsuarioService {
+
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    public Optional<Usuario> getByUsuario(String usuario){
-        return usuarioRepository.findByUsuario(usuario);
+    public Optional<Usuario> getByNombreUsuario(String nombreUsuario){
+        return usuarioRepository.findByNombreUsuario(nombreUsuario);
     }
 
-    public boolean existsByUsuario(String usuario){
-        return  usuarioRepository.existsByUsuario(usuario);
+    public boolean existsByNombreUsuario(String nombreUsuario){
+        return usuarioRepository.existsByNombreUsuario(nombreUsuario);
     }
 
-    public boolean getByRegistroAcademico(String registroAcademico){
-        return usuarioRepository.existsByRegistroAcademico(registroAcademico);
-
+    public boolean existsByEmail(String email){
+        return usuarioRepository.existsByEmail(email);
     }
 
     public void save(Usuario usuario){
         usuarioRepository.save(usuario);
     }
-
-
-
 }
+

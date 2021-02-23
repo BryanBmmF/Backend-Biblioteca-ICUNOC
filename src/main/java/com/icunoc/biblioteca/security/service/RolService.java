@@ -1,4 +1,4 @@
-package com.icunoc.biblioteca.service;
+package com.icunoc.biblioteca.security.service;
 
 import com.icunoc.biblioteca.security.entity.Rol;
 import com.icunoc.biblioteca.security.enums.RolNombre;
@@ -17,7 +17,10 @@ public class RolService {
     RolRepository rolRepository;
 
     public Optional<Rol> getByRolNombre(RolNombre rolNombre){
-        return  rolRepository.findByRolNombre(rolNombre);
+        return rolRepository.findByRolNombre(rolNombre);
     }
 
+    public void save(Rol rol){
+        rolRepository.save(rol);
+    }
 }

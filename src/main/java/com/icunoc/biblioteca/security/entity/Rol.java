@@ -3,20 +3,21 @@ package com.icunoc.biblioteca.security.entity;
 import com.icunoc.biblioteca.security.enums.RolNombre;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable=false)
+    @NotNull
     @Enumerated(EnumType.STRING)
     private RolNombre rolNombre;
 
     public Rol() {
     }
 
-    public Rol(RolNombre rolNombre) {
+    public Rol(@NotNull RolNombre rolNombre) {
         this.rolNombre = rolNombre;
     }
 
