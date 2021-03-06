@@ -1,6 +1,6 @@
 package com.icunoc.biblioteca.security.entities;
 
-import com.icunoc.biblioteca.model.User;
+import com.icunoc.biblioteca.models.User;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package com.icunoc.biblioteca.model;
+package com.icunoc.biblioteca.models;
 
 import javax.persistence.*;
 import java.util.List;

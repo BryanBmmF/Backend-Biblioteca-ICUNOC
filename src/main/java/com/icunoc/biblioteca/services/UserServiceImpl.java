@@ -1,9 +1,9 @@
 package com.icunoc.biblioteca.services;
 
 import com.icunoc.biblioteca.enums.RoleType;
-import com.icunoc.biblioteca.model.Role;
-import com.icunoc.biblioteca.model.User;
-import com.icunoc.biblioteca.repositorio.UserRepository;
+import com.icunoc.biblioteca.models.Role;
+import com.icunoc.biblioteca.models.User;
+import com.icunoc.biblioteca.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

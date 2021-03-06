@@ -1,8 +1,8 @@
 package com.icunoc.biblioteca.services;
 
 import com.icunoc.biblioteca.enums.RoleType;
-import com.icunoc.biblioteca.model.Role;
-import com.icunoc.biblioteca.repositorio.RoleRepository;
+import com.icunoc.biblioteca.models.Role;
+import com.icunoc.biblioteca.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

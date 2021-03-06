@@ -1,6 +1,6 @@
 package com.icunoc.biblioteca.security.services;
 
-import com.icunoc.biblioteca.model.User;
+import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.security.entities.AuthToken;
 
 import java.util.List;

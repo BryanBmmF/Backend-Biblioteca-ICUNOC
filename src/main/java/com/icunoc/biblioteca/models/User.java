@@ -1,4 +1,4 @@
-package com.icunoc.biblioteca.model;
+package com.icunoc.biblioteca.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

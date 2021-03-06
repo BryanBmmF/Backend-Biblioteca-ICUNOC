@@ -1,6 +1,6 @@
-package com.icunoc.biblioteca.repositorio;
+package com.icunoc.biblioteca.repositories;
 
-import com.icunoc.biblioteca.model.User;
+import com.icunoc.biblioteca.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

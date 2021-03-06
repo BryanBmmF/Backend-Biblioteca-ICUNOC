@@ -1,6 +1,6 @@
 package com.icunoc.biblioteca.security.filters;
 import com.icunoc.biblioteca.constants.AppConstants;
-import com.icunoc.biblioteca.model.User;
+import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.security.entities.AuthToken;
 import com.icunoc.biblioteca.security.services.AuthTokenService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
