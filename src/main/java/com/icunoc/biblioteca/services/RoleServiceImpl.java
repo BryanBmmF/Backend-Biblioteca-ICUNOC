@@ -23,6 +23,7 @@ public class RoleServiceImpl implements RoleService{
             return;
         }
 
+        //creación de roles principales
         for (RoleType value : RoleType.values()) {
             Role role = new Role();
             role.setRole(value.name());
