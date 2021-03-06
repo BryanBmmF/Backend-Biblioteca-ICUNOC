@@ -16,6 +16,9 @@ public class User implements UserDetails{
     @Column(name = "id", nullable = false, unique = true, updatable = false)
     private Long id;
 
+    @Column(name = "numeroRegistro", unique = true, nullable = true)
+    private String numeroRegistro;
+
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
@@ -65,6 +68,14 @@ public class User implements UserDetails{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getNumeroRegistro() {
+        return numeroRegistro;
+    }
+
+    public void setNumeroRegistro(String numeroRegistro) {
+        this.numeroRegistro = numeroRegistro;
     }
 
     @Override

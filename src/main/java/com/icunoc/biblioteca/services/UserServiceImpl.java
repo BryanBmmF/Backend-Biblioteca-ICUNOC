@@ -13,13 +13,17 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
+    private final String DEFAULT_ADMIN = "admin";
+    private final String DEFAULT_USER = "user";
     private final String DEFAULT_PASSWORD = "password";
+    private final String DEFAULT_REGSITRO_1 = "111111111";
+    private final String DEFAULT_REGISTRO_2 = "222222222";
 
     private final UserRepository repository;
-
     private final RoleService roleService;
-
     private final BCryptPasswordEncoder encoder;
+
+
 
     @Autowired
     public UserServiceImpl(UserRepository repository, RoleService roleService, BCryptPasswordEncoder encoder) {
@@ -35,23 +39,39 @@ public class UserServiceImpl implements UserService{
             return;
         }
 
+        //codificacion del password, y declaracion de los roles por defecto
         final String defaultPassword = this.encoder.encode(DEFAULT_PASSWORD);
         final Role adminRole = this.roleService.find(RoleType.ROLE_ADMIN);
         final Role userRole = this.roleService.find(RoleType.ROLE_USER);
 
+        /*Creacion de Usuarios por defecto, uno administrador y uno usuario comun*/
         User admin = new User();
         admin.setPassword(defaultPassword);
-        admin.setUsername("admin");
+        admin.setUsername(DEFAULT_ADMIN);
+        admin.setNumeroRegistro(DEFAULT_REGSITRO_1);
         admin.setAuthorities(List.of(adminRole, userRole));
 
+        //guardando usuario administrador
         this.repository.save(admin);
 
         User user = new User();
         user.setPassword(defaultPassword);
-        user.setUsername("user");
+        user.setUsername(DEFAULT_USER);
+        user.setNumeroRegistro(DEFAULT_REGISTRO_2);
         user.setAuthorities(List.of(userRole));
 
+        //guardando usuario normal
         this.repository.saveAndFlush(user);
+    }
+
+    @Override
+    public User add(User user) {
+        //por defecto se van a registrar solo usuarios administradores
+        //seteamos el pass encripatado y las autorizaciones
+        user.setPassword(this.encoder.encode(user.getPassword()));
+        user.setAuthorities(List.of(this.roleService.find(RoleType.ROLE_ADMIN),this.roleService.find(RoleType.ROLE_USER)));
+        //guardamos el usaurio
+        return repository.save(user);
     }
 
     @Override
