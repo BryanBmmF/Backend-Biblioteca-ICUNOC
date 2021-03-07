@@ -16,6 +16,9 @@ public class User implements UserDetails{
     @Column(name = "id", nullable = false, unique = true, updatable = false)
     private Long id;
 
+    @Column(name = "nombre", nullable = true)
+    private String nombre;
+
     @Column(name = "numeroRegistro", unique = true, nullable = true)
     private String numeroRegistro;
 
@@ -33,6 +36,13 @@ public class User implements UserDetails{
 
     public User() {
         this.authorities = new ArrayList<>();
+    }
+
+    public User(String nombre, String numeroRegistro, String username, String password) {
+        this.nombre = nombre;
+        this.numeroRegistro = numeroRegistro;
+        this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -76,6 +86,14 @@ public class User implements UserDetails{
 
     public void setNumeroRegistro(String numeroRegistro) {
         this.numeroRegistro = numeroRegistro;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
