@@ -32,6 +32,26 @@ public class Libro {
 	@JoinColumn(name="idCategoria")
 	private Categoria categoria;
 
+	public Libro(String codigo, String autor) {
+		this.codigo = codigo;
+		this.autor = autor;
+	}
+
+	public Libro(){}
+
+	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma rol, String pathImagen) {
+		this.idLibro = idLibro;
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.autor = autor;
+		this.stock = stock;
+		this.edicion = edicion;
+		this.fechaPublicacion = fechaPublicacion;
+		this.rol = rol;
+		this.pathImagen = pathImagen;
+		this.categoria = categoria;
+	}
+
 	public int getIdLibro() {
 		return idLibro;
 	}

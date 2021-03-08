@@ -52,7 +52,6 @@ public class UserController {
             return new ResponseEntity(new Mensaje("No existe el Usuario"), HttpStatus.NOT_FOUND);
         User user = service.getByNombre(nombre).get();
         return new ResponseEntity(user, HttpStatus.OK);
-
     }
     //busqueda de user
     @GetMapping("/detailUsername/{username}")
