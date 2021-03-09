@@ -91,7 +91,7 @@ public class LibroController {
         libro.setStock(libroDto.getStock());
         libro.setEdicion(libroDto.getEdicion());
         libro.setFechaPublicacion(libroDto.getFechaPublicacion());
-        libro.setRol(libroDto.getRol());
+        libro.setIdioma(libroDto.getRol());
         libro.setPathImagen(libroDto.getPathImagen());
         service.save(libro);
         return new ResponseEntity(new Mensaje("El libro se actualizó correctamente !!!"), HttpStatus.OK);
