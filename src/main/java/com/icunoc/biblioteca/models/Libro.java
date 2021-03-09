@@ -1,6 +1,7 @@
 package com.icunoc.biblioteca.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.icunoc.biblioteca.enums.Idioma;
 import javax.persistence.*;
 import java.util.Calendar;
@@ -26,13 +27,14 @@ public class Libro {
 	private Calendar fechaPublicacion;
 	@Enumerated(EnumType.ORDINAL)
 	private Idioma idioma;
-	@Column( nullable=true, length=150)
+	@Column( nullable=true, length=255)
 	private String pathImagen;
 
 	//freign key categoria
 	@ManyToOne
 	@JoinColumn(name="idCategoria")
 	@JsonIgnore
+	@JsonBackReference
 	private Categoria categoria;
 
 	public Libro(String codigo, String autor) {
@@ -41,6 +43,21 @@ public class Libro {
 	}
 
 	public Libro(){}
+
+
+	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma idioma, String pathImagen, Categoria categoria) {
+		this.idLibro = id;
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.autor = autor;
+		this.stock = stock;
+		this.edicion = edicion;
+		this.fechaPublicacion = fechaPublicacion;
+		this.idioma = idioma;
+		this.pathImagen = pathImagen;
+		this.categoria = categoria;
+	}
+
 
 	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma idioma, String pathImagen) {
 		this.idLibro = idLibro;

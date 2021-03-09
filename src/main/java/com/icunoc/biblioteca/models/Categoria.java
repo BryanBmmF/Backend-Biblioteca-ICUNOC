@@ -1,5 +1,7 @@
 package com.icunoc.biblioteca.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class Categoria {
     private String descripcion;
     //Relacion con libros
     @OneToMany(mappedBy="categoria")
+    @JsonManagedReference
     private List<Libro> libros;
 
     public int getIdCategoria() {
