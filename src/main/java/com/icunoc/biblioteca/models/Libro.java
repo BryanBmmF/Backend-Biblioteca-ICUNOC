@@ -1,5 +1,6 @@
 package com.icunoc.biblioteca.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.icunoc.biblioteca.enums.Idioma;
 import javax.persistence.*;
 import java.util.Calendar;
@@ -23,13 +24,14 @@ public class Libro {
 	@Temporal(TemporalType.DATE)
 	private Calendar fechaPublicacion;
 	@Enumerated(EnumType.ORDINAL)
-	private Idioma rol;
-	@Column( nullable=true, length=150)
+	private Idioma idioma;
+	@Column( nullable=true, length=2000)
 	private String pathImagen;
 
 	//freign key categoria
 	@ManyToOne
 	@JoinColumn(name="idCategoria")
+	@JsonBackReference
 	private Categoria categoria;
 
 	public Libro(String codigo, String autor) {
@@ -39,7 +41,20 @@ public class Libro {
 
 	public Libro(){}
 
-	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma rol, String pathImagen) {
+	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma idioma, String pathImagen, Categoria categoria) {
+		this.idLibro = id;
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.autor = autor;
+		this.stock = stock;
+		this.edicion = edicion;
+		this.fechaPublicacion = fechaPublicacion;
+		this.idioma = idioma;
+		this.pathImagen = pathImagen;
+		this.categoria = categoria;
+	}
+
+	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma idioma, String pathImagen) {
 		this.idLibro = idLibro;
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -47,7 +62,7 @@ public class Libro {
 		this.stock = stock;
 		this.edicion = edicion;
 		this.fechaPublicacion = fechaPublicacion;
-		this.rol = rol;
+		this.idioma = idioma;
 		this.pathImagen = pathImagen;
 		this.categoria = categoria;
 	}
@@ -108,12 +123,12 @@ public class Libro {
 		this.fechaPublicacion = fechaPublicacion;
 	}
 
-	public Idioma getRol() {
-		return rol;
+	public Idioma getIdioma() {
+		return idioma;
 	}
 
-	public void setRol(Idioma rol) {
-		this.rol = rol;
+	public void setIdioma(Idioma idioma) {
+		this.idioma = idioma;
 	}
 
 	public String getPathImagen() {

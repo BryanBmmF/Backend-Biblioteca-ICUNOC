@@ -17,6 +17,7 @@ public class LibroService {
     LibroRepository libroRepository;
 
     public List<Libro> list(){
+
         return libroRepository.findAll();
     }
 
