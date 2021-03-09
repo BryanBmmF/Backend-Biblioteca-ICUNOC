@@ -30,7 +30,7 @@ public class LibroController {
 
     //busqueda de libro por id
     @GetMapping("/detalleLibro/{id}")
-    public ResponseEntity<User> getById(@PathVariable("id") int id){
+    public ResponseEntity<Libro> getById(@PathVariable("id") int id){
         //evaluamos si existe el usuario por id
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
@@ -40,7 +40,7 @@ public class LibroController {
 
     //busqueda de user por nombre
     @GetMapping("/detalleNombre/{nombre}")
-    public ResponseEntity<User> getByNombre(@PathVariable("nombre") String nombre){
+    public ResponseEntity<Libro> getByNombre(@PathVariable("nombre") String nombre){
         //evaluamos si existe el usuario por nombre
         if(!service.existsByNombre(nombre))
             return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
