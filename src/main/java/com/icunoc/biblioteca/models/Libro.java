@@ -33,7 +33,6 @@ public class Libro {
 	//freign key categoria
 	@ManyToOne
 	@JoinColumn(name="idCategoria")
-	@JsonIgnore
 	@JsonBackReference
 	private Categoria categoria;
 
