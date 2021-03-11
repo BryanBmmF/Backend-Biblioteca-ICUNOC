@@ -7,19 +7,19 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "auth_tokens")
+@Table(name = "Token_Autenticacion")
 public class AuthToken {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "last_access_time", nullable = false)
+    @Column(name = "ultimoAcceso")
     private LocalDateTime lastAccessTime;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "idUsuario", nullable = false, referencedColumnName = "id")
     private User user;
 
     public AuthToken() {

@@ -7,27 +7,30 @@ import javax.persistence.*;
 import java.util.Calendar;
 
 @Entity
+@Table(name = "Libro")
 public class Libro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idLibro", nullable = false, unique = true, updatable = false)
+	@Column(name = "id")
 	private int idLibro;
-	@Column(nullable=false, length=45)
+	@Column(name = "codigo")
 	private String codigo;
-	@Column(nullable=false, length=150)
+	@Column(name = "nombre")
 	private String nombre;
-	@Column(nullable=true, length=100)
+	@Column(name = "autor")
 	private String autor;
-	@Column(nullable=false)
+	@Column(name = "stock")
 	private int stock;
-	@Column(nullable=false)
+	@Column(name = "edicion")
 	private  int edicion;
+	@Column(name = "fechaPublicacion")
 	@Temporal(TemporalType.DATE)
 	private Calendar fechaPublicacion;
+	@Column(name = "idioma")
 	@Enumerated(EnumType.ORDINAL)
 	private Idioma idioma;
-	@Column( nullable=true, length=255)
+	@Column(name = "pathImagen")
 	private String pathImagen;
 
 	//freign key categoria
