@@ -6,15 +6,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "Categoria")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCategoria", nullable = false, unique = true, updatable = false)
+    @Column(name = "id")
     private int idCategoria;
-    @Column(nullable=false, length=100)
+    @Column(name = "nombre")
     private String nombre;
-    @Column(nullable=true, length=250)
+    @Column(name = "descripcion")
     private String descripcion;
     //Relacion con libros
     @OneToMany(mappedBy="categoria")

@@ -9,29 +9,29 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Usuario")
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nombre", nullable = true)
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "numeroRegistro", unique = true, nullable = true)
+    @Column(name = "numeroRegistro")
     private String numeroRegistro;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_authorities",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JoinTable(name = "Autorizacion_Usuario",
+            joinColumns = @JoinColumn(name = "idUsuario", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "idRol", referencedColumnName = "id"))
     private List<GrantedAuthority> authorities;
 
     public User() {
