@@ -34,10 +34,9 @@ public class Libro {
 	private String pathImagen;
 
 	//freign key categoria
-	@ManyToOne
-	@JoinColumn(name="idCategoria")
-	@JsonBackReference
-	private Categoria categoria;
+	@Column(name = "idCategoria")
+
+	private int categoria;
 
 	public Libro(String codigo, String autor) {
 		this.codigo = codigo;
@@ -47,7 +46,7 @@ public class Libro {
 	public Libro(){}
 
 
-	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma idioma, String pathImagen, Categoria categoria) {
+	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma idioma, String pathImagen, int categoria) {
 		this.idLibro = id;
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -61,8 +60,7 @@ public class Libro {
 	}
 
 
-	public Libro(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma idioma, String pathImagen) {
-		this.idLibro = idLibro;
+	public Libro(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, String pathImagen,int stock,  int categoria) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.autor = autor;
@@ -146,11 +144,11 @@ public class Libro {
 		this.pathImagen = pathImagen;
 	}
 
-	public Categoria getCategoria() {
+	public int getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
 }

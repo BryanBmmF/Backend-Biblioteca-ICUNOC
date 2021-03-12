@@ -1,6 +1,7 @@
 package com.icunoc.biblioteca.dto;
 
 import com.icunoc.biblioteca.enums.Idioma;
+import com.icunoc.biblioteca.models.Categoria;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -23,15 +24,14 @@ public class LibroDto {
 
     public LibroDto(){}
 
-    public LibroDto(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma rol, String pathImagen, int categoria) {
-        this.id=id;
+    public LibroDto(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, String pathImagen,int stock,  int categoria) {
+        this.codigo = codigo;
         this.nombre = nombre;
         this.autor = autor;
-        this.codigo = codigo;
         this.stock = stock;
         this.edicion = edicion;
         this.fechaPublicacion = fechaPublicacion;
-        this.rol = rol;
+        this.rol = idioma;
         this.pathImagen = pathImagen;
         this.categoria = categoria;
     }

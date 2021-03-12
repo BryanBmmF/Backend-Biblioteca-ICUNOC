@@ -12,6 +12,12 @@ CREATE TABLE Usuario(
 
 );
 
+CREATE TABLE Rol(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipoRol VARCHAR(100) UNIQUE NOT NULL
+   
+);
+
 CREATE TABLE Autorizacion_Usuario(
     idUsuario INT NOT NULL,
     idRol INT NOT NULL,
@@ -20,17 +26,17 @@ CREATE TABLE Autorizacion_Usuario(
    
 );
 
-CREATE TABLE Rol(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    tipoRol VARCHAR(100) UNIQUE NOT NULL
-   
-);
-
 CREATE TABLE Token_Autenticacion(
     id VARCHAR(200) PRIMARY KEY,
     ultimoAcceso DATETIME(6) NOT NULL,
     idUsuario INT NOT NULL,
     FOREIGN KEY(idUsuario) REFERENCES Usuario(id)
+);
+
+CREATE TABLE Categoria(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(300) NULL,
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Libro(
@@ -45,10 +51,4 @@ CREATE TABLE Libro(
     stock INT NOT NULL,
     idCategoria INT NULL,
     FOREIGN KEY(idCategoria) REFERENCES Categoria(id)
-);
-
-CREATE TABLE Categoria(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    descripcion VARCHAR(300) NULL,
-    nombre VARCHAR(100) NOT NULL
 );
