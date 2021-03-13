@@ -2,7 +2,7 @@ package com.icunoc.biblioteca.controllers;
 
 
 import com.icunoc.biblioteca.models.Categoria;
-import com.icunoc.biblioteca.services.CategoriaServiceImpl;
+import com.icunoc.biblioteca.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +15,9 @@ import java.util.List;
 @RequestMapping({"/categorias"})
 public class CategoriaController {
     @Autowired
-    CategoriaServiceImpl service;
+    CategoriaService service;
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/lista")
-
     public ResponseEntity<List<Categoria>> listarCategorias(){
         List<Categoria> list = service.list();
         return new ResponseEntity(list, HttpStatus.OK);

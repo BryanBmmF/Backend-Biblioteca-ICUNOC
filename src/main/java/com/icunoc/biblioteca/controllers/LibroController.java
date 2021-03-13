@@ -4,7 +4,7 @@ package com.icunoc.biblioteca.controllers;
 import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.models.Libro;
-import com.icunoc.biblioteca.services.CategoriaServiceImpl;
+import com.icunoc.biblioteca.services.CategoriaService;
 import com.icunoc.biblioteca.services.LibrosService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping({"/ingresoLibro"})
-
 public class LibroController {
     @Autowired
     LibrosService service;
-    CategoriaServiceImpl categoryService;
+    CategoriaService categoryService;
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/listaLibro")
     public ResponseEntity<List<Libro>> listarLibro(){
@@ -62,20 +61,19 @@ public class LibroController {
             return new ResponseEntity(new Mensaje("El Libro que intenta registrar ya existe"), HttpStatus.BAD_REQUEST);
 
         // guardar libro
-        System.out.println("AUTOR" + libroDto.getAutor());
-        System.out.println("NOMBRE:" + libroDto.getNombre());
-        System.out.println("IDIOMA: " + libroDto.getRol());
-        System.out.println("CATEGORIA:  " + libroDto.getCategoria());
+        System.out.println("VIENDO QUE AUTOR VIENE: " + libroDto.getAutor());
+        System.out.println("VIENDO QUE IDIOMA VIENE: " + libroDto.getIdioma());
+        System.out.println("VIENDO QUE CATEGORIA VIENE: " + libroDto.getIdCategoria());
         Libro libro = new Libro(
                 libroDto.getAutor(),
                 libroDto.getCodigo(),
                 libroDto.getEdicion(),
                 libroDto.getFechaPublicacion(),
-                libroDto.getRol(),
+                libroDto.getIdioma(),
                 libroDto.getNombre(),
                 libroDto.getPathImagen(),
                 libroDto.getStock(),
-                libroDto.getCategoria());
+                libroDto.getIdCategoria());
         service.save(libro);
         return new ResponseEntity(new Mensaje("El libro se registro correctamente !!!"), HttpStatus.OK);
     }
@@ -103,7 +101,7 @@ public class LibroController {
         libro.setStock(libroDto.getStock());
         libro.setEdicion(libroDto.getEdicion());
         libro.setFechaPublicacion(libroDto.getFechaPublicacion());
-        libro.setIdioma(libroDto.getRol());
+        libro.setIdioma(libroDto.getIdioma());
         libro.setPathImagen(libroDto.getPathImagen());
         service.save(libro);
         return new ResponseEntity(new Mensaje("El libro se actualizó correctamente !!!"), HttpStatus.OK);
