@@ -6,4 +6,6 @@ public class AppConstants {
     public static final String RESPONSE_BODY_MESSAGE_KEY = "message";
 
     public static final String AUTH_TOKEN_NAME = "authToken";
+
+    public static final String NOT_AUTHORIZE = "NO_AUTORIZADO";
 }

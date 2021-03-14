@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/", produces = "application/json")
+@RequestMapping(value = "/api/v1", produces = "application/json")
 public class SecurityController {
 
     @Autowired
@@ -61,7 +61,8 @@ public class SecurityController {
         }};
     }
 
-    @GetMapping("/admin")
+    //valida permiso de administrador
+    @GetMapping("/permissionAdmin")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Map<String, Object> adminAction(Principal principal) {
         return new HashMap<>() {{
@@ -69,10 +70,20 @@ public class SecurityController {
         }};
     }
 
+    //valida permiso de usuario
+    @GetMapping("/permissionUser")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public Map<String, Object> userAction(Principal principal) {
+        return new HashMap<>() {{
+            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, principal.getName() + ", you are user!");
+        }};
+    }
+
+    //En caso de no permitir autorizacion
     @ExceptionHandler({AccessDeniedException.class})
     public Map<String, Object> accessDeniedHandlerAction(HttpServletResponse response) {
         return new HashMap<>() {{
-            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, "You are not allowed to visit this page!");
+            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, AppConstants.NOT_AUTHORIZE);
         }};
     }
 }
