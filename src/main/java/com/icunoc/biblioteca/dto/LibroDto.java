@@ -1,6 +1,7 @@
 package com.icunoc.biblioteca.dto;
 
 import com.icunoc.biblioteca.enums.Idioma;
+import com.icunoc.biblioteca.models.Categoria;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -16,24 +17,23 @@ public class LibroDto {
     private int stock;
     private  int edicion;
     private Calendar fechaPublicacion;
-    private Idioma rol;
+    private Idioma idioma;
     private String pathImagen;
-    private int categoria;
+    private int idCategoria;
 
 
     public LibroDto(){}
 
-    public LibroDto(int id, String nombre, String autor, String codigo, int stock, int edicion, Calendar fechaPublicacion, Idioma rol, String pathImagen, int categoria) {
-        this.id=id;
+    public LibroDto(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, String pathImagen, int stock, int idCategoria) {
+        this.codigo = codigo;
         this.nombre = nombre;
         this.autor = autor;
-        this.codigo = codigo;
         this.stock = stock;
         this.edicion = edicion;
         this.fechaPublicacion = fechaPublicacion;
-        this.rol = rol;
+        this.idioma = idioma;
         this.pathImagen = pathImagen;
-        this.categoria = categoria;
+        this.idCategoria = idCategoria;
     }
 
     public int getId() {
@@ -92,12 +92,12 @@ public class LibroDto {
         this.fechaPublicacion = fechaPublicacion;
     }
 
-    public Idioma getRol() {
-        return rol;
+    public Idioma getIdioma() {
+        return idioma;
     }
 
-    public void setRol(Idioma rol) {
-        this.rol = rol;
+    public void setIdioma(Idioma idioma) {
+        this.idioma = idioma;
     }
 
     public String getPathImagen() {
@@ -108,11 +108,12 @@ public class LibroDto {
         this.pathImagen = pathImagen;
     }
 
-    public int getCategoria() {
-        return categoria;
+
+    public int getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 }
