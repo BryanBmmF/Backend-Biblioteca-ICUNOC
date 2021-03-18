@@ -36,6 +36,8 @@ node {
          currentBuild.result = 'FAILURE'
       throw err
    }
+   echo 'Code Coverage'
+   jacoco()
    
    // ------------------------------------
    // -- ETAPA: Instalar
