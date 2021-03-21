@@ -18,13 +18,13 @@ public class LibroDto {
     private  int edicion;
     private Calendar fechaPublicacion;
     private Idioma idioma;
-    private String pathImagen;
+    private byte[] pathImagen;
     private int idCategoria;
 
 
     public LibroDto(){}
 
-    public LibroDto(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, String pathImagen, int stock, int idCategoria) {
+    public LibroDto(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, byte[] pathImagen, int stock, int idCategoria) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.autor = autor;
@@ -100,11 +100,11 @@ public class LibroDto {
         this.idioma = idioma;
     }
 
-    public String getPathImagen() {
+    public byte[] getPathImagen() {
         return pathImagen;
     }
 
-    public void setPathImagen(String pathImagen) {
+    public void setPathImagen(byte[] pathImagen) {
         this.pathImagen = pathImagen;
     }
 

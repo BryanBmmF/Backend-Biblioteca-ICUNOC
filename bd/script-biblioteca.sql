@@ -47,7 +47,7 @@ CREATE TABLE Libro(
     fechaPublicacion DATE NULL,
     idioma INT NOT NULL,
     nombre VARCHAR(200) NOT NULL,
-    pathImagen VARCHAR(250) NULL,
+    pathImagen longblob NULL,
     stock INT NOT NULL,
     idCategoria INT NULL,
     FOREIGN KEY(idCategoria) REFERENCES Categoria(id)
