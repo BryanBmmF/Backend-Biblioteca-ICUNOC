@@ -53,7 +53,7 @@ public class LibrosServiceImpl implements LibrosService {
 
     @Override
     public void update(Libro libro) {
-        //guardamos el usaurio
+        //guardamos el libro
         repository.save(libro);
     }
 
