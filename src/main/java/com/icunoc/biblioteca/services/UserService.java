@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface UserService extends UserDetailsService {
     void seed();
     List<User> list();
-    User add(User user);
     Optional<User> getOne(long id);
     Optional<User> getByNombre(String nombre);
     Optional<User> getByUsername(String username);

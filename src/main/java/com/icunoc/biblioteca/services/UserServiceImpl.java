@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService{
     private final String DEFAULT_PASSWORD = "password";
     private final String DEFAULT_REGSITRO_1 = "111111111";
     private final String DEFAULT_REGISTRO_2 = "222222222";
+    private final String DEFAULT_TIPO_ADMINISTRADOR = "Administrador";
+    private final String DEFAULT_TIPO_BIBLIOTECARIO = "Bibliotecario";
 
     private final UserRepository repository;
     private final RoleService roleService;
@@ -52,6 +54,7 @@ public class UserServiceImpl implements UserService{
         admin.setUsername(DEFAULT_ADMIN);
         admin.setNombre(DEFAULT_ADMIN);
         admin.setNumeroRegistro(DEFAULT_REGSITRO_1);
+        admin.setTipo(DEFAULT_TIPO_ADMINISTRADOR);
         admin.setAuthorities(List.of(adminRole, userRole));
 
         //guardando usuario administrador
@@ -62,6 +65,7 @@ public class UserServiceImpl implements UserService{
         user.setUsername(DEFAULT_USER);
         user.setNombre(DEFAULT_USER);
         user.setNumeroRegistro(DEFAULT_REGISTRO_2);
+        user.setTipo(DEFAULT_TIPO_BIBLIOTECARIO);
         user.setAuthorities(List.of(userRole));
 
         //guardando usuario normal
@@ -99,19 +103,21 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void save(User user){
-        //por defecto se van a registrar solo usuarios administradores
-        //seteamos el pass encripatado y las autorizaciones
+        //verificamos el tipo de usuario
+        if (user.getTipo().equals(DEFAULT_TIPO_ADMINISTRADOR)){
+            user.setAuthorities(List.of(this.roleService.find(RoleType.ROLE_ADMIN),this.roleService.find(RoleType.ROLE_USER)));
+        }
+        if (user.getTipo().equals(DEFAULT_TIPO_BIBLIOTECARIO)){
+            user.setAuthorities(List.of(this.roleService.find(RoleType.ROLE_USER)));
+        }
+        //seteamos el pass encripatado
         user.setPassword(this.encoder.encode(user.getPassword()));
-        user.setAuthorities(List.of(this.roleService.find(RoleType.ROLE_ADMIN),this.roleService.find(RoleType.ROLE_USER)));
-        //guardamos el usaurio
         repository.save(user);
     }
     @Override
     public void update(User user){
-        //por defecto se van a registrar solo usuarios administradores
         //seteamos el pass encripatado, las autorizaciones no
         user.setPassword(this.encoder.encode(user.getPassword()));
-        //user.setAuthorities(List.of(this.roleService.find(RoleType.ROLE_ADMIN),this.roleService.find(RoleType.ROLE_USER)));
         //guardamos el usaurio
         repository.save(user);
     }
@@ -134,16 +140,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean existsByUsername(String username){
         return  repository.existsByUsername(username);
-    }
-
-    @Override
-    public User add(User user) {
-        //por defecto se van a registrar solo usuarios administradores
-        //seteamos el pass encripatado y las autorizaciones
-        user.setPassword(this.encoder.encode(user.getPassword()));
-        user.setAuthorities(List.of(this.roleService.find(RoleType.ROLE_ADMIN),this.roleService.find(RoleType.ROLE_USER)));
-        //guardamos el usaurio
-        return repository.save(user);
     }
 
     @Override
