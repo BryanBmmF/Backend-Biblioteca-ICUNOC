@@ -17,4 +17,5 @@ public interface LibrosService {
     void delete(int id);
     boolean existsById(int id);
     boolean existsByNombre(String nombre);
+    boolean existsByCodigo(String codigo);
 }

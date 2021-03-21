@@ -15,5 +15,6 @@ public interface LibroRepository extends JpaRepository<Libro, Integer>{
     //metodo extra para saber si un usuario existe
     boolean existsByNombre(String nombre);
     boolean existsByAutor(String autor);
+    boolean existsByCodigo(String codigo);
     Libro findByIdLibro(int id);
 }

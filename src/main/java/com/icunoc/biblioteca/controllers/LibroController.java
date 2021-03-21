@@ -11,16 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping({"/ingresoLibro"})
 public class LibroController {
+
+    private byte[] imagenBytes;
+
     @Autowired
     LibrosService service;
-    CategoriaService categoryService;
+
+    @PostMapping("/upload")
+    public void uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+        this.imagenBytes = file.getBytes();
+        System.out.println(imagenBytes);
+    }
+
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/listaLibro")
     public ResponseEntity<List<Libro>> listarLibro(){
@@ -57,8 +68,8 @@ public class LibroController {
             return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios"), HttpStatus.BAD_REQUEST);
         }
         //validar que no exista el libro a registrar
-        if(service.existsByNombre(libroDto.getNombre()))
-            return new ResponseEntity(new Mensaje("El Libro que intenta registrar ya existe"), HttpStatus.BAD_REQUEST);
+        if(service.existsByCodigo(libroDto.getCodigo()))
+            return new ResponseEntity(new Mensaje("El libro que intentas registrar ya existe."), HttpStatus.BAD_REQUEST);
 
         // guardar libro
         System.out.println("VIENDO QUE AUTOR VIENE: " + libroDto.getAutor());
@@ -71,11 +82,12 @@ public class LibroController {
                 libroDto.getFechaPublicacion(),
                 libroDto.getIdioma(),
                 libroDto.getNombre(),
-                libroDto.getPathImagen(),
+                this.imagenBytes,
                 libroDto.getStock(),
                 libroDto.getIdCategoria());
         service.save(libro);
-        return new ResponseEntity(new Mensaje("El libro se registro correctamente !!!"), HttpStatus.OK);
+        this.imagenBytes = null;
+        return new ResponseEntity(new Mensaje("El libro se registro correctamente."), HttpStatus.OK);
     }
 
     //actualizacion
