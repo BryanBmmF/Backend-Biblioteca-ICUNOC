@@ -53,7 +53,7 @@ public class LibrosServiceImpl implements LibrosService {
 
     @Override
     public void update(Libro libro) {
-        //guardamos el usaurio
+        //guardamos el libro
         repository.save(libro);
     }
 
@@ -70,5 +70,10 @@ public class LibrosServiceImpl implements LibrosService {
     @Override
     public boolean existsByNombre(String nombre) {
         return  repository.existsByNombre(nombre);
+    }
+
+    @Override
+    public boolean existsByCodigo(String codigo) {
+        return repository.existsByCodigo(codigo);
     }
 }

@@ -47,8 +47,26 @@ CREATE TABLE Libro(
     fechaPublicacion DATE NULL,
     idioma INT NOT NULL,
     nombre VARCHAR(200) NOT NULL,
-    pathImagen VARCHAR(250) NULL,
+    pathImagen longblob NULL,
     stock INT NOT NULL,
     idCategoria INT NULL,
     FOREIGN KEY(idCategoria) REFERENCES Categoria(id)
 );
+
+
+CREATE TABLE Prestamo(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(200) NOT NULL,
+    apellido VARCHAR(200) NOT NULL,
+    DPI INT NOT NULL,
+    carnet INT NULL,
+    carrera VARCHAR(100) NULL,
+    fechaInicio DATE NOT NULL,
+    fechaFin DATE NOT NULL,
+    costo DOUBLE NULL,
+    estado tinyint NOT NULL,
+    codigoReservacion VARCHAR(10) NOT NULL,
+    codigoLibro VARCHAR(50) NOT NULL,
+    FOREIGN KEY(codigoLibro) REFERENCES Libro(codigo)
+);
+

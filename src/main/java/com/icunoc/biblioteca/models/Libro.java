@@ -31,19 +31,13 @@ public class Libro {
 	@Enumerated(EnumType.ORDINAL)
 	private Idioma idioma;
 	@Column(name = "pathImagen")
-	private String pathImagen;
+	private byte[] pathImagen;
 	@Column(name = "idCategoria")
 	private int categoria;
 
-	public Libro(String codigo, String autor) {
-		this.codigo = codigo;
-		this.autor = autor;
-	}
-
 	public Libro(){}
 
-
-	public Libro(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, String pathImagen,int stock,  int categoria) {
+	public Libro(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, byte[] pathImagen, int stock,  int categoria) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.autor = autor;
@@ -119,11 +113,11 @@ public class Libro {
 		this.idioma = idioma;
 	}
 
-	public String getPathImagen() {
+	public byte[] getPathImagen() {
 		return pathImagen;
 	}
 
-	public void setPathImagen(String pathImagen) {
+	public void setPathImagen(byte[] pathImagen) {
 		this.pathImagen = pathImagen;
 	}
 
