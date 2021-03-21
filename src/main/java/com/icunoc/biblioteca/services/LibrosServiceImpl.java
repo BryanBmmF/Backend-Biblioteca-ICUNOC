@@ -71,4 +71,9 @@ public class LibrosServiceImpl implements LibrosService {
     public boolean existsByNombre(String nombre) {
         return  repository.existsByNombre(nombre);
     }
+
+    @Override
+    public boolean existsByCodigo(String codigo) {
+        return repository.existsByCodigo(codigo);
+    }
 }
