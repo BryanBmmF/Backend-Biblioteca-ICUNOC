@@ -22,6 +22,14 @@ public class Categoria {
     @JsonManagedReference
     private List<Libro> libros;
 
+    public Categoria(int id, String nombre, String descripcion) {
+        this.idCategoria = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
+    public Categoria() {}
+
     public int getIdCategoria() {
         return idCategoria;
     }

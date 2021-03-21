@@ -64,7 +64,6 @@ public class LibroController {
     public ResponseEntity<?> create(@RequestBody LibroDto libroDto){
         //validar campos no nulos
         if(StringUtils.isBlank(libroDto.getNombre())) {
-            System.out.println("VIENDO QUE MANDA APPI REST: " + libroDto.getNombre());
             return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios"), HttpStatus.BAD_REQUEST);
         }
         //validar que no exista el libro a registrar
@@ -83,8 +82,10 @@ public class LibroController {
                 libroDto.getStock(),
                 libroDto.getIdCategoria());
         service.save(libro);
+
         this.imagenBytes = null;
         return new ResponseEntity(new Mensaje("El libro se registro correctamente."), HttpStatus.OK);
+
     }
 
     //actualizacion
