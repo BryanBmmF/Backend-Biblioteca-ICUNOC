@@ -72,9 +72,6 @@ public class LibroController {
             return new ResponseEntity(new Mensaje("El libro que intentas registrar ya existe."), HttpStatus.BAD_REQUEST);
 
         // guardar libro
-        System.out.println("VIENDO QUE AUTOR VIENE: " + libroDto.getAutor());
-        System.out.println("VIENDO QUE IDIOMA VIENE: " + libroDto.getIdioma());
-        System.out.println("VIENDO QUE CATEGORIA VIENE: " + libroDto.getIdCategoria());
         Libro libro = new Libro(
                 libroDto.getAutor(),
                 libroDto.getCodigo(),
