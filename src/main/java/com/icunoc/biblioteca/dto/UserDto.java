@@ -5,15 +5,17 @@ public class UserDto {
     private String numeroRegistro;
     private String username;
     private String password;
+    private String tipo;
 
     public UserDto() {
     }
 
-    public UserDto(String nombre, String numeroRegistro, String username, String password) {
+    public UserDto(String nombre, String numeroRegistro, String username, String password, String tipo) {
         this.nombre = nombre;
         this.numeroRegistro = numeroRegistro;
         this.username = username;
         this.password = password;
+        this.tipo = tipo;
     }
 
     public String getNombre() {
@@ -46,5 +48,13 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

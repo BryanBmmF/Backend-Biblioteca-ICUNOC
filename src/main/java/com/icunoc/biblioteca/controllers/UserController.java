@@ -20,12 +20,6 @@ public class UserController {
     @Autowired
     UserService service;
 
-    //metodo para guardar el usuario
-    @PostMapping
-    public User agregar(@RequestBody User user){
-        return  service.add(user);
-    }
-
     //metodo para mandar una lista de usuarios al cliente
     @GetMapping("/lista")
     public ResponseEntity<List<User>> listar(){
@@ -72,14 +66,14 @@ public class UserController {
                 StringUtils.isBlank(userDto.getPassword()) |
                 StringUtils.isBlank(userDto.getNombre()) |
                 StringUtils.isBlank(userDto.getNumeroRegistro()))
-            return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios y no deben ser solo espacios en blanco!"), HttpStatus.BAD_REQUEST);
 
         //validar que no exista el usuario a registrar
         if(service.existsByUsername(userDto.getUsername()))
             return new ResponseEntity(new Mensaje("El Usuario que intenta registrar ya existe"), HttpStatus.BAD_REQUEST);
 
         // guardar usuario
-        User user = new User(userDto.getNombre(), userDto.getNumeroRegistro(), userDto.getUsername(), userDto.getPassword());
+        User user = new User(userDto.getNombre(), userDto.getNumeroRegistro(), userDto.getUsername(), userDto.getPassword(), userDto.getTipo());
         service.save(user);
         return new ResponseEntity(new Mensaje("El Usuario se registro correctamente !!!"), HttpStatus.OK);
     }
@@ -96,18 +90,19 @@ public class UserController {
                 StringUtils.isBlank(userDto.getPassword()) |
                 StringUtils.isBlank(userDto.getNombre()) |
                 StringUtils.isBlank(userDto.getNumeroRegistro()))
-            return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios y no deben ser solo espacios en blanco!"), HttpStatus.BAD_REQUEST);
 
         //comprobar que no se quiera actualizar a un username existente
         if(service.existsByUsername(userDto.getUsername()) && service.getByUsername(userDto.getUsername()).get().getId() != id)
             return new ResponseEntity(new Mensaje("El nuevo Usuario que intenta actualizar ya existe"), HttpStatus.BAD_REQUEST);
 
-        // si no hay problemas se guarda el usuario
+        // si no hay problemas se actualiza el usuario
         User user = service.getOne(id).get();
         user.setNombre(userDto.getNombre());
         user.setNumeroRegistro(userDto.getNumeroRegistro());
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
+        user.setTipo(userDto.getTipo());
         service.update(user);
         return new ResponseEntity(new Mensaje("El Usuario se actualizó correctamente !!!"), HttpStatus.OK);
     }
