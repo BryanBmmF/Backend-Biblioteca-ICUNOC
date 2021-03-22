@@ -1,29 +1,32 @@
 package com.icunoc.biblioteca.dto;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class PrestamoDto {
     private int id;
     private String nombre;
     private String apellido;
-    private int DPI;
-    private int carnet;
+    private String dpi;
+    private String carnet;
     private String carrera;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private Calendar fechaReservacion;
+    private Calendar fechaInicio;
+    private Calendar fechaFin;
     private double costo;
-    private int estado;
+    private String estado;
     private String codigoReservacion;
     private String codigoLibro;
 
     public PrestamoDto(){}
 
-    public PrestamoDto(String nombre, String apellido, int DPI, int carnet, String carrera, Date fechaInicio, Date fechaFin, double costo, int estado, String codigoReservacion, String codigoLibro) {
+    public PrestamoDto(String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, Calendar fechaInicio, Calendar fechaFin, double costo, String estado, String codigoReservacion, String codigoLibro) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.DPI = DPI;
+        this.dpi = dpi;
         this.carnet = carnet;
         this.carrera = carrera;
+        this.fechaReservacion = fechaReservacion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.costo = costo;
@@ -64,35 +67,43 @@ public class PrestamoDto {
         this.apellido = apellido;
     }
 
-    public int getDPI() {
-        return DPI;
+    public String getDpi() {
+        return dpi;
     }
 
-    public void setDPI(int DPI) {
-        this.DPI = DPI;
+    public void setDpi(String dpi) {
+        this.dpi = dpi;
     }
 
-    public int getCarnet() {
+    public String getCarnet() {
         return carnet;
     }
 
-    public void setCarnet(int carnet) {
+    public void setCarnet(String carnet) {
         this.carnet = carnet;
     }
 
-    public Date getFechaInicio() {
+    public Calendar getFechaReservacion() {
+        return fechaReservacion;
+    }
+
+    public void setFechaReservacion(Calendar fechaReservacion) {
+        this.fechaReservacion = fechaReservacion;
+    }
+
+    public Calendar getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(Calendar fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public Calendar getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(Calendar fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -104,11 +115,11 @@ public class PrestamoDto {
         this.costo = costo;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

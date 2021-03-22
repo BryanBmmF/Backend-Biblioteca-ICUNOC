@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface PrestamoService {
     Prestamo listarCodigoReservacion(String codigo);
-
     List<Prestamo> list();
     Prestamo add(Prestamo prestamo);
     Optional<Prestamo> getOne(int id);
