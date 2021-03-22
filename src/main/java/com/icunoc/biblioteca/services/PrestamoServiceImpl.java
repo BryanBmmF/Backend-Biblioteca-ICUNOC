@@ -38,11 +38,13 @@ public class PrestamoServiceImpl implements PrestamoService {
     public Optional<Prestamo> getByCodigoReservacion(String codigo) {
         return  repository.findByNombre(codigo);
     }
+
     @Override
     public void save(Prestamo prestamo) {
         //guardamos el libro
         repository.save(prestamo);
     }
+
     @Override
     public void update(Prestamo prestamo) {
         //guardamos el usaurio
