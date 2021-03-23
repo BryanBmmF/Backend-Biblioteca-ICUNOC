@@ -117,4 +117,9 @@ public class UserController {
         service.delete(id);
         return new ResponseEntity(new Mensaje("El Usuario se elimino correctamente !!!"), HttpStatus.OK);
     }
+
+    //para el mock
+    public void setService(UserService userService){
+        this.service = userService;
+    }
 }
