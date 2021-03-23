@@ -86,14 +86,6 @@ public class Prestamo {
         this.codigoLibro = codigoLibro;
     }
 
-    public int getIdPrestamo() {
-        return id;
-    }
-
-    public void setIdPrestamo(int idPrestamo) {
-        this.id = idPrestamo;
-    }
-
     public String getNombre() {
         return nombre;
     }

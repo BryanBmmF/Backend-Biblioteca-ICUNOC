@@ -113,6 +113,7 @@ public class LibroController {
         libro.setFechaPublicacion(libroDto.getFechaPublicacion());
         libro.setIdioma(libroDto.getIdioma());
         libro.setPathImagen(libroDto.getPathImagen());
+        libro.setCategoria(libroDto.getIdCategoria());
         service.save(libro);
         return new ResponseEntity(new Mensaje("El libro se actualizó correctamente !!!"), HttpStatus.OK);
     }

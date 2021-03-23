@@ -2,23 +2,20 @@ package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.Mensaje;
-import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
-import com.icunoc.biblioteca.services.PrestamoServiceImpl;
-import org.apache.commons.lang3.StringUtils;
+import com.icunoc.biblioteca.services.PrestamoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
-
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping({"/prestamos"})
 public class PrestamoController {
+
     @Autowired
-    PrestamoServiceImpl service;
+    PrestamoService service;
 
     @GetMapping(path = {"/{codigoReservacion}"})
     public Prestamo listarReservacion(@PathVariable("codigoReservacion") String codigo){
@@ -42,6 +39,9 @@ public class PrestamoController {
         );
         service.save(nuevoPrestamo);
         return new ResponseEntity(new Mensaje("Se registro correctamente."), HttpStatus.OK);
+    }
 
+    public void setService(PrestamoService prestamoService) {
+        this.service = prestamoService;
     }
 }
