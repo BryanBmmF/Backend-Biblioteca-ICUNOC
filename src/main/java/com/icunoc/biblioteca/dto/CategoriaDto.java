@@ -11,6 +11,10 @@ public class CategoriaDto {
         this.descripcion = descripcion;
     }
 
+    public CategoriaDto() {
+
+    }
+
     public int getId() {
         return id;
     }
