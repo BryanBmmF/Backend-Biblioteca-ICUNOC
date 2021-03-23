@@ -92,6 +92,15 @@ class UserControllerTest {
         //Asserts
         //respuesta del servidor ok
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        //pruebas de getters
+        Assertions.assertEquals(1, responseServicio.getBody().get(0).getId());
+        Assertions.assertEquals("Juan", responseServicio.getBody().get(0).getNombre());
+        Assertions.assertEquals("userJuan", responseServicio.getBody().get(0).getUsername());
+        Assertions.assertEquals("200809831", responseServicio.getBody().get(0).getNumeroRegistro());
+        Assertions.assertEquals("password", responseServicio.getBody().get(0).getPassword());
+        Assertions.assertEquals("Administrador", responseServicio.getBody().get(0).getTipo());
+        Assertions.assertEquals(0, responseServicio.getBody().get(0).getAuthorities().size());
+
 
     }
 
@@ -247,6 +256,8 @@ class UserControllerTest {
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
+
+    /*Esta prueba en este escenario especifico aun esta pendiente*/
     @Test
     void updateUserIdExist() { //los mismo escenario de create
         //Arrage
