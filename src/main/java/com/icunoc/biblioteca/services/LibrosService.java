@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface LibrosService {
     Libro listarId(int id);
-
     List<Libro> list();
     Libro add(Libro user);
     Optional<Libro> getOne(int id);
