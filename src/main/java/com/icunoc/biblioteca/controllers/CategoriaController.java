@@ -87,4 +87,8 @@ public class CategoriaController {
         return new ResponseEntity(new Mensaje("El libro se elimino correctamente"), HttpStatus.OK);
     }
 
+    public void setService(CategoriaService service) {
+        this.service = service;
+    }
+
 }
