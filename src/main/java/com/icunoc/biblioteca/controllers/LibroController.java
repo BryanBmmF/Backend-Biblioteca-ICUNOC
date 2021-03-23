@@ -127,4 +127,8 @@ public class LibroController {
         service.delete(id);
         return new ResponseEntity(new Mensaje("El libro se elimino correctamente !!!"), HttpStatus.OK);
     }
+
+    public void setService(LibrosService service){
+        this.service=service;
+    }
 }
