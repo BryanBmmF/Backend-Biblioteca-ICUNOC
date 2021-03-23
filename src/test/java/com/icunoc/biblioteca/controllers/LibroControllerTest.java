@@ -50,6 +50,8 @@ class LibroControllerTest {
 
         Mockito.when(service.getByNombre("Nombre")).thenReturn(Optional.of(mockLibro));
         Mockito.when(service.existsByNombre("Nombre")).thenReturn(true);
+        //un user basado en un id
+        Mockito.when(service.getOne(1)).thenReturn(Optional.of(mockLibro));
     }
 
     @Test
@@ -77,7 +79,7 @@ class LibroControllerTest {
         service.existsById(1);
         responseServicio = libroController.getById(1);
         System.out.println(responseServicio);
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
     }
 
     @Test
@@ -191,7 +193,7 @@ class LibroControllerTest {
         responseServicio = libroController.update(1, libroDto1);
         System.out.println(responseServicio);
 
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
     }
 
     @Test
