@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface LibrosService {
     Libro listarId(int id);
-
     List<Libro> list();
     Libro add(Libro user);
     Optional<Libro> getOne(int id);
     Optional<Libro> getByNombre(String nombre);
+    Optional<Libro> getByCodigo(String codigo);
     void save(Libro user);
     void update(Libro user);
     void delete(int id);

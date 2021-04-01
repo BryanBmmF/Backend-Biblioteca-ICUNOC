@@ -11,6 +11,7 @@ public interface LibroRepository extends JpaRepository<Libro, Integer>{
 
     //metodo extra para buscar libros por nombre
     Optional<Libro> findByNombre(String nombre);
+    Optional<Libro> findByCodigo(String codigo);
     Optional<Libro> findByAutor(String autor);
     //metodo extra para saber si un libro existe
     boolean existsByNombre(String nombre);

@@ -2,6 +2,7 @@ package com.icunoc.biblioteca.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.icunoc.biblioteca.enums.Idioma;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -21,14 +22,19 @@ public class Prestamo {
     @Column(name = "apellido")
     private String apellido;
 
-    @Column(name = "DPI")
-    private int DPI;
+    @Column(name = "dpi")
+    private String dpi;
 
     @Column(name = "carnet")
-    private int carnet;
+    private String carnet;
 
     @Column(name = "carrera")
     private String carrera;
+
+    @Column(name = "fechaReservacion")
+    @Temporal(TemporalType.DATE)
+    @UpdateTimestamp
+    private Calendar fechaReservacion;
 
     @Column(name = "fechaInicio")
     @Temporal(TemporalType.DATE)
@@ -42,23 +48,30 @@ public class Prestamo {
     private double costo;
 
     @Column(name = "estado")
-    private  int estado;
+    private  String estado;
 
     @Column(name = "codigoReservacion")
     private String codigoReservacion;
+
+    @Column(name = "mora")
+    private boolean mora;
+
+    @Column(name = "diasMoroso")
+    private int diasMoroso;
 
     @Column(name = "codigoLibro")
     private String codigoLibro;
 
     public Prestamo(){}
 
-    public Prestamo(int idPrestamo, String nombre, String apellido, int DPI, int carnet, String carrera, Calendar fechaInicio, Calendar fechaFin, double costo, int estado, String codigoReservacion, String codigoLibro) {
+    public Prestamo(int idPrestamo, String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, Calendar fechaInicio, Calendar fechaFin, double costo, String estado, String codigoReservacion, String codigoLibro) {
         this.id = idPrestamo;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.DPI = DPI;
+        this.dpi = dpi;
         this.carnet = carnet;
         this.carrera = carrera;
+        this.fechaReservacion = fechaReservacion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.costo = costo;
@@ -67,12 +80,17 @@ public class Prestamo {
         this.codigoLibro = codigoLibro;
     }
 
-    public int getIdPrestamo() {
-        return id;
-    }
-
-    public void setIdPrestamo(int idPrestamo) {
-        this.id = idPrestamo;
+    public Prestamo(String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, String estado, String codigoReservacion, boolean mora, String codigoLibro) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dpi = dpi;
+        this.carnet = carnet;
+        this.carrera = carrera;
+        this.fechaReservacion = fechaReservacion;
+        this.estado = estado;
+        this.codigoReservacion = codigoReservacion;
+        this.mora=mora;
+        this.codigoLibro = codigoLibro;
     }
 
     public String getNombre() {
@@ -91,20 +109,44 @@ public class Prestamo {
         this.apellido = apellido;
     }
 
-    public int getDPI() {
-        return DPI;
+    public int getId() {
+        return id;
     }
 
-    public void setDPI(int DPI) {
-        this.DPI = DPI;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getCarnet() {
+    public String getDpi() {
+        return dpi;
+    }
+
+    public void setDpi(String dpi) {
+        this.dpi = dpi;
+    }
+
+    public String getCarnet() {
         return carnet;
     }
 
-    public void setCarnet(int carnet) {
+    public void setCarnet(String carnet) {
         this.carnet = carnet;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public Calendar getFechaReservacion() {
+        return fechaReservacion;
+    }
+
+    public void setFechaReservacion(Calendar fechaReservacion) {
+        this.fechaReservacion = fechaReservacion;
     }
 
     public Calendar getFechaInicio() {
@@ -131,11 +173,11 @@ public class Prestamo {
         this.costo = costo;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -154,6 +196,18 @@ public class Prestamo {
     public void setCodigoLibro(String codigoLibro) {
         this.codigoLibro = codigoLibro;
     }
+
+    public boolean isMora() {
+        return mora;
+    }
+
+    public void setMora(boolean mora) {
+        this.mora = mora;
+    }
+
+    public int getDiasMoroso() { return diasMoroso; }
+
+    public void setDiasMoroso(int diasMoroso) { this.diasMoroso = diasMoroso; }
 }
 
 
