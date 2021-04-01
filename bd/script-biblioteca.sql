@@ -68,6 +68,8 @@ CREATE TABLE Prestamo(
     costo DOUBLE NULL,
     estado VARCHAR(20) NOT NULL,
     codigoReservacion VARCHAR(10) NOT NULL,
+    mora boolean NULL,
+    diasMoroso INT NULL,
     codigoLibro VARCHAR(50) NOT NULL,
     FOREIGN KEY(codigoLibro) REFERENCES Libro(codigo)
 );

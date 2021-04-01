@@ -46,6 +46,11 @@ public class LibrosServiceImpl implements LibrosService {
     }
 
     @Override
+    public Optional<Libro> getByCodigo(String codigo){
+        return  repository.findByCodigo(codigo);
+    }
+
+    @Override
     public void save(Libro libro){
         //guardamos el libro
         repository.save(libro);

@@ -49,13 +49,13 @@ public class LibroController {
         return new ResponseEntity(libro, HttpStatus.OK);
     }
 
-    //busqueda de user por nombre
-    @GetMapping("/detalleNombre/{nombre}")
-    public ResponseEntity<Libro> getByNombre(@PathVariable("nombre") String nombre){
+    //busqueda de libro por nombre
+    @GetMapping("/detalleLibroC/{codigo}")
+    public ResponseEntity<Libro> getByNombre(@PathVariable("codigo") String nombre){
         //evaluamos si existe el usuario por nombre
-        if(!service.existsByNombre(nombre))
+        if(!service.existsByCodigo(nombre))
             return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
-        Libro libro = service.getByNombre(nombre).get();
+        Libro libro = service.getByCodigo(nombre).get();
         return new ResponseEntity(libro, HttpStatus.OK);
     }
 

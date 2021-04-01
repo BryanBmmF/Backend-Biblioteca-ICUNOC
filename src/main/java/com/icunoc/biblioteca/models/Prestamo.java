@@ -53,6 +53,12 @@ public class Prestamo {
     @Column(name = "codigoReservacion")
     private String codigoReservacion;
 
+    @Column(name = "mora")
+    private boolean mora;
+
+    @Column(name = "diasMoroso")
+    private int diasMoroso;
+
     @Column(name = "codigoLibro")
     private String codigoLibro;
 
@@ -74,7 +80,7 @@ public class Prestamo {
         this.codigoLibro = codigoLibro;
     }
 
-    public Prestamo(String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, String estado, String codigoReservacion, String codigoLibro) {
+    public Prestamo(String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, String estado, String codigoReservacion, boolean mora, String codigoLibro) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dpi = dpi;
@@ -83,6 +89,7 @@ public class Prestamo {
         this.fechaReservacion = fechaReservacion;
         this.estado = estado;
         this.codigoReservacion = codigoReservacion;
+        this.mora=mora;
         this.codigoLibro = codigoLibro;
     }
 
@@ -189,6 +196,18 @@ public class Prestamo {
     public void setCodigoLibro(String codigoLibro) {
         this.codigoLibro = codigoLibro;
     }
+
+    public boolean isMora() {
+        return mora;
+    }
+
+    public void setMora(boolean mora) {
+        this.mora = mora;
+    }
+
+    public int getDiasMoroso() { return diasMoroso; }
+
+    public void setDiasMoroso(int diasMoroso) { this.diasMoroso = diasMoroso; }
 }
 
 

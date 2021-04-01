@@ -16,6 +16,8 @@ public class PrestamoDto {
     private double costo;
     private String estado;
     private String codigoReservacion;
+    private boolean mora;
+    private int diasMoroso;
     private String codigoLibro;
 
     public PrestamoDto(){}
@@ -138,4 +140,12 @@ public class PrestamoDto {
     public void setCodigoLibro(String codigoLibro) {
         this.codigoLibro = codigoLibro;
     }
+
+    public boolean isMora() { return mora; }
+
+    public void setMora(boolean mora) { this.mora = mora; }
+
+    public int getDiasMoroso() { return diasMoroso; }
+
+    public void setDiasMoroso(int diasMoroso) { this.diasMoroso = diasMoroso; }
 }
