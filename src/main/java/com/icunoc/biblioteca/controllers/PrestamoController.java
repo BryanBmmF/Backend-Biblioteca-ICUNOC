@@ -1,9 +1,12 @@
 package com.icunoc.biblioteca.controllers;
 
+import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.Mensaje;
+import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
 import com.icunoc.biblioteca.services.PrestamoService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,29 +26,49 @@ public class PrestamoController {
     //constantes para el manejo de mora
     private static final int DIAS_PRESTAMO=7;
     private static final int DIAS_MOROSO_RESTART=0;
+    private static final double COSTO_POR_DIA_MOROSO=5.00;
+    private static final double COSTO_POR_DIA_MOROSO_RESTART=0;
+    private static final String ESTADO_ACTIVO="ACTIVO";
+    private static final String ESTADO_FINALIZADO="FINALIZADO";
+
     @Autowired
     PrestamoService service;
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/listaPrestamo/{estado}")
     public ResponseEntity<List<Prestamo>> listarPrestamos(@PathVariable("estado") String estado){
+        double costoMora;
         List<Prestamo> list = service.list(estado);
         for (int i=0; i<list.toArray().length; i++){
-            Calendar miFecha = Calendar.getInstance();
-            int milisecondsByDay = 86400000;
-
-            int dias = (int) ((miFecha.getTime().getTime()-list.get(i).getFechaInicio().getTime().getTime()) / milisecondsByDay);
-            if (dias>DIAS_PRESTAMO){
-                int diasAtrasado = dias-DIAS_PRESTAMO;
-                System.out.println(diasAtrasado);
-                list.get(i).setDiasMoroso(diasAtrasado);
-                list.get(i).setMora(true);
-            }else{
-                list.get(i).setDiasMoroso(DIAS_MOROSO_RESTART);
-                list.get(i).setMora(false);
+            if (list.get(i).getEstado().equals(ESTADO_ACTIVO)){
+                Calendar miFecha = Calendar.getInstance();
+                int milisecondsByDay = 86400000;
+                int dias = (int) ((miFecha.getTime().getTime()-list.get(i).getFechaInicio().getTime().getTime()) / milisecondsByDay);
+                if (dias>DIAS_PRESTAMO){
+                    int diasAtrasado = dias-DIAS_PRESTAMO;
+                    list.get(i).setDiasMoroso(diasAtrasado);
+                    list.get(i).setMora(true);
+                    costoMora = list.get(i).getDiasMoroso() * COSTO_POR_DIA_MOROSO;
+                    list.get(i).setCosto(costoMora);
+                }else{
+                    list.get(i).setDiasMoroso(DIAS_MOROSO_RESTART);
+                    list.get(i).setMora(false);
+                    list.get(i).setCosto(COSTO_POR_DIA_MOROSO_RESTART);
+                }
+                service.save(list.get(i));
             }
-            service.save(list.get(i));
         }
         return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @PutMapping("/finalizar/{codigoReservacion}")
+    public ResponseEntity<?> finalizarPrestamo(@PathVariable("codigoReservacion") String codigo){
+        // si no hay problemas se guarda el usuario
+        Calendar miFecha = Calendar.getInstance();
+        Prestamo prestamo = service.getOne(codigo);
+        prestamo.setEstado(ESTADO_FINALIZADO);
+        prestamo.setFechaFin(miFecha);
+        service.save(prestamo);
+        return new ResponseEntity(new Mensaje("El prestamo finalizo correctamente !!!"), HttpStatus.OK);
     }
 
     @GetMapping(path = {"/{codigoReservacion}"})
