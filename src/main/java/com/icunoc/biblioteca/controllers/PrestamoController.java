@@ -9,14 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping({"/prestamos"})
 public class PrestamoController {
+    //constantes para el manejo de mora
     private static final int DIAS_PRESTAMO=7;
     private static final int DIAS_MOROSO_RESTART=0;
     @Autowired
@@ -47,6 +51,27 @@ public class PrestamoController {
     @GetMapping(path = {"/{codigoReservacion}"})
     public Prestamo listarReservacion(@PathVariable("codigoReservacion") String codigo){
         return service.listarCodigoReservacion(codigo);
+    }
+    
+    @GetMapping(path = {"/carnet/{carnet}"})
+    public ResponseEntity<List<Prestamo>> listarReservacionxCarnet(@PathVariable("carnet") String carnet){
+        List<Prestamo> list = service.listarCarnet(carnet);
+        return new ResponseEntity(list,HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"/dpi/{dpi}"})
+    public ResponseEntity<List<Prestamo>> listarReservacionxDPI(@PathVariable("dpi") String dpi){
+        List<Prestamo> list = service.listarDPI(dpi);
+        return new ResponseEntity(list,HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"/FechaInicio/{fechaInicio}"})
+    public ResponseEntity<List<Prestamo>> listarReservacionxFechaInicio(@PathVariable("fechaInicio") String fecha) throws ParseException {
+        Calendar fechaBusqueda = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        fechaBusqueda.setTime(sdf.parse(fecha));
+        List<Prestamo> list = service.listarFechaInicio(fechaBusqueda);
+        return new ResponseEntity(list,HttpStatus.OK);
     }
 
     //Nuevo: se pasa un Json Libro por medio de http y se valida
