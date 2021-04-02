@@ -9,7 +9,8 @@ CREATE TABLE Usuario(
     numeroRegistro VARCHAR(9) NOT NULL,
     username VARCHAR(150) NOT NULL,
     password VARCHAR(150) NOT NULL,
-    tipo VARCHAR(25) NOT NULL
+    tipo VARCHAR(25) NOT NULL,
+    correo VARCHAR(50)
 
 );
 
