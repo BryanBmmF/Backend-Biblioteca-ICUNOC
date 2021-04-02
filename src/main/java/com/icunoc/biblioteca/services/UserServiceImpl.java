@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService{
     private final String DEFAULT_REGISTRO_2 = "222222222";
     private final String DEFAULT_TIPO_ADMINISTRADOR = "Administrador";
     private final String DEFAULT_TIPO_BIBLIOTECARIO = "Bibliotecario";
+    private final String DEFAULT_CORREO = "j3b.bank@gmail.com";
 
     private final UserRepository repository;
     private final RoleService roleService;
@@ -55,6 +56,7 @@ public class UserServiceImpl implements UserService{
         admin.setNombre(DEFAULT_ADMIN);
         admin.setNumeroRegistro(DEFAULT_REGSITRO_1);
         admin.setTipo(DEFAULT_TIPO_ADMINISTRADOR);
+        admin.setCorreo(DEFAULT_CORREO);
         admin.setAuthorities(List.of(adminRole, userRole));
 
         //guardando usuario administrador
@@ -66,6 +68,7 @@ public class UserServiceImpl implements UserService{
         user.setNombre(DEFAULT_USER);
         user.setNumeroRegistro(DEFAULT_REGISTRO_2);
         user.setTipo(DEFAULT_TIPO_BIBLIOTECARIO);
+        user.setCorreo(DEFAULT_CORREO);
         user.setAuthorities(List.of(userRole));
 
         //guardando usuario normal

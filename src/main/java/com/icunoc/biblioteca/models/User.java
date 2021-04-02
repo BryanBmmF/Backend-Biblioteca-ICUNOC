@@ -31,6 +31,9 @@ public class User implements UserDetails{
     @Column(name = "tipo")
     private String tipo;
 
+    @Column(name = "correo")
+    private String correo;
+
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinTable(name = "Autorizacion_Usuario",
             joinColumns = @JoinColumn(name = "idUsuario", referencedColumnName = "id"),
@@ -41,12 +44,13 @@ public class User implements UserDetails{
         this.authorities = new ArrayList<>();
     }
 
-    public User(String nombre, String numeroRegistro, String username, String password, String tipo) {
+    public User(String nombre, String numeroRegistro, String username, String password, String tipo, String correo) {
         this.nombre = nombre;
         this.numeroRegistro = numeroRegistro;
         this.username = username;
         this.password = password;
         this.tipo = tipo;
+        this.correo = correo;
     }
 
     public Long getId() {
@@ -106,6 +110,14 @@ public class User implements UserDetails{
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     @Override

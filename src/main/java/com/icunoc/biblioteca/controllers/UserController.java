@@ -78,7 +78,7 @@ public class UserController {
             return new ResponseEntity(new Mensaje("El Usuario que intenta registrar ya existe"), HttpStatus.BAD_REQUEST);
 
         // guardar usuario
-        User user = new User(userDto.getNombre(), userDto.getNumeroRegistro(), userDto.getUsername(), userDto.getPassword(), userDto.getTipo());
+        User user = new User(userDto.getNombre(), userDto.getNumeroRegistro(), userDto.getUsername(), userDto.getPassword(), userDto.getTipo(), userDto.getCorreo());
         service.save(user);
         return new ResponseEntity(new Mensaje("El Usuario se registro correctamente !!!"), HttpStatus.OK);
     }
@@ -108,6 +108,7 @@ public class UserController {
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
         user.setTipo(userDto.getTipo());
+        user.setCorreo(userDto.getCorreo());
         service.update(user);
         return new ResponseEntity(new Mensaje("El Usuario se actualizó correctamente !!!"), HttpStatus.OK);
     }
