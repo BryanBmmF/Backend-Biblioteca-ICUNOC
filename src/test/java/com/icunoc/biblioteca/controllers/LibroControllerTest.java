@@ -46,7 +46,7 @@ class LibroControllerTest {
         mockLibro.setNombre("Nombre");
         mockLibro.setPathImagen(imagenBytes);
         mockLibro.setStock(10);
-        mockLibro.setCategoria(1);
+        mockLibro.setIdCategoria(1);
 
         Mockito.when(service.getByNombre("Nombre")).thenReturn(Optional.of(mockLibro));
         Mockito.when(service.existsByNombre("Nombre")).thenReturn(true);
@@ -154,7 +154,7 @@ class LibroControllerTest {
         libro.setNombre(libroDto1.getNombre());
         libro.setPathImagen(libroDto1.getPathImagen());
         libro.setStock(libroDto1.getStock());
-        libro.setCategoria(libroDto1.getIdCategoria());
+        libro.setIdCategoria(libroDto1.getIdCategoria());
 
         responseServicio = libroController.update(1, libroDto1);
         System.out.println(responseServicio);
@@ -188,7 +188,7 @@ class LibroControllerTest {
         libro.setNombre(libroDto1.getNombre());
         libro.setPathImagen(libroDto1.getPathImagen());
         libro.setStock(libroDto1.getStock());
-        libro.setCategoria(libroDto1.getIdCategoria());
+        libro.setIdCategoria(libroDto1.getIdCategoria());
 
         responseServicio = libroController.update(1, libroDto1);
         System.out.println(responseServicio);

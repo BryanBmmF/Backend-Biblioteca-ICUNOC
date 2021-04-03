@@ -18,7 +18,7 @@ public class Categoria {
     @Column(name = "descripcion")
     private String descripcion;
     //Relacion con libros
-    @OneToMany(mappedBy="categoria",cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToMany(mappedBy="idCategoria",cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JsonManagedReference
     private List<Libro> libros;
 
