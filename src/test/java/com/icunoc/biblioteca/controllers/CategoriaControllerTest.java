@@ -86,7 +86,6 @@ class CategoriaControllerTest {
     @Test
     void create() {
         //arrange
-
         Mockito.lenient().doNothing().when(service).save(ArgumentMatchers.any());
         categoriaController.setService(service);
         //act
