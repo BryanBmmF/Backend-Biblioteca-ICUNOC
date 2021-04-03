@@ -1,12 +1,9 @@
 package com.icunoc.biblioteca.controllers;
 
-import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.Mensaje;
-import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
 import com.icunoc.biblioteca.services.PrestamoService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -59,6 +54,7 @@ public class PrestamoController {
         }
         return new ResponseEntity(list, HttpStatus.OK);
     }
+
 
     @PutMapping("/finalizar/{codigoReservacion}")
     public ResponseEntity<?> finalizarPrestamo(@PathVariable("codigoReservacion") String codigo){

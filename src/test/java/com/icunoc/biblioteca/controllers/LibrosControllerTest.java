@@ -42,7 +42,7 @@ class LibrosControllerTest {
         libroMock.setFechaPublicacion(fPublicacion);
         libroMock.setIdioma(Idioma.ESPAÑOL);
         libroMock.setPathImagen(imagenBytes);
-        libroMock.setCategoria(1);
+        libroMock.setIdCategoria(1);
 
         Mockito.when(librosService.listarId(1)).thenReturn(libroMock);
     }

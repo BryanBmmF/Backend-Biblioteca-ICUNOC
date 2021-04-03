@@ -33,7 +33,7 @@ public class Libro {
 	@Column(name = "pathImagen")
 	private byte[] pathImagen;
 	@Column(name = "idCategoria")
-	private int categoria;
+	private int idCategoria;
 
 	public Libro(){}
 
@@ -46,7 +46,7 @@ public class Libro {
 		this.fechaPublicacion = fechaPublicacion;
 		this.idioma = idioma;
 		this.pathImagen = pathImagen;
-		this.categoria = categoria;
+		this.idCategoria = categoria;
 	}
 
 	public int getIdLibro() {
@@ -121,11 +121,11 @@ public class Libro {
 		this.pathImagen = pathImagen;
 	}
 
-	public int getCategoria() {
-		return categoria;
+	public int getIdCategoria() {
+		return idCategoria;
 	}
 
-	public void setCategoria(int categoria) {
-		this.categoria = categoria;
+	public void setIdCategoria(int idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 }

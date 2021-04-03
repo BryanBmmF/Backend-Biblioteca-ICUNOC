@@ -143,14 +143,14 @@ class LibroTest {
     @Test
     void getCategoria() {
         Libro libro = new Libro();
-        libro.setCategoria(1);
-        assertTrue(libro.getCategoria() == 1);
+        libro.setIdCategoria(1);
+        assertTrue(libro.getIdCategoria() == 1);
     }
 
     @Test
     void setCategoria() {
         Libro libro = new Libro();
-        libro.setCategoria(1);
-        assertTrue(libro.getCategoria() == 1);
+        libro.setIdCategoria(1);
+        assertTrue(libro.getIdCategoria() == 1);
     }
 }
