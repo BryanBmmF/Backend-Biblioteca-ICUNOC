@@ -15,6 +15,8 @@ public interface PrestamoService {
     void save(Prestamo prestamo);
     List<Prestamo> list(String estado);
     Prestamo getOne(String id);
+    void delete(int id);
+
 
 }
 
