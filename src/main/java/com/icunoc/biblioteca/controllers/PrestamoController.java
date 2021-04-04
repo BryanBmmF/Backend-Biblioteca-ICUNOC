@@ -2,7 +2,9 @@ package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.Mensaje;
+import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
+import com.icunoc.biblioteca.services.LibrosService;
 import com.icunoc.biblioteca.services.PrestamoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,21 +28,25 @@ public class PrestamoController {
     private static final double COSTO_POR_DIA_MOROSO_RESTART=0;
     private static final String ESTADO_ACTIVO="ACTIVO";
     private static final String ESTADO_FINALIZADO="FINALIZADO";
+    private static final String ESTADO_EXPIRADO="EXPIRADO";
     private static final String ESTADO_RESERVADO="RESERVADO";
-    List<Prestamo> listaActivos;
-    String estadoActual;
+    List<Prestamo> listaFiltrada;
+    String estadoRecivido;
+
     @Autowired
     PrestamoService service;
+    @Autowired
+    LibrosService librosService;
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/listaPrestamo/{estado}")
     public ResponseEntity<List<Prestamo>> listarPrestamos(@PathVariable("estado") String estado){
         double costoMora;
-        this.estadoActual=estado;
+        this.estadoRecivido = estado;
+        Calendar miFecha = Calendar.getInstance();
+        int milisecondsByDay = 86400000;
         List<Prestamo> list = service.list(estado);
         for (int i=0; i<list.toArray().length; i++){
             if (list.get(i).getEstado().equals(ESTADO_ACTIVO)){
-                Calendar miFecha = Calendar.getInstance();
-                int milisecondsByDay = 86400000;
                 int dias = (int) ((miFecha.getTime().getTime()-list.get(i).getFechaInicio().getTime().getTime()) / milisecondsByDay);
                 if (dias>DIAS_PRESTAMO){
                     int diasAtrasado = dias-DIAS_PRESTAMO;
@@ -52,6 +58,16 @@ public class PrestamoController {
                     list.get(i).setDiasMoroso(DIAS_MOROSO_RESTART);
                     list.get(i).setMora(false);
                     list.get(i).setCosto(COSTO_POR_DIA_MOROSO_RESTART);
+                }
+                service.save(list.get(i));
+            } else if (list.get(i).getEstado().equals(ESTADO_RESERVADO)){
+                int diasDesdeReservacion = (int) ((miFecha.getTime().getTime()-list.get(i).getFechaReservacion().getTime().getTime()) / milisecondsByDay);
+                if (diasDesdeReservacion>1){
+                    list.get(i).setEstado(ESTADO_EXPIRADO);
+                    Libro actualizarLibro = librosService.getByCodigo((list.get(i).getCodigoLibro())).get();
+                    int nuevoStock = actualizarLibro.getStock()+1;
+                    actualizarLibro.setStock(nuevoStock);
+                    librosService.save(actualizarLibro);
                 }
                 service.save(list.get(i));
             }
@@ -71,28 +87,54 @@ public class PrestamoController {
         return new ResponseEntity(new Mensaje("El prestamo finalizo correctamente !!!"), HttpStatus.OK);
     }
 
+    @PutMapping("/iniciar/{codigoReservacion}")
+    public ResponseEntity<?> iniciarPrestamo(@PathVariable("codigoReservacion") String codigo){
+        // si no hay problemas se guarda el usuario
+        Calendar miFecha = Calendar.getInstance();
+        Prestamo prestamo = service.getOne(codigo);
+        prestamo.setEstado(ESTADO_ACTIVO);
+        prestamo.setFechaInicio(miFecha);
+        service.save(prestamo);
+        return new ResponseEntity(new Mensaje("El prestamo inicio correctamente !!!"), HttpStatus.OK);
+    }
+
     @GetMapping(path = {"/{codigoReservacion}"})
     public Prestamo listarReservacion(@PathVariable("codigoReservacion") String codigo){
         return service.listarCodigoReservacion(codigo);
+    }
+
+    @GetMapping(path = {"/codigoReservacion/{codigoReservacion}"})
+    public ResponseEntity<List<Prestamo>> listarReservacionxCodigoReservacion(@PathVariable("codigoReservacion") String codigo){
+        listaFiltrada = new ArrayList<>();
+        Prestamo prestamoPorCodReservacion = service.listarCodigoReservacion(codigo);
+            if (prestamoPorCodReservacion.getEstado().equals(estadoRecivido)){
+                listaFiltrada.add(prestamoPorCodReservacion);
+            }
+        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
     }
     
     @GetMapping(path = {"/carnet/{carnet}"})
     public ResponseEntity<List<Prestamo>> listarReservacionxCarnet(@PathVariable("carnet") String carnet){
         List<Prestamo> list = service.listarCarnet(carnet);
-        for (int i=0; i<list.size();i++){
-            if (list.get(i).getEstado().equals(estadoActual)){
-                listaActivos = new ArrayList<>();
-                listaActivos.add(i, list.get(i));
-                return new ResponseEntity(listaActivos,HttpStatus.OK);
+        listaFiltrada = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getEstado().equals(estadoRecivido)){
+                listaFiltrada.add(list.get(i));
             }
         }
-        return new ResponseEntity(listaActivos,HttpStatus.OK);
+        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
     }
 
     @GetMapping(path = {"/dpi/{dpi}"})
     public ResponseEntity<List<Prestamo>> listarReservacionxDPI(@PathVariable("dpi") String dpi){
         List<Prestamo> list = service.listarDPI(dpi);
-        return new ResponseEntity(list,HttpStatus.OK);
+        listaFiltrada = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getEstado().equals(estadoRecivido)){
+                listaFiltrada.add(list.get(i));
+            }
+        }
+        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
     }
 
     @GetMapping(path = {"/FechaInicio/{fechaInicio}"})
@@ -101,7 +143,13 @@ public class PrestamoController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         fechaBusqueda.setTime(sdf.parse(fecha));
         List<Prestamo> list = service.listarFechaInicio(fechaBusqueda);
-        return new ResponseEntity(list,HttpStatus.OK);
+        listaFiltrada = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getEstado().equals(estadoRecivido)){
+                listaFiltrada.add(list.get(i));
+            }
+        }
+        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
     }
 
     //Nuevo: se pasa un Json Libro por medio de http y se valida
@@ -114,7 +162,7 @@ public class PrestamoController {
                 prestamoDto.getDpi(),
                 prestamoDto.getCarnet(),
                 prestamoDto.getCarrera(),
-                prestamoDto.getFechaReservacion(),
+                Calendar.getInstance(),
                 prestamoDto.getEstado(),
                 prestamoDto.getCodigoReservacion(),
                 prestamoDto.isMora(),
@@ -122,6 +170,13 @@ public class PrestamoController {
         );
         service.save(nuevoPrestamo);
         return new ResponseEntity(new Mensaje("Se registro correctamente."), HttpStatus.OK);
+    }
+
+    //eliminar
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") int id){
+        service.delete(id);
+        return new ResponseEntity(new Mensaje("El Usuario se elimino correctamente !!!"), HttpStatus.OK);
     }
 
     public void setService(PrestamoService prestamoService) {
