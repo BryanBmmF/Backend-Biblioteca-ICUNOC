@@ -69,7 +69,6 @@ public class LibroController {
         //validar que no exista el libro a registrar
         if(service.existsByCodigo(libroDto.getCodigo()))
             return new ResponseEntity(new Mensaje("El libro que intentas registrar ya existe."), HttpStatus.BAD_REQUEST);
-
         // guardar libro
         Libro libro = new Libro(
                 libroDto.getAutor(),
@@ -82,7 +81,6 @@ public class LibroController {
                 libroDto.getStock(),
                 libroDto.getIdCategoria());
         service.save(libro);
-
         this.imagenBytes = null;
         return new ResponseEntity(new Mensaje("El libro se registro correctamente."), HttpStatus.OK);
 
@@ -94,16 +92,13 @@ public class LibroController {
         //evaluar si existe el libro
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
-
         //validar campos no nulos
         if(StringUtils.isBlank(libroDto.getNombre()) |
                 StringUtils.isBlank(libroDto.getAutor()))
             return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios"), HttpStatus.BAD_REQUEST);
-
         //comprobar que no se quiera actualizar a un libro existente
         if(service.existsByNombre(libroDto.getNombre()) && service.getByNombre(libroDto.getNombre()).get().getIdLibro() != id)
             return new ResponseEntity(new Mensaje("El nuevo libro que intenta actualizar ya existe"), HttpStatus.BAD_REQUEST);
-
         // si no hay problemas se guarda el usuario
         Libro libro = service.getOne(id).get();
         libro.setNombre(libroDto.getNombre());
@@ -124,11 +119,9 @@ public class LibroController {
         //comprobamos que exista
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el libro"), HttpStatus.NOT_FOUND);
-
         service.delete(id);
         return new ResponseEntity(new Mensaje("El libro se elimino correctamente !!!"), HttpStatus.OK);
     }
-
     public void setService(LibrosService service){
         this.service=service;
     }
