@@ -33,7 +33,6 @@ public class Prestamo {
 
     @Column(name = "fechaReservacion")
     @Temporal(TemporalType.DATE)
-    @UpdateTimestamp
     private Calendar fechaReservacion;
 
     @Column(name = "fechaInicio")
