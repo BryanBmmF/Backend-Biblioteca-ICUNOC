@@ -52,6 +52,11 @@ public class PrestamoServiceImpl implements PrestamoService {
         return repository.findByCodigoReservacion(id);
     }
 
+    @Override
+    public void delete(int id) {
+        repository.deleteById(id);
+    }
+
     public void setRepository(PrestamoRepository prestamoRepository) {
         this.repository = prestamoRepository;
     }
