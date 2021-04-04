@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,13 +26,16 @@ public class PrestamoController {
     private static final double COSTO_POR_DIA_MOROSO_RESTART=0;
     private static final String ESTADO_ACTIVO="ACTIVO";
     private static final String ESTADO_FINALIZADO="FINALIZADO";
-
+    private static final String ESTADO_RESERVADO="RESERVADO";
+    List<Prestamo> listaActivos;
+    String estadoActual;
     @Autowired
     PrestamoService service;
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/listaPrestamo/{estado}")
     public ResponseEntity<List<Prestamo>> listarPrestamos(@PathVariable("estado") String estado){
         double costoMora;
+        this.estadoActual=estado;
         List<Prestamo> list = service.list(estado);
         for (int i=0; i<list.toArray().length; i++){
             if (list.get(i).getEstado().equals(ESTADO_ACTIVO)){
@@ -75,7 +79,14 @@ public class PrestamoController {
     @GetMapping(path = {"/carnet/{carnet}"})
     public ResponseEntity<List<Prestamo>> listarReservacionxCarnet(@PathVariable("carnet") String carnet){
         List<Prestamo> list = service.listarCarnet(carnet);
-        return new ResponseEntity(list,HttpStatus.OK);
+        for (int i=0; i<list.size();i++){
+            if (list.get(i).getEstado().equals(estadoActual)){
+                listaActivos = new ArrayList<>();
+                listaActivos.add(i, list.get(i));
+                return new ResponseEntity(listaActivos,HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity(listaActivos,HttpStatus.OK);
     }
 
     @GetMapping(path = {"/dpi/{dpi}"})
