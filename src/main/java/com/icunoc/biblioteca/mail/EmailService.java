@@ -41,4 +41,8 @@ public class EmailService implements EmailPort{
         }
         return send;
     }
+
+    public void setJavaMailerMock(JavaMailSender javaMailSender){
+        this.sender = javaMailSender;
+    }
 }

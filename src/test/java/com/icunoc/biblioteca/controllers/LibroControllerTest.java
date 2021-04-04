@@ -129,8 +129,8 @@ class LibroControllerTest {
 
 
         //Assert
-        //Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
-        Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        //Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
 
     }
     @Test

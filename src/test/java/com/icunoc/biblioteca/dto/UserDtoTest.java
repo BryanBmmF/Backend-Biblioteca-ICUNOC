@@ -20,6 +20,7 @@ class UserDtoTest {
         userDtoTest.setNumeroRegistro("201730159");
         userDtoTest.setTipo("Administrador");
         userDtoTest.setPassword("password");
+        userDtoTest.setCorreo("correo");
 
     }
 
@@ -76,5 +77,15 @@ class UserDtoTest {
         userDtoPrueba.setTipo("Administrador");
         //Arrange
         assertTrue(userDtoPrueba.getTipo() == "Administrador");
+    }
+
+    @Test
+    void setCorreo() {
+        //Arrange
+        UserDto userDtoPrueba = new UserDto();
+        //Act
+        userDtoPrueba.setCorreo("correo");
+        //Arrange
+        assertTrue(userDtoPrueba.getCorreo() == "correo");
     }
 }
