@@ -89,7 +89,7 @@ class LibroControllerTest {
         service.existsByNombre("Nombre");
         responseServicio = libroController.getByNombre("Nombre");
         System.out.println(responseServicio);
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
 
     }
     @Test
