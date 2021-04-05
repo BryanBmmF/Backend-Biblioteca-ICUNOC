@@ -54,14 +54,13 @@ public class AsignacionLibroController {
     }
 
     @GetMapping("/librosCategoria/{id}")
-    public ResponseEntity<List<Categoria>> findBooksOfCategory(@PathVariable("id") int id) {
+    public ResponseEntity<List<Libro>> findBooksOfCategory(@PathVariable("id") int id) {
         if(!categoriaService.existsById(id)) {
             return new ResponseEntity(new Mensaje("La categoria que busca no esta registrada"), HttpStatus.NOT_FOUND);
         }
         List<AsignacionLibro> list = service.listByCategory(id);
         List<Libro> bookList = new ArrayList<>();
         for (AsignacionLibro asignacion : list) {
-            System.out.printf(asignacion.getIdAsignacionLibro()+"");
             bookList.add(librosService.getOne(asignacion.getIdLibro()).get());
         }
 
@@ -108,6 +107,12 @@ public class AsignacionLibroController {
         return new ResponseEntity(new Mensaje("Las asignaciones se eliminaron correctamente"), HttpStatus.OK);
     }
 
-    public void setService(AsignacionLibroService service) {this.service = service;}
+    public void setService(AsignacionLibroService service,
+                           CategoriaService categoriaService,
+                           LibrosServiceImpl librosService) {
+        this.service = service;
+        this.librosService = librosService;
+        this.categoriaService = categoriaService;
+    }
 
 }

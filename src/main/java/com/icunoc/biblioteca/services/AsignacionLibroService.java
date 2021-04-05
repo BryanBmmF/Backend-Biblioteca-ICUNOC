@@ -39,12 +39,12 @@ public class AsignacionLibroService {
         return repository.findById(id);
     }
 
-    public void save(AsignacionLibro asignacion){
-        repository.save(asignacion);
+    public AsignacionLibro save(AsignacionLibro asignacion){
+        return repository.save(asignacion);
     }
 
-    public void update(AsignacionLibro asignacion) {
-        repository.save(asignacion);
+    public AsignacionLibro update(AsignacionLibro asignacion) {
+        return repository.save(asignacion);
     }
 
     public void delete(int id) {
@@ -52,4 +52,6 @@ public class AsignacionLibroService {
     }
 
     public void deleteBookAssignation(int id) {repository.deleteAsignacionLibroByIdLibro(id);}
+
+    public void setRepository(AsignacionLibroRepository repository) {this.repository = repository;}
 }
