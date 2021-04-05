@@ -48,7 +48,6 @@ public class PrestamoServiceImpl implements PrestamoService {
 
     @Override
     public Prestamo getOne(String id){
-
         return repository.findByCodigoReservacion(id);
     }
 
