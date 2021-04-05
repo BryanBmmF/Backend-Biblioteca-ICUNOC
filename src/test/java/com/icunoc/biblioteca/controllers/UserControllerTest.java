@@ -48,6 +48,7 @@ class UserControllerTest {
         mockUser.setUsername("userJuan");
         mockUser.setPassword("password");
         mockUser.setTipo("Administrador");
+        mockUser.setCorreo("correo");
         mockUser.setAuthorities(listAuthorities);
 
         //lista de users
@@ -99,6 +100,11 @@ class UserControllerTest {
         Assertions.assertEquals("200809831", responseServicio.getBody().get(0).getNumeroRegistro());
         Assertions.assertEquals("password", responseServicio.getBody().get(0).getPassword());
         Assertions.assertEquals("Administrador", responseServicio.getBody().get(0).getTipo());
+        Assertions.assertEquals("correo", responseServicio.getBody().get(0).getCorreo());
+        Assertions.assertEquals(true, responseServicio.getBody().get(0).isAccountNonExpired());
+        Assertions.assertEquals(true, responseServicio.getBody().get(0).isAccountNonLocked());
+        Assertions.assertEquals(true, responseServicio.getBody().get(0).isCredentialsNonExpired());
+        Assertions.assertEquals(true, responseServicio.getBody().get(0).isEnabled());
         Assertions.assertEquals(0, responseServicio.getBody().get(0).getAuthorities().size());
 
 
@@ -224,6 +230,7 @@ class UserControllerTest {
         userDto1.setUsername("userJuan");//provocamos el fallo de la segunda rama cuando el user ya existe
         userDto1.setNombre("Juan");
         userDto1.setTipo("Administrador");
+        userDto1.setCorreo("correo");
         userDto1.setNumeroRegistro("200809831");
         userDto1.setPassword("password");
         userServiceMock.existsByUsername(userDto1.getUsername());
@@ -242,13 +249,14 @@ class UserControllerTest {
         ResponseEntity<?> responseServicio;
 
         //Act
-        //creamos un userDto verdadero sin username repetido
-        UserDto userDto1 = new UserDto();
-        userDto1.setUsername("userJuanSinRepetir");
-        userDto1.setNombre("Juan");
-        userDto1.setTipo("Administrador");
-        userDto1.setNumeroRegistro("200809831");
-        userDto1.setPassword("password");
+        //creamos un userDto verdadero sin username repetido, y con constructor para probarlo de una
+        UserDto userDto1 = new UserDto("Juan", "200809831", "userJuanSinRepetir", "password", "Administrador", "correo" );
+        //userDto1.setUsername("userJuanSinRepetir");
+        //userDto1.setNombre("Juan");
+        //userDto1.setTipo("Administrador");
+        //userDto1.setCorreo("correo");
+        //userDto1.setNumeroRegistro("200809831");
+        //userDto1.setPassword("password");
 
         responseServicio = userController.create(userDto1);
         System.out.println(responseServicio);

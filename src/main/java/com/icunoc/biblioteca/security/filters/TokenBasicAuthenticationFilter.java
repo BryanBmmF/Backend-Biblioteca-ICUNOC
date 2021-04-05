@@ -14,11 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 public class TokenBasicAuthenticationFilter extends BasicAuthenticationFilter {
-    private final AuthTokenService authTokenService;
+    private AuthTokenService authTokenService;
 
     public TokenBasicAuthenticationFilter(AuthenticationManager authenticationManager, AuthTokenService authTokenService) {
         super(authenticationManager);
         this.authTokenService = authTokenService;
+    }
+
+    public TokenBasicAuthenticationFilter(AuthenticationManager authenticationManager) {
+        super(authenticationManager);
     }
 
     @Override
@@ -39,5 +43,9 @@ public class TokenBasicAuthenticationFilter extends BasicAuthenticationFilter {
 
         //Add token to session.
         request.getSession(true).setAttribute(AppConstants.AUTH_TOKEN_NAME, newToken.getId());
+    }
+
+    public void setAuthTokenServiceMock(AuthTokenService authTokenService){
+        this.authTokenService = authTokenService;
     }
 }

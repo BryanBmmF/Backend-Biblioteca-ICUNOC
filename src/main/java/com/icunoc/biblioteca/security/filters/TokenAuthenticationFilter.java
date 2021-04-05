@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class TokenAuthenticationFilter implements Filter {
-    private final AuthTokenService authTokenService;
+    private AuthTokenService authTokenService;
 
     public TokenAuthenticationFilter(AuthTokenService authTokenService) {
         this.authTokenService = authTokenService;
+    }
+
+    public TokenAuthenticationFilter() {
     }
 
     @Override
@@ -41,5 +44,9 @@ public class TokenAuthenticationFilter implements Filter {
         }
 
         chain.doFilter(request, response);
+    }
+
+    public void setAuthTokenServiceMock(AuthTokenService authTokenService){
+        this.authTokenService = authTokenService;
     }
 }

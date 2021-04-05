@@ -2,7 +2,6 @@ package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.dto.UserDto;
-import com.icunoc.biblioteca.mail.EnvioEmail;
 import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.services.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -20,9 +19,6 @@ public class UserController {
 
     @Autowired
     UserService service;
-
-    @Autowired
-    EnvioEmail mail;
 
     //metodo para mandar una lista de usuarios al cliente
     @GetMapping("/lista")
