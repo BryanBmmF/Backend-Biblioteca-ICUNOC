@@ -37,20 +37,23 @@ public class CategoriaService {
         return categoriaRepository.findById(id);
     }
 
-    public void save(Categoria categoria){
-        categoriaRepository.save(categoria);
+    public Categoria save(Categoria categoria){
+        return categoriaRepository.save(categoria);
     }
 
-    public void update(Categoria categoria) {
-        categoriaRepository.save(categoria);
+    public Categoria update(Categoria categoria) {
+        return categoriaRepository.save(categoria);
     }
 
     public void delete(int id) {
         categoriaRepository.deleteById(id);
     }
 
-
     public boolean existsByNombre(String nombre){
         return categoriaRepository.existsByNombre(nombre);
+    }
+
+    public void setRepository(CategoriaRepository repository) {
+        this.categoriaRepository = repository;
     }
 }
