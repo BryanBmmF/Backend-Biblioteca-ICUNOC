@@ -12,10 +12,13 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class BasicAuthenticationEntryPoint implements AuthenticationEntryPoint{
-    private final Gson gson;
+    private Gson gson;
 
     public BasicAuthenticationEntryPoint(Gson gson) {
         this.gson = gson;
+    }
+
+    public BasicAuthenticationEntryPoint() {
     }
 
     @Override

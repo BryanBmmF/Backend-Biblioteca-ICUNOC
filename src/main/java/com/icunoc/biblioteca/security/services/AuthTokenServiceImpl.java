@@ -12,11 +12,14 @@ import java.util.List;
 
 @Service
 public class AuthTokenServiceImpl implements AuthTokenService{
-    private final AuthTokenRepository repository;
+    private AuthTokenRepository repository;
 
     @Autowired
     public AuthTokenServiceImpl(AuthTokenRepository repository) {
         this.repository = repository;
+    }
+
+    public AuthTokenServiceImpl() {
     }
 
     @Override
@@ -56,5 +59,9 @@ public class AuthTokenServiceImpl implements AuthTokenService{
     @Override
     public List<AuthToken> findByUser(User user) {
         return this.repository.findByUser(user);
+    }
+
+    public void setRepositoryMock(AuthTokenRepository authTokenRepository){
+        this.repository= authTokenRepository;
     }
 }

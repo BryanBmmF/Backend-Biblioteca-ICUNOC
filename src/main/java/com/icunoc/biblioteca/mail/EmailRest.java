@@ -20,4 +20,9 @@ public class EmailRest {
         }
         return new ResponseEntity(new Mensaje("El correo no se pudo enviar, porfavor intente mas tarde y verifique sus datos"), HttpStatus.BAD_REQUEST);
     }
+
+    //set mock
+    public void  setService(EmailPort emailPort){
+        this.emailPort = emailPort;
+    }
 }
