@@ -9,12 +9,12 @@ import java.util.Optional;
 
 public interface PrestamoService {
     Prestamo listarCodigoReservacion(String codigo);
+    Prestamo getOne(String id);
     List<Prestamo> listarCarnet(String carnet);
     List<Prestamo> listarDPI(String dpi);
     List<Prestamo> listarFechaInicio(Calendar fechaInicio);
-    void save(Prestamo prestamo);
     List<Prestamo> list(String estado);
-    Prestamo getOne(String id);
+    void save(Prestamo prestamo);
     void delete(int id);
 
 

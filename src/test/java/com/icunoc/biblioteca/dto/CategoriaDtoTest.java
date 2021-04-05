@@ -3,6 +3,7 @@ package com.icunoc.biblioteca.dto;
 import com.icunoc.biblioteca.models.Categoria;
 import com.icunoc.biblioteca.services.CategoriaService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,15 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoriaDtoTest {
+
+    private CategoriaDto categoriaDto;
+    @Test
+    void constructor() {
+        //act
+        categoriaDto = new CategoriaDto(1,"algo","algomas");
+        //assert
+        Assertions.assertEquals(1,categoriaDto.getId());
+    }
 
     @Test
     void getId() throws IllegalAccessException, NoSuchFieldException {

@@ -19,11 +19,6 @@ public class LibrosServiceImpl implements LibrosService {
         return repository.findByIdLibro(id);
     }
 
-    //aqui inicia el crud
-    @Autowired
-    public LibrosServiceImpl(LibroRepository repository) {
-        this.repository = repository;
-    }
     @Override
     public List<Libro> list(){
         return repository.findAll();
@@ -80,5 +75,9 @@ public class LibrosServiceImpl implements LibrosService {
     @Override
     public boolean existsByCodigo(String codigo) {
         return repository.existsByCodigo(codigo);
+    }
+
+    public void setRepositoryMock(LibroRepository libroRepository) {
+        this.repository = libroRepository;
     }
 }
