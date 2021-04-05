@@ -54,7 +54,7 @@ class AsignacionLibroControllerTest {
 
         Mockito.when(service.find(1)).thenReturn(Optional.of(asignacionLibro));
         Mockito.when(service.existsById(1)).thenReturn(true);
-        Mockito.lenient().doNothing().when(service).update(ArgumentMatchers.any());
+        Mockito.when(service.update(ArgumentMatchers.any(AsignacionLibro.class))).thenReturn(asignacionLibro);
         Mockito.lenient().doNothing().when(service).delete(ArgumentMatchers.anyInt());
     }
 
@@ -150,7 +150,7 @@ class AsignacionLibroControllerTest {
     @Test
     void create() {
         //arrange
-        Mockito.lenient().doNothing().when(service).save(ArgumentMatchers.any());
+        Mockito.when(service.save(ArgumentMatchers.any(AsignacionLibro.class))).thenReturn(asignacionLibro);
         //act
         ResponseEntity<AsignacionLibro> response = asignacionLibroController.create(asignacionLibroDto);
         //assert
