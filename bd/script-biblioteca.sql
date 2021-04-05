@@ -50,7 +50,7 @@ CREATE TABLE Libro(
     idioma INT NOT NULL,
     nombre VARCHAR(200) NOT NULL,
     pathImagen longblob NULL,
-    stock INT NOT NULL,
+    stock INT NOT NULL
 );
 
 
@@ -73,21 +73,21 @@ CREATE TABLE Prestamo(
     FOREIGN KEY(codigoLibro) REFERENCES Libro(codigo)
 );
 
-CREATE TABLE IF NOT EXISTS 'biblioteca'.'libro_asignado' (
+CREATE TABLE IF NOT EXISTS libro_asignado (
     id INT NOT NULL AUTO_INCREMENT,
     idLibro INT NOT NULL,
     idCategoria INT NOT NULL,
-    PRIMARY KEY ('id'),
-    INDEX 'fk_tag_libro1_idx' ('idLibro' ASC) VISIBLE,
-    INDEX 'fk_tag_categoria1_idx' ('idCategoria' ASC) VISIBLE,
-    CONSTRAINT 'fk_tag_libro1'
-    FOREIGN KEY ('idLibro')
-    REFERENCES 'biblioteca'.'libro' ('id')
+    PRIMARY KEY (id),
+    INDEX fk_tag_libro1_idx (idLibro ASC) VISIBLE,
+    INDEX fk_tag_categoria1_idx (idCategoria ASC) VISIBLE,
+    CONSTRAINT fk_tag_libro1
+    FOREIGN KEY (idLibro)
+    REFERENCES biblioteca.libro (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT 'fk_tag_categoria1'
-    FOREIGN KEY ('idCategoria')
-    REFERENCES 'biblioteca'.'categoria' ('id')
+    CONSTRAINT fk_tag_categoria1
+    FOREIGN KEY (idCategoria)
+    REFERENCES biblioteca.categoria (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)
+);
