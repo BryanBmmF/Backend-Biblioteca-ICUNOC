@@ -127,8 +127,10 @@ class LibroControllerTest {
         responseServicio = libroController.getByNombre("12345");
         System.out.println(responseServicio);
 
+
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        //Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
 
     }
     @Test
