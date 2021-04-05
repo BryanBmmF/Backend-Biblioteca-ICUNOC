@@ -1,5 +1,6 @@
 package com.icunoc.biblioteca.controllers;
 
+import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
@@ -100,7 +101,6 @@ class PrestamoControllerTest {
         prestamoController.setService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarPrestamos("ACTIVO");
-        System.out.println(responseServicio);
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
@@ -143,16 +143,31 @@ class PrestamoControllerTest {
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
-    //Test para iniciar un prestamo
     @Test
-    void iniciarPrestamo(){
-        //Arrage
+    void finalizarPrestamo(){
+        ResponseEntity<?> respuesta;
+        Calendar miFecha = Calendar.getInstance();
         prestamoController.setService(prestamoServiceMock);
-        ResponseEntity<?> responseServicio;
-        //Act
-        prestamoServiceMock.getOne("1234ABCD");
-        responseServicio = prestamoController.iniciarPrestamo("1234ABCD");
-        //Assert
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        PrestamoDto prestamoDto = new PrestamoDto();
+        prestamoDto.setId(1);
+        prestamoDto.setNombre("Prestamo Prueba");
+        prestamoDto.setApellido("Prestamo prueba");
+        prestamoDto.setDpi("1234567891234");
+        prestamoDto.setCarnet("201531132");
+        prestamoDto.setCarrera("Sistemas");
+        prestamoDto.setFechaReservacion(miFecha);
+        prestamoDto.setFechaInicio(miFecha);
+        prestamoDto.setFechaFin(miFecha);
+        prestamoDto.setCosto(10);
+        prestamoDto.setEstado("ACTIVO");
+        prestamoDto.setCodigoReservacion("1234AB");
+        prestamoDto.setMora(true);
+        prestamoDto.setDiasMoroso(2);
+        prestamoDto.setCodigoLibro("123ABC");
+
+        String prestamo = prestamoServiceMock.getOne("1234AB").getCodigoLibro();
+        System.out.println(prestamo);
+        respuesta = prestamoController.finalizarPrestamo("1234ABCD");
+        Assertions.assertEquals(200,respuesta.getStatusCodeValue());
     }
 }
