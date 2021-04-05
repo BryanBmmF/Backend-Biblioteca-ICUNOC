@@ -40,7 +40,6 @@ class CategoriaControllerTest {
         mockCategoria.setIdCategoria(1);
         mockCategoria.setDescripcion("Area de matimatica");
         mockCategoria.setNombre("Matematica");
-        mockCategoria.setLibros(new ArrayList<Libro>());
         mockCategorias = new ArrayList<>();
         mockCategorias.add(mockCategoria);
 

@@ -58,7 +58,7 @@ class AsignacionLibroControllerTest {
         //arrange
         Mockito.when(service.list()).thenReturn(asignaciones);
         //act
-        ResponseEntity<List<AsignacionLibro>> response = asignacionLibroController.listarCategorias();
+        ResponseEntity<List<AsignacionLibro>> response = asignacionLibroController.list();
         //assert
         Assertions.assertEquals(1,response.getBody().get(0).getIdAsignacionLibro());
         Assertions.assertEquals(11,response.getBody().get(0).getIdLibro());

@@ -32,12 +32,10 @@ public class Libro {
 	private Idioma idioma;
 	@Column(name = "pathImagen")
 	private byte[] pathImagen;
-	@Column(name = "idCategoria")
-	private int categoria;
 
 	public Libro(){}
 
-	public Libro(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, byte[] pathImagen, int stock,  int categoria) {
+	public Libro(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, byte[] pathImagen, int stock) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.autor = autor;
@@ -46,7 +44,6 @@ public class Libro {
 		this.fechaPublicacion = fechaPublicacion;
 		this.idioma = idioma;
 		this.pathImagen = pathImagen;
-		this.categoria = categoria;
 	}
 
 	public int getIdLibro() {
@@ -121,11 +118,4 @@ public class Libro {
 		this.pathImagen = pathImagen;
 	}
 
-	public int getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(int categoria) {
-		this.categoria = categoria;
-	}
 }

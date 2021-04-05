@@ -140,17 +140,4 @@ class LibroTest {
         assertTrue(libro.getPathImagen() == imagenBytes);
     }
 
-    @Test
-    void getCategoria() {
-        Libro libro = new Libro();
-        libro.setCategoria(1);
-        assertTrue(libro.getCategoria() == 1);
-    }
-
-    @Test
-    void setCategoria() {
-        Libro libro = new Libro();
-        libro.setCategoria(1);
-        assertTrue(libro.getCategoria() == 1);
-    }
 }

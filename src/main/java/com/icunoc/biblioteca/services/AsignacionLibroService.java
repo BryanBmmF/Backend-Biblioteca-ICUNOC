@@ -23,6 +23,14 @@ public class AsignacionLibroService {
         return repository.findAll();
     }
 
+    public List<AsignacionLibro> listByBook(int id) {
+        return repository.findAsignacionLibroByIdLibro(id);
+    }
+
+    public List<AsignacionLibro> listByCategory(int id) {
+        return repository.findAsignacionLibroByIdCategoria(id);
+    }
+
     public boolean existsById(int id){
         return repository.existsById(id);
     }
@@ -42,4 +50,6 @@ public class AsignacionLibroService {
     public void delete(int id) {
         repository.deleteById(id);
     }
+
+    public void deleteBookAssignation(int id) {repository.deleteAsignacionLibroByIdLibro(id);}
 }

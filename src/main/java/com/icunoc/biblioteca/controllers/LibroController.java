@@ -79,12 +79,11 @@ public class LibroController {
                 libroDto.getIdioma(),
                 libroDto.getNombre(),
                 this.imagenBytes,
-                libroDto.getStock(),
-                libroDto.getIdCategoria());
+                libroDto.getStock());
         service.save(libro);
 
         this.imagenBytes = null;
-        return new ResponseEntity(new Mensaje("El libro se registro correctamente."), HttpStatus.OK);
+        return new ResponseEntity(libro, HttpStatus.OK);
 
     }
 
@@ -113,7 +112,6 @@ public class LibroController {
         libro.setFechaPublicacion(libroDto.getFechaPublicacion());
         libro.setIdioma(libroDto.getIdioma());
         libro.setPathImagen(libroDto.getPathImagen());
-        libro.setCategoria(libroDto.getIdCategoria());
         service.save(libro);
         return new ResponseEntity(new Mensaje("El libro se actualizó correctamente !!!"), HttpStatus.OK);
     }

@@ -17,10 +17,6 @@ public class Categoria {
     private String nombre;
     @Column(name = "descripcion")
     private String descripcion;
-    //Relacion con libros
-    @OneToMany(mappedBy="categoria",cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
-    @JsonManagedReference
-    private List<Libro> libros;
 
     public Categoria(int id, String nombre, String descripcion) {
         this.idCategoria = id;
@@ -54,11 +50,4 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    public List<Libro> getLibros() {
-        return libros;
-    }
-
-    public void setLibros(List<Libro> libros) {
-        this.libros = libros;
-    }
 }

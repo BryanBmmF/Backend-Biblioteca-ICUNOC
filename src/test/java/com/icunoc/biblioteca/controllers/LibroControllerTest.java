@@ -46,7 +46,6 @@ class LibroControllerTest {
         mockLibro.setNombre("Nombre");
         mockLibro.setPathImagen(imagenBytes);
         mockLibro.setStock(10);
-        mockLibro.setCategoria(1);
 
         Mockito.when(service.getByNombre("Nombre")).thenReturn(Optional.of(mockLibro));
         Mockito.when(service.existsByNombre("Nombre")).thenReturn(true);
@@ -119,7 +118,6 @@ class LibroControllerTest {
         libroDto1.setNombre("Pruebatest1");
         libroDto1.setPathImagen(imagenBytes);
         libroDto1.setStock(1);
-        libroDto1.setIdCategoria(1);
 
         responseServicio = libroController.create(libroDto1);
         System.out.println(responseServicio);
@@ -143,7 +141,6 @@ class LibroControllerTest {
         libroDto1.setNombre("Pruebatest12");
         libroDto1.setPathImagen(imagenBytes);
         libroDto1.setStock(12);
-        libroDto1.setIdCategoria(12);
 
         Libro libro = service.getByNombre("Nombre").get();
         libro.setAutor(libroDto1.getAutor());
@@ -154,7 +151,6 @@ class LibroControllerTest {
         libro.setNombre(libroDto1.getNombre());
         libro.setPathImagen(libroDto1.getPathImagen());
         libro.setStock(libroDto1.getStock());
-        libro.setCategoria(libroDto1.getIdCategoria());
 
         responseServicio = libroController.update(1, libroDto1);
         System.out.println(responseServicio);
@@ -177,7 +173,6 @@ class LibroControllerTest {
         libroDto1.setNombre("Pruebatest12");
         libroDto1.setPathImagen(imagenBytes);
         libroDto1.setStock(12);
-        libroDto1.setIdCategoria(12);
 
         Libro libro = service.getOne(1).get();
         libro.setAutor(libroDto1.getAutor());
@@ -188,7 +183,6 @@ class LibroControllerTest {
         libro.setNombre(libroDto1.getNombre());
         libro.setPathImagen(libroDto1.getPathImagen());
         libro.setStock(libroDto1.getStock());
-        libro.setCategoria(libroDto1.getIdCategoria());
 
         responseServicio = libroController.update(1, libroDto1);
         System.out.println(responseServicio);
