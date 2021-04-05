@@ -10,6 +10,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class AsignacionLibroDtoTest {
 
     @Test
+    void constructor() {
+        //act
+        AsignacionLibroDto asignacion = new AsignacionLibroDto(1,2,3);
+        //assert
+        assertEquals(1,asignacion.getId());
+        assertEquals(2,asignacion.getIdCategoria());
+        assertEquals(3,asignacion.getIdLibro());
+
+    }
+    @Test
     void getId() throws NoSuchFieldException, IllegalAccessException {
         //arrange
         final AsignacionLibroDto asignacionLibro = new AsignacionLibroDto();
@@ -75,12 +85,12 @@ class AsignacionLibroDtoTest {
     void getIdLibro() throws NoSuchFieldException, IllegalAccessException {
         //arrange
         final AsignacionLibroDto asignacionLibro = new AsignacionLibroDto();
-        final Field field = asignacionLibro.getClass().getDeclaredField("id");
+        final Field field = asignacionLibro.getClass().getDeclaredField("idLibro");
         field.setAccessible(true);
         field.set(asignacionLibro, 200);
 
         //act
-        final int result = asignacionLibro.getId();
+        final int result = asignacionLibro.getIdLibro();
 
         //assert
         assertEquals(200, result, "Valor obtenido");
