@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserService{
     private final String DEFAULT_TIPO_BIBLIOTECARIO = "Bibliotecario";
     private final String DEFAULT_CORREO = "j3b.bank@gmail.com";
 
-    private final UserRepository repository;
-    private final RoleService roleService;
-    private final BCryptPasswordEncoder encoder;
+    private  UserRepository repository;
+    private  RoleService roleService;
+    private  BCryptPasswordEncoder encoder;
 
     @Autowired
     public UserServiceImpl(UserRepository repository, RoleService roleService, BCryptPasswordEncoder encoder) {
@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService{
         this.roleService = roleService;
         this.encoder = encoder;
         this.seed();
+    }
+
+    public UserServiceImpl() {
     }
 
     @Override
@@ -154,6 +157,18 @@ public class UserServiceImpl implements UserService{
         }
 
         throw new UsernameNotFoundException("Could not find user with username " + username);
+    }
+
+    public void setRepositoryMock(UserRepository userRepository){
+        this.repository = userRepository;
+    }
+
+    public void setEncoderMock(BCryptPasswordEncoder encoderMock){
+        this.encoder = encoderMock;
+    }
+
+    public void setRoleServiceMock(RoleService roleService){
+        this.roleService = roleService;
     }
 
     /*json para crear user

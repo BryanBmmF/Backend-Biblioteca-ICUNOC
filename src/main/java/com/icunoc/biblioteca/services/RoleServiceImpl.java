@@ -9,12 +9,15 @@ import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService{
-    private final RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
         this.initialize();
+    }
+
+    public RoleServiceImpl() {
     }
 
     @Override
@@ -41,5 +44,9 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public List<Role> findAll() {
         return this.roleRepository.findAll();
+    }
+
+    public void setRoleRepositoryMock(RoleRepository roleRepository){
+        this.roleRepository = roleRepository;
     }
 }

@@ -1,5 +1,6 @@
 package com.icunoc.biblioteca.dto;
 
+import com.icunoc.biblioteca.enums.RoleType;
 import com.icunoc.biblioteca.models.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ class UserDtoTest {
         userDtoTest.setUsername("userJuan");
         userDtoTest.setNombre("Juan");
         userDtoTest.setNumeroRegistro("201730159");
-        userDtoTest.setTipo("Administrador");
+        userDtoTest.setTipo(RoleType.ROLE_ADMIN.toString());
         userDtoTest.setPassword("password");
         userDtoTest.setCorreo("correo");
 
@@ -74,9 +75,10 @@ class UserDtoTest {
         //Arrange
         UserDto userDtoPrueba = new UserDto();
         //Act
-        userDtoPrueba.setTipo("Administrador");
+        userDtoPrueba.setTipo(RoleType.ROLE_USER.toString());
+        userDtoPrueba.setTipo(RoleType.ROLE_ADMIN.toString());
         //Arrange
-        assertTrue(userDtoPrueba.getTipo() == "Administrador");
+        assertTrue(userDtoPrueba.getTipo() == RoleType.ROLE_ADMIN.toString());
     }
 
     @Test
