@@ -17,15 +17,15 @@ CREATE TABLE Usuario(
 CREATE TABLE Rol(
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipoRol VARCHAR(100) UNIQUE NOT NULL
-   
+
 );
 
 CREATE TABLE Autorizacion_Usuario(
-    idUsuario INT NOT NULL,
-    idRol INT NOT NULL,
-    FOREIGN KEY(idUsuario) REFERENCES Usuario(id),
-    FOREIGN KEY(idRol) REFERENCES Rol(id)
-   
+     idUsuario INT NOT NULL,
+     idRol INT NOT NULL,
+     FOREIGN KEY(idUsuario) REFERENCES Usuario(id),
+     FOREIGN KEY(idRol) REFERENCES Rol(id)
+
 );
 
 CREATE TABLE Token_Autenticacion(
@@ -51,8 +51,6 @@ CREATE TABLE Libro(
     nombre VARCHAR(200) NOT NULL,
     pathImagen longblob NULL,
     stock INT NOT NULL,
-    idCategoria INT NULL,
-    FOREIGN KEY(idCategoria) REFERENCES Categoria(id)
 );
 
 
@@ -75,3 +73,21 @@ CREATE TABLE Prestamo(
     FOREIGN KEY(codigoLibro) REFERENCES Libro(codigo)
 );
 
+CREATE TABLE IF NOT EXISTS 'biblioteca'.'libro_asignado' (
+    id INT NOT NULL AUTO_INCREMENT,
+    idLibro INT NOT NULL,
+    idCategoria INT NOT NULL,
+    PRIMARY KEY ('id'),
+    INDEX 'fk_tag_libro1_idx' ('idLibro' ASC) VISIBLE,
+    INDEX 'fk_tag_categoria1_idx' ('idCategoria' ASC) VISIBLE,
+    CONSTRAINT 'fk_tag_libro1'
+    FOREIGN KEY ('idLibro')
+    REFERENCES 'biblioteca'.'libro' ('id')
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT 'fk_tag_categoria1'
+    FOREIGN KEY ('idCategoria')
+    REFERENCES 'biblioteca'.'categoria' ('id')
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+)

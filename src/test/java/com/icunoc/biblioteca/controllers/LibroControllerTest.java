@@ -54,9 +54,6 @@ class LibroControllerTest {
         mockLibro.setFechaPublicacion(today);
         mockLibro.setIdioma(Idioma.INGLES);
         mockLibro.setPathImagen(imagenBytes);
-        mockLibro.setIdCategoria(1);
-
-        //lista de libros
         List<Libro> miListMock = Arrays.asList(mockLibro);
 
         //lo que retona mockito
@@ -127,8 +124,10 @@ class LibroControllerTest {
         responseServicio = libroController.getByNombre("12345");
         System.out.println(responseServicio);
 
+
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+        //Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
 
     }
     @Test
@@ -174,11 +173,9 @@ class LibroControllerTest {
         libroDto1.setAutor("Autor fallo");
         libroDto1.setStock(100);
         libroDto1.setEdicion(100);
-        libroDto1.setIdCategoria(1);
         libroDto1.setFechaPublicacion(today);
         libroDto1.setIdioma(Idioma.INGLES);
         libroDto1.setPathImagen(imagenBytes);
-        libroDto1.setIdCategoria(2);
         service.existsByCodigo(libroDto1.getCodigo());
         responseServicio = libroController.create(libroDto1);
         //Assert
@@ -201,7 +198,6 @@ class LibroControllerTest {
         libroDto1.setNombre("Pruebatest1");
         libroDto1.setPathImagen(imagenBytes);
         libroDto1.setStock(1);
-        libroDto1.setIdCategoria(1);
 
         responseServicio = libroController.create(libroDto1);
         System.out.println(responseServicio);
@@ -250,7 +246,6 @@ class LibroControllerTest {
         libroDto1.setNombre("Pruebatest12");
         libroDto1.setPathImagen(imagenBytes);
         libroDto1.setStock(12);
-        libroDto1.setIdCategoria(12);
 
         Libro libro = service.getOne(1).get();
         libro.setAutor(libroDto1.getAutor());
@@ -261,7 +256,6 @@ class LibroControllerTest {
         libro.setNombre(libroDto1.getNombre());
         libro.setPathImagen(libroDto1.getPathImagen());
         libro.setStock(libroDto1.getStock());
-        libro.setIdCategoria(libroDto1.getIdCategoria());
 
         responseServicio = libroController.update(1, libroDto1);
         System.out.println(responseServicio);
