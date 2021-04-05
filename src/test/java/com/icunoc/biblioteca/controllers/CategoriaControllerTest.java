@@ -88,7 +88,7 @@ class CategoriaControllerTest {
     @Test
     void create() {
         //arrange
-        Mockito.lenient().doNothing().when(service).save(ArgumentMatchers.any());
+        Mockito.when(service.save(ArgumentMatchers.any(Categoria.class))).thenReturn(mockCategoria);
         categoriaController.setService(service);
         //act
         ResponseEntity<Categoria> response = categoriaController.create(categoriaDto);
@@ -99,7 +99,7 @@ class CategoriaControllerTest {
     @Test
     void createBlankName() {
         //arrange
-        Mockito.lenient().doNothing().when(service).save(ArgumentMatchers.any());
+        Mockito.when(service.save(ArgumentMatchers.any(Categoria.class))).thenReturn(mockCategoria);
         categoriaController.setService(service);
         Mockito.when(categoriaDto.getNombre()).thenReturn("");
         //act
@@ -111,8 +111,8 @@ class CategoriaControllerTest {
     @Test
     void createAlreadyExists() {
         //arrange
-        Mockito.lenient().doNothing().when(service).save(ArgumentMatchers.any());
-        Mockito.when(service.existsByNombre(ArgumentMatchers.anyString())).thenReturn(false);
+        Mockito.when(service.save(ArgumentMatchers.any(Categoria.class))).thenReturn(mockCategoria);
+        Mockito.when(service.existsByNombre(ArgumentMatchers.anyString())).thenReturn(true);
         categoriaController.setService(service);
         //act
         ResponseEntity<Categoria> response = categoriaController.create(categoriaDto);
@@ -124,7 +124,7 @@ class CategoriaControllerTest {
     void update() {
         //arrange
         Mockito.when(service.find(1)).thenReturn(Optional.of(mockCategoria));
-        Mockito.lenient().doNothing().when(service).update(ArgumentMatchers.any());
+        Mockito.when(service.update(ArgumentMatchers.any(Categoria.class))).thenReturn(mockCategoria);
         Mockito.when(service.existsById(1)).thenReturn(true);
         categoriaController.setService(service);
         //act
@@ -138,7 +138,7 @@ class CategoriaControllerTest {
     void updateExistByIDError() {
         //arrange
         Mockito.when(service.find(1)).thenReturn(Optional.of(mockCategoria));
-        Mockito.lenient().doNothing().when(service).update(ArgumentMatchers.any());
+        Mockito.when(service.update(ArgumentMatchers.any(Categoria.class))).thenReturn(mockCategoria);
         Mockito.when(service.existsById(1)).thenReturn(false);
         categoriaController.setService(service);
         //act
@@ -152,7 +152,7 @@ class CategoriaControllerTest {
     void updateNameIsBlankError() {
         //arrange
         Mockito.when(service.find(1)).thenReturn(Optional.of(mockCategoria));
-        Mockito.lenient().doNothing().when(service).update(ArgumentMatchers.any());
+        Mockito.when(service.update(ArgumentMatchers.any(Categoria.class))).thenReturn(mockCategoria);
         Mockito.when(service.existsById(1)).thenReturn(true);
         Mockito.when(categoriaDto.getNombre()).thenReturn("");
         Mockito.when(categoriaDto.getDescripcion()).thenReturn("");
@@ -168,9 +168,11 @@ class CategoriaControllerTest {
     void updateNameAlreadyExistsError() {
         //arrange
         Mockito.when(service.find(1)).thenReturn(Optional.of(mockCategoria));
-        Mockito.lenient().doNothing().when(service).update(ArgumentMatchers.any());
+        Mockito.when(service.getByNombre(ArgumentMatchers.anyString())).thenReturn(Optional.of(mockCategoria));
+        Mockito.when(service.update(ArgumentMatchers.any(Categoria.class))).thenReturn(mockCategoria);
         Mockito.when(service.existsById(1)).thenReturn(true);
         Mockito.when(service.existsByNombre(ArgumentMatchers.anyString())).thenReturn(true);
+        mockCategoria.setIdCategoria(2);
         categoriaController.setService(service);
         //act
         ResponseEntity<?> response = categoriaController.update(1,categoriaDto);
