@@ -173,11 +173,9 @@ class LibroControllerTest {
         libroDto1.setAutor("Autor fallo");
         libroDto1.setStock(100);
         libroDto1.setEdicion(100);
-        libroDto1.setIdCategoria(1);
         libroDto1.setFechaPublicacion(today);
         libroDto1.setIdioma(Idioma.INGLES);
         libroDto1.setPathImagen(imagenBytes);
-        libroDto1.setIdCategoria(2);
         service.existsByCodigo(libroDto1.getCodigo());
         responseServicio = libroController.create(libroDto1);
         //Assert
