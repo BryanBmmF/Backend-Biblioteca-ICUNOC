@@ -90,4 +90,4 @@ CREATE TABLE IF NOT EXISTS 'biblioteca'.'libro_asignado' (
     REFERENCES 'biblioteca'.'categoria' ('id')
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-    )
+)
