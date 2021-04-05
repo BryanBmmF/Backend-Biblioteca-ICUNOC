@@ -69,7 +69,7 @@ public class LibrosServiceImpl implements LibrosService {
 
     @Override
     public boolean existsById(int id) {
-        return  repository.existsById(id);
+        return repository.existsById(id);
     }
 
     @Override

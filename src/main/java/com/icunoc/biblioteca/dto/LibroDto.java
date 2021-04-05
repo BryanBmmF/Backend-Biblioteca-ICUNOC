@@ -19,12 +19,11 @@ public class LibroDto {
     private Calendar fechaPublicacion;
     private Idioma idioma;
     private byte[] pathImagen;
-    private int idCategoria;
 
 
     public LibroDto(){}
 
-    public LibroDto(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, byte[] pathImagen, int stock, int idCategoria) {
+    public LibroDto(String autor, String codigo, int edicion, Calendar fechaPublicacion, Idioma idioma, String nombre, byte[] pathImagen, int stock) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.autor = autor;
@@ -33,7 +32,6 @@ public class LibroDto {
         this.fechaPublicacion = fechaPublicacion;
         this.idioma = idioma;
         this.pathImagen = pathImagen;
-        this.idCategoria = idCategoria;
     }
 
     public int getId() {
@@ -108,12 +106,4 @@ public class LibroDto {
         this.pathImagen = pathImagen;
     }
 
-
-    public int getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
 }

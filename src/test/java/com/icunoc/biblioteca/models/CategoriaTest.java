@@ -104,36 +104,4 @@ class CategoriaTest {
         assertEquals("Descripcion Categoria", field.get(categoria), "Valores coinciden en set");
         System.out.println("Descripcion modificada con exito");
     }
-
-    @Test
-    void getLibros_getsProperly() throws NoSuchFieldException, IllegalAccessException {
-        //arrange
-        final Categoria categoria = new Categoria();
-        final Field field = categoria.getClass().getDeclaredField("libros");
-        field.setAccessible(true);
-        field.set(categoria, new ArrayList<Libro>());
-
-        //act
-        final List<Libro> result = categoria.getLibros();
-
-        //assert
-        assertEquals(0, result.size(), "Valor obtenido");
-        System.out.println("Libros obtenidos con exito");
-    }
-
-    @Test
-    void setLibros_setsProperly() throws NoSuchFieldException, IllegalAccessException {
-        //arrange
-        final Categoria categoria = new Categoria();
-        final CategoriaService categoriaService = new CategoriaService();
-        //act
-        categoria.setLibros(new ArrayList<Libro>());
-
-        //assert
-        final Field field = categoria.getClass().getDeclaredField("libros");
-        field.setAccessible(true);
-        final List<Libro> libro = (List<Libro>)field.get(categoria);
-        assertEquals(0, libro.size(), "Valores coinciden en set");
-        System.out.println("Libros modificada con exito");
-    }
 }
