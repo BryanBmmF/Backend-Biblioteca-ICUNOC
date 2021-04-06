@@ -184,4 +184,24 @@ class PrestamoDtoTest {
         //Arrange
         assertTrue(prestamoDtoPrueba.getCodigoLibro() == "123ABC");
     }
+
+    @Test
+    void setMora() {
+        //Arrange
+        PrestamoDto prestamoDtoPrueba = new PrestamoDto();
+        //Act
+        prestamoDtoPrueba.setMora(true);
+        //Arrange
+        assertTrue(prestamoDtoPrueba.isMora() == true);
+    }
+
+    @Test
+    void getDiasMorosos() {
+        //Arrange
+        PrestamoDto prestamoDtoPrueba = new PrestamoDto();
+        //Act
+        prestamoDtoPrueba.setDiasMoroso(11);
+        //Arrange
+        assertTrue(prestamoDtoPrueba.getDiasMoroso() == 11);
+    }
 }
