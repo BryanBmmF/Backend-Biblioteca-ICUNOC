@@ -6,6 +6,7 @@ import com.icunoc.biblioteca.dto.UserDto;
 import com.icunoc.biblioteca.models.Categoria;
 import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
+import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.services.PrestamoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,9 +20,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 class PrestamoControllerTest {
 
@@ -53,7 +54,35 @@ class PrestamoControllerTest {
         prestamoMock.setDiasMoroso(1);
         prestamoMock.setCodigoLibro("123ABC");
 
+        Prestamo prestamoMock2 = new Prestamo();
+        prestamoMock2.setId(1);
+        prestamoMock2.setNombre("Luis");
+        prestamoMock2.setApellido("Hernandez");
+        prestamoMock2.setDpi("1234567891234");
+        prestamoMock2.setCarnet("201631722");
+        prestamoMock2.setCarrera("SISTEMAS");
+
+
+        Calendar cal = Calendar.getInstance();
+        LocalDate localDate = LocalDate.of(2021, 4, 3);
+        Date date = Date.from(localDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        cal.setTime(date);
+
+        prestamoMock2.setFechaReservacion(cal);
+        prestamoMock2.setFechaInicio(cal);
+        System.out.println(prestamoMock2.getFechaInicio().getTime().getTime());
+        prestamoMock2.setFechaFin(cal);
+        prestamoMock2.setCosto(0);
+        prestamoMock2.setEstado("ESTADO_ACTIVO");
+        prestamoMock2.setCodigoReservacion("1234ABCD");
+        prestamoMock2.setMora(true);
+        prestamoMock2.setDiasMoroso(1);
+        prestamoMock2.setCodigoLibro("123ABC");
+
+        List<Prestamo> miListMock = Arrays.asList(prestamoMock2);
+
         Mockito.when(prestamoServiceMock.listarCodigoReservacion("K1QQZKFI")).thenReturn(prestamoMock);
+        Mockito.when(prestamoServiceMock.list("ESTADO_ACTIVO")).thenReturn(miListMock);
     }
 
     @Test
@@ -110,8 +139,9 @@ class PrestamoControllerTest {
     @Test
     void listar(){
         prestamoController.setService(prestamoServiceMock);
+
         ResponseEntity<List<Prestamo>> responseServicio;
-        responseServicio = prestamoController.listarPrestamos("ACTIVO");
+        responseServicio = prestamoController.listarPrestamos("ESTADO_ACTIVO");
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
@@ -127,6 +157,12 @@ class PrestamoControllerTest {
       //  ResponseEntity<List<Prestamo>> response = prestamoController.listarReservacionxCodigoReservacion("1234ABCD");
         //assert
       //  Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
+        prestamoController.setService(prestamoServiceMock);
+        ResponseEntity<List<Prestamo>> responseServicio;
+        //prestamoController.setEstadoRecivido("RESERVADO");
+        responseServicio = prestamoController.listarReservacionxCarnet("201631722");
+        System.out.println(responseServicio);
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
        //Test para la busqueda x carnet
     @Test
