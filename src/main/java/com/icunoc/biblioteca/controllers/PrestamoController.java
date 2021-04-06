@@ -105,8 +105,8 @@ public class PrestamoController {
 
     @GetMapping(path = {"/codigoReservacion/{codigoReservacion}"})
     public ResponseEntity<List<Prestamo>> listarReservacionxCodigoReservacion(@PathVariable("codigoReservacion") String codigo){
-        listaFiltrada = new ArrayList<>();
         Prestamo prestamoPorCodReservacion = service.listarCodigoReservacion(codigo);
+        listaFiltrada = new ArrayList<>();
             if (prestamoPorCodReservacion.getEstado().equals(estadoRecivido)){
                 listaFiltrada.add(prestamoPorCodReservacion);
             }
