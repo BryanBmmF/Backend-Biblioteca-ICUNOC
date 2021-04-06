@@ -73,7 +73,7 @@ CREATE TABLE Prestamo(
     FOREIGN KEY(codigoLibro) REFERENCES Libro(codigo)
 );
 
-CREATE TABLE IF NOT EXISTS libro_asignado (
+CREATE TABLE IF NOT EXISTS biblioteca.asignacion_libro (
     id INT NOT NULL AUTO_INCREMENT,
     idLibro INT NOT NULL,
     idCategoria INT NOT NULL,
