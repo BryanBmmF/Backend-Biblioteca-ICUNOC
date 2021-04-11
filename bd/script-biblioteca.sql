@@ -88,7 +88,7 @@ CREATE TABLE Prestamo(
     FOREIGN KEY(codigoLibro) REFERENCES Libro(codigo)
 );
 
-CREATE TABLE IF NOT EXISTS biblioteca.asignacion_libro (
+CREATE TABLE IF NOT EXISTS BIBLIOTECA.asignacion_libro (
     id INT NOT NULL AUTO_INCREMENT,
     idLibro INT NOT NULL,
     idCategoria INT NOT NULL,
@@ -97,12 +97,12 @@ CREATE TABLE IF NOT EXISTS biblioteca.asignacion_libro (
     INDEX fk_tag_categoria1_idx (idCategoria ASC) VISIBLE,
     CONSTRAINT fk_tag_libro1
     FOREIGN KEY (idLibro)
-    REFERENCES biblioteca.libro (id)
+    REFERENCES BIBLIOTECA.Libro (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT fk_tag_categoria1
     FOREIGN KEY (idCategoria)
-    REFERENCES biblioteca.categoria (id)
+    REFERENCES BIBLIOTECA.Categoria (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
