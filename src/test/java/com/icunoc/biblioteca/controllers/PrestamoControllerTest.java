@@ -1,12 +1,11 @@
 package com.icunoc.biblioteca.controllers;
 
+import com.icunoc.biblioteca.dto.InfoBibliotecaDto;
 import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.UserDto;
-import com.icunoc.biblioteca.models.Categoria;
-import com.icunoc.biblioteca.models.Libro;
-import com.icunoc.biblioteca.models.Prestamo;
-import com.icunoc.biblioteca.models.User;
+import com.icunoc.biblioteca.models.*;
+import com.icunoc.biblioteca.services.InfoBibliotecaService;
 import com.icunoc.biblioteca.services.PrestamoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +24,16 @@ import java.time.ZoneId;
 import java.util.*;
 
 class PrestamoControllerTest {
+    //mock service de infoBiblioteca
+    @Autowired
+    InfoBibliotecaService infoBibliotecaServiceMock = Mockito.mock(InfoBibliotecaService.class);
 
+    //mock de infoBiblitecaDto
+    InfoBibliotecaDto infoBibliotecaDto = Mockito.mock(InfoBibliotecaDto.class);
+
+    //contrller
+    @Autowired
+    InfoBibliotecaController infoBibliotecaController = new InfoBibliotecaController();
     @Autowired
     PrestamoService prestamoServiceMock = Mockito.mock(PrestamoService.class);
     @Autowired
@@ -38,6 +46,15 @@ class PrestamoControllerTest {
 
     @BeforeEach
     void setUp() {
+        //InfoBibliotecaMock
+        InfoBiblioteca infoBibliotecaMock = new InfoBiblioteca("correo", "direccion", "telefono", "horario",7, 5, 5);
+        infoBibliotecaMock.setId((long)1);
+
+        //retornar info con id 1
+        Mockito.when(infoBibliotecaServiceMock.getOne(1)).thenReturn(Optional.of(infoBibliotecaMock));
+        //existe con id 1
+        Mockito.when(infoBibliotecaServiceMock.existsById(1)).thenReturn(true);
+
         Calendar miFecha = Calendar.getInstance();
 
         Calendar moraFecha = new GregorianCalendar(2021, Calendar.MARCH, 22, 23, 11, 44);
@@ -176,6 +193,7 @@ class PrestamoControllerTest {
     //Test para la busqueda general por estado
     @Test
     void listarActivo(){
+        prestamoController.setService(infoBibliotecaServiceMock);
         prestamoController.setService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarPrestamos("ACTIVO");
@@ -184,6 +202,7 @@ class PrestamoControllerTest {
 
     @Test
     void listarReservado(){
+        prestamoController.setService(infoBibliotecaServiceMock);
         prestamoController.setService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarPrestamos("RESERVADO");
