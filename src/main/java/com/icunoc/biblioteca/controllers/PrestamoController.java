@@ -22,8 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping({"/prestamos"})
 public class PrestamoController {
-    @Autowired
-    InfoBibliotecaService serviceInfo;
     //constantes para el manejo de mora
     private static final int DIAS_MOROSO_RESTART=0;
     private static final double COSTO_POR_DIA_MOROSO_RESTART=0;
@@ -33,7 +31,8 @@ public class PrestamoController {
     private static final String ESTADO_RESERVADO="RESERVADO";
     List<Prestamo> listaFiltrada;
     String estadoRecivido;
-
+    @Autowired
+    InfoBibliotecaService serviceInfo;
     @Autowired
     PrestamoService service;
     @Autowired
@@ -178,6 +177,10 @@ public class PrestamoController {
     public ResponseEntity<?> delete(@PathVariable("id") int id){
         service.delete(id);
         return new ResponseEntity(new Mensaje("El Usuario se elimino correctamente !!!"), HttpStatus.OK);
+    }
+    //para el mock
+    public void setService(InfoBibliotecaService bibliotecaService){
+        this.serviceInfo = bibliotecaService;
     }
 
     public void setService(PrestamoService prestamoService) {
