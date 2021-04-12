@@ -4,6 +4,7 @@ import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
+import com.icunoc.biblioteca.services.InfoBibliotecaService;
 import com.icunoc.biblioteca.services.LibrosService;
 import com.icunoc.biblioteca.services.PrestamoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,10 @@ import java.util.List;
 @RestController
 @RequestMapping({"/prestamos"})
 public class PrestamoController {
+    @Autowired
+    InfoBibliotecaService serviceInfo;
     //constantes para el manejo de mora
-    private static final int DIAS_PRESTAMO=7;
     private static final int DIAS_MOROSO_RESTART=0;
-    private static final double COSTO_POR_DIA_MOROSO=5.00;
     private static final double COSTO_POR_DIA_MOROSO_RESTART=0;
     private static final String ESTADO_ACTIVO="ACTIVO";
     private static final String ESTADO_FINALIZADO="FINALIZADO";
@@ -40,6 +41,7 @@ public class PrestamoController {
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/listaPrestamo/{estado}")
     public ResponseEntity<List<Prestamo>> listarPrestamos(@PathVariable("estado") String estado){
+        System.out.println(serviceInfo.getOne(1).get().getDiasHabilesPrestamo());
         double costoMora;
         this.estadoRecivido = estado;
         Calendar miFecha = Calendar.getInstance();
@@ -48,11 +50,11 @@ public class PrestamoController {
         for (int i=0; i<list.toArray().length; i++){
             if (list.get(i).getEstado().equals(ESTADO_ACTIVO)){
                 int dias = (int) ((miFecha.getTime().getTime()-list.get(i).getFechaInicio().getTime().getTime()) / milisecondsByDay);
-                if (dias>DIAS_PRESTAMO){
-                    int diasAtrasado = dias-DIAS_PRESTAMO;
+                if (dias>serviceInfo.getOne(1).get().getDiasHabilesPrestamo()){
+                    int diasAtrasado = dias-serviceInfo.getOne(1).get().getDiasHabilesPrestamo();
                     list.get(i).setDiasMoroso(diasAtrasado);
                     list.get(i).setMora(true);
-                    costoMora = list.get(i).getDiasMoroso() * COSTO_POR_DIA_MOROSO;
+                    costoMora = list.get(i).getDiasMoroso() * serviceInfo.getOne(1).get().getCostoDiaMoroso();
                     list.get(i).setCosto(costoMora);
                 }else{
                     list.get(i).setDiasMoroso(DIAS_MOROSO_RESTART);
