@@ -41,7 +41,6 @@ public class PrestamoController {
     //metodo para mandar una lista de libros al cliente
     @GetMapping("/listaPrestamo/{estado}")
     public ResponseEntity<List<Prestamo>> listarPrestamos(@PathVariable("estado") String estado){
-        System.out.println(serviceInfo.getOne(1).get().getDiasHabilesPrestamo());
         double costoMora;
         this.estadoRecivido = estado;
         Calendar miFecha = Calendar.getInstance();
