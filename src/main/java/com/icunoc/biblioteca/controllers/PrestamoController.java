@@ -5,6 +5,7 @@ import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
+import com.icunoc.biblioteca.services.InfoBibliotecaService;
 import com.icunoc.biblioteca.services.LibrosService;
 import com.icunoc.biblioteca.services.PrestamoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,13 @@ import java.util.List;
 @RequestMapping({"/prestamos"})
 public class PrestamoController {
     //constantes para el manejo de mora
-    private static final int DIAS_PRESTAMO=7;
     private static final int DIAS_MOROSO_RESTART=0;
-    private static final double COSTO_POR_DIA_MOROSO=5.00;
     private static final double COSTO_POR_DIA_MOROSO_RESTART=0;
 
     List<Prestamo> listaFiltrada;
     String estadoRecivido;
-
+    @Autowired
+    InfoBibliotecaService serviceInfo;
     @Autowired
     PrestamoService prestamoService;
     @Autowired
@@ -46,11 +46,11 @@ public class PrestamoController {
         for (int i=0; i<list.toArray().length; i++){
             if (list.get(i).getEstado().equals(AppConstants.ESTADO_ACTIVO)){
                 int dias = (int) ((miFecha.getTime().getTime()-list.get(i).getFechaInicio().getTime().getTime()) / milisecondsByDay);
-                if (dias>DIAS_PRESTAMO){
-                    int diasAtrasado = dias-DIAS_PRESTAMO;
+                if (dias>serviceInfo.getOne(1).get().getDiasHabilesPrestamo()){
+                    int diasAtrasado = dias-serviceInfo.getOne(1).get().getDiasHabilesPrestamo();
                     list.get(i).setDiasMoroso(diasAtrasado);
                     list.get(i).setMora(true);
-                    costoMora = list.get(i).getDiasMoroso() * COSTO_POR_DIA_MOROSO;
+                    costoMora = list.get(i).getDiasMoroso() * serviceInfo.getOne(1).get().getCostoDiaMoroso();
                     list.get(i).setCosto(costoMora);
                 }else{
                     list.get(i).setDiasMoroso(DIAS_MOROSO_RESTART);
@@ -165,6 +165,10 @@ public class PrestamoController {
     public ResponseEntity<?> delete(@PathVariable("id") int id){
         prestamoService.delete(id);
         return new ResponseEntity(new Mensaje("El Usuario se elimino correctamente !!!"), HttpStatus.OK);
+    }
+    //para el mock
+    public void setService(InfoBibliotecaService bibliotecaService){
+        this.serviceInfo = bibliotecaService;
     }
 
     public void setPrestamoService(PrestamoService prestamoService) {

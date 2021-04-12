@@ -3,6 +3,21 @@ CREATE DATABASE BIBLIOTECA;
 
 USE BIBLIOTECA;
 
+CREATE TABLE Info_Biblioteca (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    correo VARCHAR(100) NOT NULL,
+    direccion VARCHAR(150) NOT NULL,
+    telefono VARCHAR(100) NOT NULL,
+    horario VARCHAR(150) NOT NULL,
+    diasHabilesPrestamo INT NOT NULL,
+    costoDiaMoroso FlOAT NOT NULL,
+    costoGeneralPrestamo  FlOAT NOT NULL
+
+);
+
+INSERT INTO Info_Biblioteca VALUES (null,"biblioteca.icunoc@gmail.com", "Calle Rodolfo Robles 29-99, Quezaltenango, Primer nivel Modulo G Ingenieria CUNOC",
+									"7873-0000", "Lunea a Viernes de 14:00 a 18:00 hrs, y Sabados de 8:00 a 12:00 hrs", 7, 5.0, 20.0);
+
 CREATE TABLE Usuario(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(150) NOT NULL,
@@ -73,7 +88,7 @@ CREATE TABLE Prestamo(
     FOREIGN KEY(codigoLibro) REFERENCES Libro(codigo)
 );
 
-CREATE TABLE IF NOT EXISTS biblioteca.asignacion_libro (
+CREATE TABLE IF NOT EXISTS BIBLIOTECA.asignacion_libro (
     id INT NOT NULL AUTO_INCREMENT,
     idLibro INT NOT NULL,
     idCategoria INT NOT NULL,
@@ -82,12 +97,12 @@ CREATE TABLE IF NOT EXISTS biblioteca.asignacion_libro (
     INDEX fk_tag_categoria1_idx (idCategoria ASC) VISIBLE,
     CONSTRAINT fk_tag_libro1
     FOREIGN KEY (idLibro)
-    REFERENCES biblioteca.libro (id)
+    REFERENCES BIBLIOTECA.Libro (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT fk_tag_categoria1
     FOREIGN KEY (idCategoria)
-    REFERENCES biblioteca.categoria (id)
+    REFERENCES BIBLIOTECA.Categoria (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
