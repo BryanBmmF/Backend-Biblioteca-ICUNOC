@@ -13,7 +13,7 @@ public interface PrestamoService {
     List<Prestamo> listarCarnet(String carnet);
     List<Prestamo> listarDPI(String dpi);
     List<Prestamo> listarFechaInicio(Calendar fechaInicio);
-    List<Prestamo> list(String estado);
+    List<Prestamo> listPorEstado(String estado);
     void save(Prestamo prestamo);
     void delete(int id);
 

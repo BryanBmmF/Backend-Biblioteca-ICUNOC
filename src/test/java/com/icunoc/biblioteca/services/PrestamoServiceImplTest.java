@@ -1,21 +1,16 @@
 package com.icunoc.biblioteca.services;
 
 import com.icunoc.biblioteca.models.Prestamo;
-import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.repositories.PrestamoRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PrestamoServiceImplTest {
 
@@ -99,7 +94,7 @@ class PrestamoServiceImplTest {
         prestamoServiceImpl.setRepository(prestamoRepository);
         List<Prestamo> listPrestamo;
         //Act
-        listPrestamo = prestamoServiceImpl.list("RESERVADO");
+        listPrestamo = prestamoServiceImpl.listPorEstado("RESERVADO");
         //Assert
         Assertions.assertEquals("RESERVADO", listPrestamo.get(0).getEstado());
     }

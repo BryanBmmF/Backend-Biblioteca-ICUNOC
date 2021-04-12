@@ -42,7 +42,7 @@ public class PrestamoServiceImpl implements PrestamoService {
         repository.save(prestamo);
     }
     @Override
-    public List<Prestamo> list(String estado) {
+    public List<Prestamo> listPorEstado(String estado) {
         return repository.findByEstado(estado);
     }
 

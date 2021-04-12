@@ -1,26 +1,20 @@
 package com.icunoc.biblioteca.controllers;
 
-import com.icunoc.biblioteca.dto.InfoBibliotecaDto;
-import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.PrestamoDto;
-import com.icunoc.biblioteca.dto.UserDto;
+import com.icunoc.biblioteca.models.Prestamo;
+import com.icunoc.biblioteca.dto.InfoBibliotecaDto;
 import com.icunoc.biblioteca.models.*;
 import com.icunoc.biblioteca.services.InfoBibliotecaService;
 import com.icunoc.biblioteca.services.PrestamoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 class PrestamoControllerTest {
@@ -136,8 +130,8 @@ class PrestamoControllerTest {
         miListMock = Arrays.asList(prestamoMock,prestamoMock2,prestamoMock3);
 
         Mockito.when(prestamoServiceMock.listarCodigoReservacion("1234ABCD")).thenReturn(prestamoMock);
-        Mockito.when(prestamoServiceMock.list("ACTIVO")).thenReturn(miListMock);
-        Mockito.when(prestamoServiceMock.list("RESERVADO")).thenReturn(miListMock);
+        Mockito.when(prestamoServiceMock.listPorEstado("ACTIVO")).thenReturn(miListMock);
+        Mockito.when(prestamoServiceMock.listPorEstado("RESERVADO")).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.listarCarnet("201631722")).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.listarDPI("1234567891234")).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.listarFechaInicio(miFecha)).thenReturn(miListMock);
@@ -147,7 +141,7 @@ class PrestamoControllerTest {
     void listarReservacion() {
         //Arrange
         Prestamo respuestaServicio = new Prestamo();
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         //Act
         respuestaServicio = prestamoController.listarReservacion("1234ABCD");
         //Assert
@@ -168,7 +162,7 @@ class PrestamoControllerTest {
     @Test
     void create() {
         ResponseEntity<?> respuesta;
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         //respuesta = prestamoController.create()
         PrestamoDto prestamoMockDto = new PrestamoDto();
         prestamoMockDto.setId(1);
@@ -193,8 +187,8 @@ class PrestamoControllerTest {
     //Test para la busqueda general por estado
     @Test
     void listarActivo(){
+        prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoController.setService(infoBibliotecaServiceMock);
-        prestamoController.setService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarPrestamos("ACTIVO");
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -202,8 +196,8 @@ class PrestamoControllerTest {
 
     @Test
     void listarReservado(){
+        prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoController.setService(infoBibliotecaServiceMock);
-        prestamoController.setService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarPrestamos("RESERVADO");
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -212,7 +206,7 @@ class PrestamoControllerTest {
     //Tests para la busqueda por codigo de reservacion
     @Test
     void listarReservacionxCodigoReservacion(){
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         //prestamoController.setEstadoRecivido("RESERVADO");
         responseServicio = prestamoController.listarReservacionxCodigoReservacion("1234ABCD");
@@ -222,7 +216,7 @@ class PrestamoControllerTest {
        //Test para la busqueda x carnet
     @Test
     void listarReservacionxCarnet(){
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarReservacionxCarnet("201631722");
         System.out.println(responseServicio);
@@ -231,7 +225,7 @@ class PrestamoControllerTest {
     //Test para la busqueda x DPI
     @Test
     void listarReservacionxDPI(){
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarReservacionxDPI("1234567891234");
         System.out.println(responseServicio);
@@ -240,7 +234,7 @@ class PrestamoControllerTest {
     //Test para la busqueda x fechaInicio
     @Test
     void listarReservacionxFechaInicio() throws ParseException {
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         responseServicio = prestamoController.listarReservacionxFechaInicio("2021-03-06");
         System.out.println(responseServicio);
@@ -249,7 +243,7 @@ class PrestamoControllerTest {
     @Test
     void delete(){
         //Arrage
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         ResponseEntity<?> responseServicio;
         //Act
         prestamoServiceMock.delete(1);
@@ -263,7 +257,7 @@ class PrestamoControllerTest {
     void finalizarPrestamo(){
         //arrange
         Mockito.when(prestamoServiceMock.getOne("1234ABCD")).thenReturn(prestamoMock);
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoMock.setEstado("FINALIZADO");
         prestamoMock.setFechaFin(null);
         //act
@@ -277,7 +271,7 @@ class PrestamoControllerTest {
     void iniciarPrestamo(){
         //arrange
         Mockito.when(prestamoServiceMock.getOne("1234ABCD")).thenReturn(prestamoMock);
-        prestamoController.setService(prestamoServiceMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoMock.setEstado("ACTIVO");
         prestamoMock.setFechaFin(null);
         //act
