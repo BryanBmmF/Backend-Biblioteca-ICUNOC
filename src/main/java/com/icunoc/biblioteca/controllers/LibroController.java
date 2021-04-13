@@ -106,8 +106,11 @@ public class LibroController {
         libro.setEdicion(libroDto.getEdicion());
         libro.setFechaPublicacion(libroDto.getFechaPublicacion());
         libro.setIdioma(libroDto.getIdioma());
-        libro.setPathImagen(libroDto.getPathImagen());
+        if (this.imagenBytes != null){
+            libro.setPathImagen(this.imagenBytes);
+        }
         service.save(libro);
+        this.imagenBytes = null;
         return new ResponseEntity(new Mensaje("El libro se actualizó correctamente !!!"), HttpStatus.OK);
     }
 
@@ -120,6 +123,15 @@ public class LibroController {
         service.delete(id);
         return new ResponseEntity(new Mensaje("El libro se elimino correctamente !!!"), HttpStatus.OK);
     }
+
+    //metodo para mandar una lista de libros al cliente
+    @GetMapping("/librosFiltrados/{busqueda}")
+    public ResponseEntity<List<Libro>> listarLibrosPorBusqueda(@PathVariable("busqueda") String busqueda){
+        List<Libro> list = service.getByBusqueda(busqueda);
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+
     public void setService(LibrosService service){
         this.service=service;
     }

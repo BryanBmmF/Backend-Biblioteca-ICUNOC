@@ -25,6 +25,11 @@ public class LibrosServiceImpl implements LibrosService {
     }
 
     @Override
+    public List<Libro> getByBusqueda(String busqueda) {
+        return repository.findLibroByBusqueda(busqueda);
+    }
+
+    @Override
     public Libro add(Libro libro) {
         //guardamos el libro
         return repository.save(libro);
