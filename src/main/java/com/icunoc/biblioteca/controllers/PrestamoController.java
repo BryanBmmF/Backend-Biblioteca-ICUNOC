@@ -166,6 +166,13 @@ public class PrestamoController {
         prestamoService.delete(id);
         return new ResponseEntity(new Mensaje("El Usuario se elimino correctamente !!!"), HttpStatus.OK);
     }
+
+    @GetMapping(path = {"/verificacion/{dpi}/{carnet}"})
+    public ResponseEntity<Integer> contarPrestamosReservacionesActivas(@PathVariable("dpi") String dpi, @PathVariable("carnet") String carnet){
+        long conteo = prestamoService.countReservacionesPrestamosActivos(dpi,carnet);
+        return new ResponseEntity(conteo,HttpStatus.OK);
+    }
+
     //para el mock
     public void setService(InfoBibliotecaService bibliotecaService){
         this.serviceInfo = bibliotecaService;

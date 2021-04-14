@@ -14,6 +14,9 @@ import java.util.Optional;
 @Repository
 public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {
 
+    @Query(value="SELECT count(*) FROM prestamo p WHERE (p.dpi = ?1 or p.carnet = ?2) AND (p.estado = 'RESERVADO' or p.estado = 'ACTIVO')", nativeQuery = true)
+    int countReservacionesPrestamosActivos(String dpi, String carnet);
+
     //metodo para buscar un prestamo por codigo de reservacion
     Prestamo findByCodigoReservacion(String codigoReservacion);
     List<Prestamo> findByCarnet(String carnet);

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PrestamoService {
+
+    int countReservacionesPrestamosActivos(String dpi, String carne);
     Prestamo listarCodigoReservacion(String codigo);
     Prestamo getOne(String id);
     List<Prestamo> listarCarnet(String carnet);
