@@ -59,4 +59,9 @@ public class PrestamoServiceImpl implements PrestamoService {
     public void setRepository(PrestamoRepository prestamoRepository) {
         this.repository = prestamoRepository;
     }
+
+    @Override
+    public int countReservacionesPrestamosActivos(String dpi, String carne) {
+        return repository.countReservacionesPrestamosActivos(dpi, carne);
+    }
 }
