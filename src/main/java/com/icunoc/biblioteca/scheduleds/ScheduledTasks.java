@@ -45,4 +45,12 @@ public class ScheduledTasks {
         }
         logger.info("Se ha realizado la verificación de Expiración :: Hora de Ejecución - {}", dateTimeFormatter.format(LocalDateTime.now()) );
     }
+
+    public void setPrestamoService(PrestamoService prestamoServiceMock) {
+        this.prestamoService = prestamoServiceMock;
+    }
+
+    public void setLibrosService(LibrosService librosServiceMock) {
+        this.librosService = librosServiceMock;
+    }
 }

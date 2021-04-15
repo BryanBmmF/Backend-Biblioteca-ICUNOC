@@ -135,6 +135,7 @@ class PrestamoControllerTest {
         Mockito.when(prestamoServiceMock.listarCarnet("201631722")).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.listarDPI("1234567891234")).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.listarFechaInicio(miFecha)).thenReturn(miListMock);
+        Mockito.when(prestamoServiceMock.countReservacionesPrestamosActivos("1234567891234","201631722")).thenReturn(2);
     }
 
     @Test
@@ -278,5 +279,16 @@ class PrestamoControllerTest {
         ResponseEntity<?> response = prestamoController.iniciarPrestamo("1234ABCD");
         //assert
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+
+    @Test
+    void contarPrestamosReservacionesActivas(){
+        //Arrange
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        ResponseEntity<Integer> responseServicio;
+        //Act
+        responseServicio = prestamoController.contarPrestamosReservacionesActivas("1234567891234", "201631722");
+        //Assert
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 }

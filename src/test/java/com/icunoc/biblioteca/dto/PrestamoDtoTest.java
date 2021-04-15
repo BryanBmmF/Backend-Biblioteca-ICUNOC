@@ -1,5 +1,6 @@
 package com.icunoc.biblioteca.dto;
 
+import com.icunoc.biblioteca.enums.Idioma;
 import com.icunoc.biblioteca.models.Prestamo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +40,11 @@ class PrestamoDtoTest {
         prestamoDtoTest.setCodigoLibro("123ABC");
     }
 
+    @Test
+    void constructor() {
+        //act
+            PrestamoDto prestamoDto = new PrestamoDto("Nombre", "Apellido", "dpi", "carnet", "carrera", Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), 2.2, "Estado", "codigoR", "codLibro");
+    }
 
     @Test
     void setCarrera() {

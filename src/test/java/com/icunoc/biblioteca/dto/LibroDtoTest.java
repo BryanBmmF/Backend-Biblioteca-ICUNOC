@@ -11,6 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class LibroDtoTest {
 
     @Test
+    void constructor() {
+        //act
+        byte[] imagenBytes = "bytes".getBytes();
+        LibroDto libroDto = new LibroDto("Autor", "codigo", 1, Calendar.getInstance(), Idioma.ESPAÑOL, "Nombre", imagenBytes, 1);
+    }
+
+    @Test
     void getId() {
         LibroDto libro = new LibroDto();
         libro.setId(1);

@@ -44,6 +44,7 @@ class PrestamoServiceImplTest {
         Mockito.when(prestamoRepository.findByDpi("1234567891234")).thenReturn(List.of(prestamoMock));
         Mockito.when(prestamoRepository.findByFechaInicio(fechaActual)).thenReturn(List.of(prestamoMock));
         Mockito.when(prestamoRepository.findByEstado("RESERVADO")).thenReturn(List.of(prestamoMock));
+        Mockito.when(prestamoRepository.countReservacionesPrestamosActivos("1234567891234", "201631722")).thenReturn(2);
     }
 
     @Test
@@ -64,6 +65,16 @@ class PrestamoServiceImplTest {
         Prestamo prestamoRecivido = prestamoServiceImpl.getOne("1234ABCD");
         //Assert
         Assertions.assertEquals("1234ABCD",prestamoRecivido.getCodigoReservacion());
+    }
+
+    @Test
+    void countReservacionesPrestamosActivos(){
+        //Arrange
+        prestamoServiceImpl.setRepository(prestamoRepository);
+        //Act
+        int conteo = prestamoServiceImpl.countReservacionesPrestamosActivos("1234567891234", "201631722");
+        //Assert
+        Assertions.assertEquals(conteo,2);
     }
 
     @Test
