@@ -16,6 +16,9 @@ public interface PrestamoService {
     List<Prestamo> listarDPI(String dpi);
     List<Prestamo> listarFechaInicio(Calendar fechaInicio);
     List<Prestamo> listPorEstado(String estado);
+    List<Prestamo> listPorMora(boolean mora, String estado);
+    List<Object> reporte1();
+    List<Object> reporte3();
     void save(Prestamo prestamo);
     void delete(int id);
 
