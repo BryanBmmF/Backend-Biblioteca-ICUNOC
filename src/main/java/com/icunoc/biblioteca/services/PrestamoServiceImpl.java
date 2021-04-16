@@ -47,6 +47,21 @@ public class PrestamoServiceImpl implements PrestamoService {
     }
 
     @Override
+    public List<Prestamo> listPorMora(boolean estadoMora, String estado) {
+        return repository.findByMoraAndEstado(estadoMora, estado);
+    }
+
+    @Override
+    public List<Object> reporte1() {
+        return repository.reporte1();
+    }
+
+    @Override
+    public List<Object> reporte3() {
+        return repository.reporte3();
+    }
+
+    @Override
     public Prestamo getOne(String id){
         return repository.findByCodigoReservacion(id);
     }
@@ -64,4 +79,5 @@ public class PrestamoServiceImpl implements PrestamoService {
     public int countReservacionesPrestamosActivos(String dpi, String carne) {
         return repository.countReservacionesPrestamosActivos(dpi, carne);
     }
+
 }

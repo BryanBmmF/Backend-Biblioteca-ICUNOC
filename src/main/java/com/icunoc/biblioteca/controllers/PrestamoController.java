@@ -63,6 +63,25 @@ public class PrestamoController {
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
+    @GetMapping("/misPrestamos/{mora}/{estado}")
+    public ResponseEntity<List<Prestamo>> listarPrestamo(@PathVariable("mora") boolean estadoMora, @PathVariable("estado") String estado){
+        List<Prestamo> list = prestamoService.listPorMora(estadoMora, estado);
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/misPrestamos/reporte1")
+    public ResponseEntity<List<Object>> reporte1(){
+        List<Object> list = prestamoService.reporte1();
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/misPrestamos/reporte3")
+    public ResponseEntity<List<Object>> reporte3(){
+        List<Object> list = prestamoService.reporte3();
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+
 
     @PutMapping("/finalizar/{codigoReservacion}")
     public ResponseEntity<?> finalizarPrestamo(@PathVariable("codigoReservacion") String codigo){
@@ -90,6 +109,7 @@ public class PrestamoController {
     public Prestamo listarReservacion(@PathVariable("codigoReservacion") String codigo){
         return prestamoService.listarCodigoReservacion(codigo);
     }
+
 
     @GetMapping(path = {"/codigoReservacion/{codigoReservacion}"})
     public ResponseEntity<List<Prestamo>> listarReservacionxCodigoReservacion(@PathVariable("codigoReservacion") String codigo){
