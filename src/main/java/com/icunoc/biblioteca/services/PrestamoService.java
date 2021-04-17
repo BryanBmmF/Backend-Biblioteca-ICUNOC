@@ -12,6 +12,7 @@ public interface PrestamoService {
     int countReservacionesPrestamosActivos(String dpi, String carne);
     Prestamo listarCodigoReservacion(String codigo);
     Prestamo getOne(String id);
+    List<Prestamo> findPrestamoByBusquedaAndEstado(String busqueda, String estado);
     List<Prestamo> listarCarnet(String carnet);
     List<Prestamo> listarDPI(String dpi);
     List<Prestamo> listarFechaInicio(Calendar fechaInicio);
