@@ -52,7 +52,7 @@ class PrestamoControllerTest {
         Calendar miFecha = Calendar.getInstance();
 
         Calendar moraFecha = new GregorianCalendar(2021, Calendar.MARCH, 22, 23, 11, 44);
-        Calendar sinMoraFecha = new GregorianCalendar(2021, Calendar.APRIL, 04, 23, 11, 44);
+        Calendar sinMoraFecha = new GregorianCalendar(2021, Calendar.APRIL, 14, 23, 11, 44);
         //mock para validar que un prestamo tiene mora
         prestamoMock = new Prestamo();
         prestamoMock.setId(1);
@@ -109,7 +109,7 @@ class PrestamoControllerTest {
 
         //mock para validar que un prestamo NO sigue vigente
         //NO BORRAR SERVIRA MAS ADELANTE
-       /* Prestamo prestamoMock4 = new Prestamo();
+       Prestamo prestamoMock4 = new Prestamo();
         prestamoMock4.setId(2);
         prestamoMock4.setNombre("Juan Pablo");
         prestamoMock4.setApellido("Valiente");
@@ -124,10 +124,10 @@ class PrestamoControllerTest {
         prestamoMock4.setCodigoReservacion("1234ABCD");
         prestamoMock4.setMora(true);
         prestamoMock4.setDiasMoroso(12);
-        prestamoMock4.setCodigoLibro("123ABC");*/
+        prestamoMock4.setCodigoLibro("123ABC");
 
         List<Prestamo> miListMock;
-        miListMock = Arrays.asList(prestamoMock,prestamoMock2,prestamoMock3);
+        miListMock = Arrays.asList(prestamoMock,prestamoMock2,prestamoMock3,prestamoMock4);
 
         Mockito.when(prestamoServiceMock.listarCodigoReservacion("1234ABCD")).thenReturn(prestamoMock);
         Mockito.when(prestamoServiceMock.listPorEstado("ACTIVO")).thenReturn(miListMock);
@@ -183,6 +183,33 @@ class PrestamoControllerTest {
         prestamoMockDto.setCodigoLibro("123ABC");
         respuesta = prestamoController.create(prestamoMockDto);
         Assertions.assertEquals(200,respuesta.getStatusCodeValue());
+    }
+
+    //Test para la busqueda general por estado
+    @Test
+    void listarPrestamo(){
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        prestamoController.setService(infoBibliotecaServiceMock);
+        ResponseEntity<List<Prestamo>> responseServicio;
+        responseServicio = prestamoController.listarPrestamo(true,"ACTIVO");
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+    }
+    @Test
+    void reporte1(){
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        prestamoController.setService(infoBibliotecaServiceMock);
+        ResponseEntity<List<Object>> responseServicio;
+        responseServicio = prestamoController.reporte1();
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+    }
+
+    @Test
+    void reporte3(){
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        prestamoController.setService(infoBibliotecaServiceMock);
+        ResponseEntity<List<Object>> responseServicio;
+        responseServicio = prestamoController.reporte3();
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
     //Test para la busqueda general por estado
