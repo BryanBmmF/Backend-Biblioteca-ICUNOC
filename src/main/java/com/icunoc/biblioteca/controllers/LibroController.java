@@ -29,7 +29,6 @@ public class LibroController {
     @PostMapping("/upload")
     public void uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
         this.imagenBytes = file.getBytes();
-        System.out.println(imagenBytes);
     }
 
     //metodo para mandar una lista de libros al cliente

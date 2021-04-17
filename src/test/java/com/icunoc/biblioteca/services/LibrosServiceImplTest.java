@@ -45,6 +45,7 @@ class LibrosServiceImplTest {
         List<Libro> miListLibroMock = Arrays.asList(libroMock);
 
         Mockito.when(libroRepository.findByIdLibro(1)).thenReturn(libroMock);
+        Mockito.when(libroRepository.findLibroByBusqueda("Ecuaciones")).thenReturn(miListLibroMock);
         Mockito.when(libroRepository.findAll()).thenReturn(miListLibroMock);
         Mockito.when(libroRepository.findById(1)).thenReturn(Optional.of(libroMock));
         Mockito.when(libroRepository.findByNombre("Ecuaciones")).thenReturn(Optional.of(libroMock));
@@ -107,6 +108,17 @@ class LibrosServiceImplTest {
         libro = libroServiceImpl.getByNombre("Ecuaciones");
         //Assert
         Assertions.assertEquals("Ecuaciones", libro.get().getNombre());
+    }
+
+    @Test
+    void getByBusqueda() {
+        //Arrange
+        libroServiceImpl.setRepositoryMock(libroRepository);
+        List<Libro> libro;
+        //Act
+        libro = libroServiceImpl.getByBusqueda("Ecuaciones");
+        //Assert
+        Assertions.assertEquals("Ecuaciones", libro.get(0).getNombre());
     }
 
     @Test

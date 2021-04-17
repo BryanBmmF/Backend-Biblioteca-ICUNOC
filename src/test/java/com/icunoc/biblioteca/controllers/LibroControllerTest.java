@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.GrantedAuthority;
@@ -59,6 +60,8 @@ class LibroControllerTest {
         //lo que retona mockito
         //una lista de libros
         Mockito.when(service.list()).thenReturn(miListMock);
+        //una lista de libros filtrada
+        Mockito.when(service.getByBusqueda("Nombre")).thenReturn(miListMock);
         //un libro basado en un id
         Mockito.when(service.getOne(1)).thenReturn(Optional.of(mockLibro));
         //un libro basado en su codigo
@@ -75,11 +78,28 @@ class LibroControllerTest {
     }
 
     @Test
+    void listarLibrosPorBusqueda() {
+        //Arrange
+        libroController.setService(service);
+        ResponseEntity<List<Libro>> responseServicio;
+        //Act
+        responseServicio = libroController.listarLibrosPorBusqueda("Nombre");
+        //Assert
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+    }
+
+    @Test
+    void uploadImage() throws IOException {
+        //Act
+        libroController.uploadImage(new MockMultipartFile("foo", "../foo.txt",
+                MediaType.TEXT_PLAIN_VALUE, "Hello World".getBytes()));
+    }
+
+    @Test
     void listarLibro() {
         libroController.setService(service);
         ResponseEntity<List<Libro>> responseServicio;
         responseServicio = libroController.listarLibro();
-        System.out.println(responseServicio);
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
