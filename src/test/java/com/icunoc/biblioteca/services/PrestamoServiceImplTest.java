@@ -1,5 +1,6 @@
 package com.icunoc.biblioteca.services;
 
+import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
 import com.icunoc.biblioteca.repositories.PrestamoRepository;
 import org.junit.jupiter.api.Assertions;
@@ -45,6 +46,7 @@ class PrestamoServiceImplTest {
         Mockito.when(prestamoRepository.findByFechaInicio(fechaActual)).thenReturn(List.of(prestamoMock));
         Mockito.when(prestamoRepository.findByEstado("RESERVADO")).thenReturn(List.of(prestamoMock));
         Mockito.when(prestamoRepository.countReservacionesPrestamosActivos("1234567891234", "201631722")).thenReturn(2);
+        Mockito.when(prestamoRepository.findPrestamoByBusquedaAndEstado("1","RESERVADO")).thenReturn(miListMock);
     }
 
     @Test
@@ -138,5 +140,15 @@ class PrestamoServiceImplTest {
         prestamoServiceImpl.delete(1);
     }
 
+    @Test
+    void findPrestamoByBusquedaAndEstado() {
+        //Arrange
+        prestamoServiceImpl.setRepository(prestamoRepository);
+        List<Prestamo> prestamos;
+        //Act
+        prestamos = prestamoServiceImpl.findPrestamoByBusquedaAndEstado("1", "RESERVADO");
+        //Assert
+        Assertions.assertEquals("Luis", prestamos.get(0).getNombre());
+    }
 
 }

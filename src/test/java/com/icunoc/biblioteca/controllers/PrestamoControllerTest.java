@@ -128,6 +128,8 @@ class PrestamoControllerTest {
 
         List<Prestamo> miListMock;
         miListMock = Arrays.asList(prestamoMock,prestamoMock2,prestamoMock3,prestamoMock4);
+        List<Prestamo> miListMock2;
+        miListMock2 = Arrays.asList(prestamoMock);
 
         Mockito.when(prestamoServiceMock.listarCodigoReservacion("1234ABCD")).thenReturn(prestamoMock);
         Mockito.when(prestamoServiceMock.listPorEstado("ACTIVO")).thenReturn(miListMock);
@@ -136,6 +138,7 @@ class PrestamoControllerTest {
         Mockito.when(prestamoServiceMock.listarDPI("1234567891234")).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.listarFechaInicio(miFecha)).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.countReservacionesPrestamosActivos("1234567891234","201631722")).thenReturn(2);
+        Mockito.when(prestamoServiceMock.findPrestamoByBusquedaAndEstado("1","ACTIVO")).thenReturn(miListMock2);
     }
 
     @Test
@@ -231,43 +234,6 @@ class PrestamoControllerTest {
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
-    //Tests para la busqueda por codigo de reservacion
-    @Test
-    void listarReservacionxCodigoReservacion(){
-        prestamoController.setPrestamoService(prestamoServiceMock);
-        ResponseEntity<List<Prestamo>> responseServicio;
-        //prestamoController.setEstadoRecivido("RESERVADO");
-        responseServicio = prestamoController.listarReservacionxCodigoReservacion("1234ABCD");
-        System.out.println(responseServicio);
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
-    }
-       //Test para la busqueda x carnet
-    @Test
-    void listarReservacionxCarnet(){
-        prestamoController.setPrestamoService(prestamoServiceMock);
-        ResponseEntity<List<Prestamo>> responseServicio;
-        responseServicio = prestamoController.listarReservacionxCarnet("201631722");
-        System.out.println(responseServicio);
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
-    }
-    //Test para la busqueda x DPI
-    @Test
-    void listarReservacionxDPI(){
-        prestamoController.setPrestamoService(prestamoServiceMock);
-        ResponseEntity<List<Prestamo>> responseServicio;
-        responseServicio = prestamoController.listarReservacionxDPI("1234567891234");
-        System.out.println(responseServicio);
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
-    }
-    //Test para la busqueda x fechaInicio
-    @Test
-    void listarReservacionxFechaInicio() throws ParseException {
-        prestamoController.setPrestamoService(prestamoServiceMock);
-        ResponseEntity<List<Prestamo>> responseServicio;
-        responseServicio = prestamoController.listarReservacionxFechaInicio("2021-03-06");
-        System.out.println(responseServicio);
-        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
-    }
     @Test
     void delete(){
         //Arrage
@@ -315,6 +281,17 @@ class PrestamoControllerTest {
         ResponseEntity<Integer> responseServicio;
         //Act
         responseServicio = prestamoController.contarPrestamosReservacionesActivas("1234567891234", "201631722");
+        //Assert
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+    }
+
+    @Test
+    void listarPrestamosPorBusquedayEstado() {
+        //Arrange
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        ResponseEntity<List<Prestamo>> responseServicio;
+        //Act
+        responseServicio = prestamoController.listarPrestamosPorBusquedayEstado("1", "ACTIVO");
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }

@@ -81,8 +81,6 @@ public class PrestamoController {
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
-
-
     @PutMapping("/finalizar/{codigoReservacion}")
     public ResponseEntity<?> finalizarPrestamo(@PathVariable("codigoReservacion") String codigo){
         // si no hay problemas se guarda el usuario
@@ -108,56 +106,6 @@ public class PrestamoController {
     @GetMapping(path = {"/{codigoReservacion}"})
     public Prestamo listarReservacion(@PathVariable("codigoReservacion") String codigo){
         return prestamoService.listarCodigoReservacion(codigo);
-    }
-
-
-    @GetMapping(path = {"/codigoReservacion/{codigoReservacion}"})
-    public ResponseEntity<List<Prestamo>> listarReservacionxCodigoReservacion(@PathVariable("codigoReservacion") String codigo){
-        Prestamo prestamoPorCodReservacion = prestamoService.listarCodigoReservacion(codigo);
-        listaFiltrada = new ArrayList<>();
-            if (prestamoPorCodReservacion.getEstado().equals(estadoRecivido)){
-                listaFiltrada.add(prestamoPorCodReservacion);
-            }
-        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
-    }
-    
-    @GetMapping(path = {"/carnet/{carnet}"})
-    public ResponseEntity<List<Prestamo>> listarReservacionxCarnet(@PathVariable("carnet") String carnet){
-        List<Prestamo> list = prestamoService.listarCarnet(carnet);
-        listaFiltrada = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getEstado().equals(estadoRecivido)){
-                listaFiltrada.add(list.get(i));
-            }
-        }
-        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
-    }
-
-    @GetMapping(path = {"/dpi/{dpi}"})
-    public ResponseEntity<List<Prestamo>> listarReservacionxDPI(@PathVariable("dpi") String dpi){
-        List<Prestamo> list = prestamoService.listarDPI(dpi);
-        listaFiltrada = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getEstado().equals(estadoRecivido)){
-                listaFiltrada.add(list.get(i));
-            }
-        }
-        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
-    }
-
-    @GetMapping(path = {"/FechaInicio/{fechaInicio}"})
-    public ResponseEntity<List<Prestamo>> listarReservacionxFechaInicio(@PathVariable("fechaInicio") String fecha) throws ParseException {
-        Calendar fechaBusqueda = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        fechaBusqueda.setTime(sdf.parse(fecha));
-        List<Prestamo> list = prestamoService.listarFechaInicio(fechaBusqueda);
-        listaFiltrada = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getEstado().equals(estadoRecivido)){
-                listaFiltrada.add(list.get(i));
-            }
-        }
-        return new ResponseEntity(listaFiltrada,HttpStatus.OK);
     }
 
     //Nuevo: se pasa un Json Libro por medio de http y se valida
@@ -191,6 +139,13 @@ public class PrestamoController {
     public ResponseEntity<Integer> contarPrestamosReservacionesActivas(@PathVariable("dpi") String dpi, @PathVariable("carnet") String carnet){
         long conteo = prestamoService.countReservacionesPrestamosActivos(dpi,carnet);
         return new ResponseEntity(conteo,HttpStatus.OK);
+    }
+
+    //metodo para mandar una lista de libros al cliente
+    @GetMapping("/prestamosFiltrados/{busqueda}/{estado}")
+    public ResponseEntity<List<Prestamo>> listarPrestamosPorBusquedayEstado(@PathVariable("busqueda") String busqueda, @PathVariable("estado") String estado){
+        List<Prestamo> list = prestamoService.findPrestamoByBusquedaAndEstado(busqueda, estado);
+        return new ResponseEntity(list, HttpStatus.OK);
     }
 
     //para el mock

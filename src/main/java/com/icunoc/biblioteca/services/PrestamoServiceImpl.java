@@ -67,6 +67,11 @@ public class PrestamoServiceImpl implements PrestamoService {
     }
 
     @Override
+    public List<Prestamo> findPrestamoByBusquedaAndEstado(String busqueda, String estado) {
+        return repository.findPrestamoByBusquedaAndEstado(busqueda, estado);
+    }
+
+    @Override
     public void delete(int id) {
         repository.deleteById(id);
     }
