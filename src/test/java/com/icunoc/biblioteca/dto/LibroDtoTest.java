@@ -12,12 +12,13 @@ class LibroDtoTest {
     private static final byte[] BYTES_IMAGEN = "bytes".getBytes();
     private static final String NOMBRE_TEST = "Nombre";
     private static final String CODIGO_TEST = "12345";
+    private static final String AUTOR_TEST = "Autor";
 
     @Test
     void constructor() {
         //act
         byte[] imagenBytes = BYTES_IMAGEN;
-        LibroDto libroDto = new LibroDto("Autor", "codigo", 1, Calendar.getInstance(), Idioma.ESPAÑOL, "Nombre", imagenBytes, 1);
+        LibroDto libroDto = new LibroDto(AUTOR_TEST, CODIGO_TEST, 1, Calendar.getInstance(), Idioma.ESPAÑOL, NOMBRE_TEST, imagenBytes, 1);
         assertTrue(libroDto.getIdioma() == Idioma.ESPAÑOL);
     }
 
