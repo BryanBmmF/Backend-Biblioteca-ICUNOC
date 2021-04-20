@@ -1,7 +1,6 @@
 package com.icunoc.biblioteca.dto;
 
 import com.icunoc.biblioteca.enums.Idioma;
-import com.icunoc.biblioteca.models.Libro;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -10,11 +9,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LibroDtoTest {
 
+    private static final byte[] BYTES_IMAGEN = "bytes".getBytes();
+    private static final String NOMBRE_TEST = "Nombre";
+    private static final String CODIGO_TEST = "12345";
+
     @Test
     void constructor() {
         //act
-        byte[] imagenBytes = "bytes".getBytes();
+        byte[] imagenBytes = BYTES_IMAGEN;
         LibroDto libroDto = new LibroDto("Autor", "codigo", 1, Calendar.getInstance(), Idioma.ESPAÑOL, "Nombre", imagenBytes, 1);
+        assertTrue(libroDto.getIdioma() == Idioma.ESPAÑOL);
     }
 
     @Test
@@ -34,44 +38,29 @@ class LibroDtoTest {
     @Test
     void getNombre() {
         LibroDto libro = new LibroDto();
-        libro.setNombre("Nombre prueba");
-        assertTrue(libro.getNombre() == "Nombre prueba");
+        libro.setNombre(NOMBRE_TEST);
+        assertTrue(libro.getNombre() == NOMBRE_TEST);
     }
 
     @Test
     void setNombre() {
         LibroDto libro = new LibroDto();
-        libro.setNombre("Nombre prueba");
-        assertTrue(libro.getNombre() == "Nombre prueba");
+        libro.setNombre(NOMBRE_TEST);
+        assertTrue(libro.getNombre() == NOMBRE_TEST);
     }
-
-    /*
-    @Test
-    void getAutor() {
-        LibroDto libro = new LibroDto();
-        libro.setAutor("Autor");
-        assertTrue(libro.getAutor()=="Autor");
-    }
-
-    @Test
-    void setAutor() {
-        LibroDto libro = new LibroDto();
-        libro.setAutor("Autor");
-        assertTrue(libro.getAutor() == "Autor");
-    }*/
 
     @Test
     void getCodigo() {
         LibroDto libro = new LibroDto();
-        libro.setCodigo("124Prueba");
-        assertTrue(libro.getCodigo() == "124Prueba");
+        libro.setCodigo(CODIGO_TEST);
+        assertTrue(libro.getCodigo() == CODIGO_TEST);
     }
 
     @Test
     void setCodigo() {
         LibroDto libro = new LibroDto();
-        libro.setCodigo("124Prueba");
-        assertTrue(libro.getCodigo() == "124Prueba");
+        libro.setCodigo(CODIGO_TEST);
+        assertTrue(libro.getCodigo() == CODIGO_TEST);
     }
 
     @Test
@@ -134,7 +123,7 @@ class LibroDtoTest {
 
     @Test
     void getPathImagen() {
-        byte[] imagenBytes = "bytes".getBytes();
+        byte[] imagenBytes = BYTES_IMAGEN;
         LibroDto libro = new LibroDto();
         libro.setPathImagen(imagenBytes);
         assertTrue(libro.getPathImagen() == imagenBytes);
@@ -142,7 +131,7 @@ class LibroDtoTest {
 
     @Test
     void setPathImagen() {
-        byte[] imagenBytes = "bytes".getBytes();
+        byte[] imagenBytes = BYTES_IMAGEN;
         LibroDto libro = new LibroDto();
         libro.setPathImagen(imagenBytes);
         assertTrue(libro.getPathImagen() == imagenBytes);

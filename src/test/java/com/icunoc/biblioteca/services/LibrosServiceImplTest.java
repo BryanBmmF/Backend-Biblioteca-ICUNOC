@@ -3,14 +3,11 @@ package com.icunoc.biblioteca.services;
 import com.icunoc.biblioteca.enums.Idioma;
 import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.repositories.LibroRepository;
-import com.icunoc.biblioteca.repositories.PrestamoRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -22,6 +19,7 @@ class LibrosServiceImplTest {
 
     Calendar fechaActual = Calendar.getInstance();
     byte[] imagenBytes = "bytes".getBytes();
+    private static final String NOMBRE_LIBRO_TEST = "Ecuaciones";
 
     @Autowired
     LibroRepository libroRepository = Mockito.mock(LibroRepository.class);
@@ -34,7 +32,7 @@ class LibrosServiceImplTest {
 
         libroMock.setIdLibro(1);
         libroMock.setCodigo("L1");
-        libroMock.setNombre("Ecuaciones");
+        libroMock.setNombre(NOMBRE_LIBRO_TEST);
         libroMock.setAutor("Luis Hernandez");
         libroMock.setStock(5);
         libroMock.setEdicion(5);
@@ -45,13 +43,13 @@ class LibrosServiceImplTest {
         List<Libro> miListLibroMock = Arrays.asList(libroMock);
 
         Mockito.when(libroRepository.findByIdLibro(1)).thenReturn(libroMock);
-        Mockito.when(libroRepository.findLibroByBusqueda("Ecuaciones")).thenReturn(miListLibroMock);
+        Mockito.when(libroRepository.findLibroByBusqueda(NOMBRE_LIBRO_TEST)).thenReturn(miListLibroMock);
         Mockito.when(libroRepository.findAll()).thenReturn(miListLibroMock);
         Mockito.when(libroRepository.findById(1)).thenReturn(Optional.of(libroMock));
-        Mockito.when(libroRepository.findByNombre("Ecuaciones")).thenReturn(Optional.of(libroMock));
+        Mockito.when(libroRepository.findByNombre(NOMBRE_LIBRO_TEST)).thenReturn(Optional.of(libroMock));
         Mockito.when(libroRepository.findByCodigo("L1")).thenReturn(Optional.of(libroMock));
         Mockito.when(libroRepository.existsById(1)).thenReturn(true);
-        Mockito.when(libroRepository.existsByNombre("Ecuaciones")).thenReturn(true);
+        Mockito.when(libroRepository.existsByNombre(NOMBRE_LIBRO_TEST)).thenReturn(true);
         Mockito.when(libroRepository.existsByCodigo("L1")).thenReturn(true);
 
     }
@@ -83,7 +81,7 @@ class LibrosServiceImplTest {
         //Arrange
         libroServiceImpl.setRepositoryMock(libroRepository);
         Libro nuevoLibro = new Libro();
-        //Act}
+        //Act
         libroServiceImpl.add(nuevoLibro);
         //Assert
     }
@@ -105,9 +103,9 @@ class LibrosServiceImplTest {
         libroServiceImpl.setRepositoryMock(libroRepository);
         Optional<Libro> libro;
         //Act
-        libro = libroServiceImpl.getByNombre("Ecuaciones");
+        libro = libroServiceImpl.getByNombre(NOMBRE_LIBRO_TEST);
         //Assert
-        Assertions.assertEquals("Ecuaciones", libro.get().getNombre());
+        Assertions.assertEquals(NOMBRE_LIBRO_TEST, libro.get().getNombre());
     }
 
     @Test
@@ -116,9 +114,9 @@ class LibrosServiceImplTest {
         libroServiceImpl.setRepositoryMock(libroRepository);
         List<Libro> libro;
         //Act
-        libro = libroServiceImpl.getByBusqueda("Ecuaciones");
+        libro = libroServiceImpl.getByBusqueda(NOMBRE_LIBRO_TEST);
         //Assert
-        Assertions.assertEquals("Ecuaciones", libro.get(0).getNombre());
+        Assertions.assertEquals(NOMBRE_LIBRO_TEST, libro.get(0).getNombre());
     }
 
     @Test
@@ -178,7 +176,7 @@ class LibrosServiceImplTest {
         libroServiceImpl.setRepositoryMock(libroRepository);
         boolean libroExists;
         //Act
-        libroExists = libroServiceImpl.existsByNombre("Ecuaciones");
+        libroExists = libroServiceImpl.existsByNombre(NOMBRE_LIBRO_TEST);
         //Assert
         Assertions.assertEquals(true, libroExists);
     }

@@ -1,5 +1,6 @@
 package com.icunoc.biblioteca.controllers;
 
+import com.icunoc.biblioteca.constants.AppConstants;
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.models.Prestamo;
 import com.icunoc.biblioteca.dto.InfoBibliotecaDto;
@@ -13,8 +14,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.text.ParseException;
 import java.util.*;
 
 class PrestamoControllerTest {
@@ -38,6 +37,12 @@ class PrestamoControllerTest {
 
     Prestamo prestamoMock = Mockito.mock(Prestamo.class);
 
+    private static final String DPI_TEST = "1234567891234";
+    private static final String CARNET_TEST = "201631722";
+    private static final String CARRERA_TEST = "SISTEMAS";
+    private static final String CODIGO_RESERVACION_TEST = "1234ABCD";
+    private static final String CODIGO_LIBRO_TEST = "123ABC";
+
     @BeforeEach
     void setUp() {
         //InfoBibliotecaMock
@@ -58,54 +63,54 @@ class PrestamoControllerTest {
         prestamoMock.setId(1);
         prestamoMock.setNombre("Brayan");
         prestamoMock.setApellido("Monzon");
-        prestamoMock.setDpi("1234567891234");
-        prestamoMock.setCarnet("201631722");
-        prestamoMock.setCarrera("SISTEMAS");
+        prestamoMock.setDpi(DPI_TEST);
+        prestamoMock.setCarnet(CARNET_TEST);
+        prestamoMock.setCarrera(CARRERA_TEST);
         prestamoMock.setFechaReservacion(null);
         prestamoMock.setFechaInicio(moraFecha);
         prestamoMock.setFechaFin(null);
         prestamoMock.setCosto(0);
-        prestamoMock.setEstado("ACTIVO");
-        prestamoMock.setCodigoReservacion("1234ABCD");
+        prestamoMock.setEstado(AppConstants.ESTADO_ACTIVO);
+        prestamoMock.setCodigoReservacion(CODIGO_RESERVACION_TEST);
         prestamoMock.setMora(true);
         prestamoMock.setDiasMoroso(1);
-        prestamoMock.setCodigoLibro("123ABC");
+        prestamoMock.setCodigoLibro(CODIGO_LIBRO_TEST);
 
         //mock para validar que un prestamo NO tiene mora
         Prestamo prestamoMock2 = new Prestamo();
         prestamoMock2.setId(1);
         prestamoMock2.setNombre("Jony");
         prestamoMock2.setApellido("Chiroy");
-        prestamoMock2.setDpi("1234567891234");
-        prestamoMock2.setCarnet("201631722");
-        prestamoMock2.setCarrera("SISTEMAS");
+        prestamoMock2.setDpi(DPI_TEST);
+        prestamoMock2.setCarnet(CARNET_TEST);
+        prestamoMock2.setCarrera(CARRERA_TEST);
         prestamoMock2.setFechaReservacion(miFecha);
         prestamoMock2.setFechaInicio(sinMoraFecha);
         prestamoMock2.setFechaFin(miFecha);
         prestamoMock2.setCosto(0);
-        prestamoMock2.setEstado("ACTIVO");
-        prestamoMock2.setCodigoReservacion("1234ABCD");
+        prestamoMock2.setEstado(AppConstants.ESTADO_ACTIVO);
+        prestamoMock2.setCodigoReservacion(CODIGO_RESERVACION_TEST);
         prestamoMock2.setMora(true);
         prestamoMock2.setDiasMoroso(12);
-        prestamoMock2.setCodigoLibro("123ABC");
+        prestamoMock2.setCodigoLibro(CODIGO_LIBRO_TEST);
 
         //mock para validar que un prestamo sigue vigente
         Prestamo prestamoMock3 = new Prestamo();
         prestamoMock3.setId(2);
         prestamoMock3.setNombre("Ricardo");
         prestamoMock3.setApellido("Mendez");
-        prestamoMock3.setDpi("1234567891234");
-        prestamoMock3.setCarnet("201631722");
-        prestamoMock3.setCarrera("SISTEMAS");
+        prestamoMock3.setDpi(DPI_TEST);
+        prestamoMock3.setCarnet(CARNET_TEST);
+        prestamoMock3.setCarrera(CARRERA_TEST);
         prestamoMock3.setFechaReservacion(miFecha);
         prestamoMock3.setFechaInicio(sinMoraFecha);
         prestamoMock3.setFechaFin(miFecha);
         prestamoMock3.setCosto(0);
-        prestamoMock3.setEstado("RESERVADO");
-        prestamoMock3.setCodigoReservacion("1234ABCD");
+        prestamoMock3.setEstado(AppConstants.ESTADO_RESERVADO);
+        prestamoMock3.setCodigoReservacion(CODIGO_RESERVACION_TEST);
         prestamoMock3.setMora(true);
         prestamoMock3.setDiasMoroso(12);
-        prestamoMock3.setCodigoLibro("123ABC");
+        prestamoMock3.setCodigoLibro(CODIGO_LIBRO_TEST);
 
         //mock para validar que un prestamo NO sigue vigente
         //NO BORRAR SERVIRA MAS ADELANTE
@@ -113,54 +118,54 @@ class PrestamoControllerTest {
         prestamoMock4.setId(2);
         prestamoMock4.setNombre("Juan Pablo");
         prestamoMock4.setApellido("Valiente");
-        prestamoMock4.setDpi("1234567891234");
-        prestamoMock4.setCarnet("201631722");
-        prestamoMock4.setCarrera("SISTEMAS");
+        prestamoMock4.setDpi(DPI_TEST);
+        prestamoMock4.setCarnet(CARNET_TEST);
+        prestamoMock4.setCarrera(CARRERA_TEST);
         prestamoMock4.setFechaReservacion(moraFecha);
         prestamoMock4.setFechaInicio(moraFecha);
         prestamoMock4.setFechaFin(miFecha);
         prestamoMock4.setCosto(0);
-        prestamoMock4.setEstado("RESERVADO");
-        prestamoMock4.setCodigoReservacion("1234ABCD");
+        prestamoMock4.setEstado(AppConstants.ESTADO_RESERVADO);
+        prestamoMock4.setCodigoReservacion(CODIGO_RESERVACION_TEST);
         prestamoMock4.setMora(true);
         prestamoMock4.setDiasMoroso(12);
-        prestamoMock4.setCodigoLibro("123ABC");
+        prestamoMock4.setCodigoLibro(CODIGO_LIBRO_TEST);
 
         List<Prestamo> miListMock;
         miListMock = Arrays.asList(prestamoMock,prestamoMock2,prestamoMock3,prestamoMock4);
         List<Prestamo> miListMock2;
         miListMock2 = Arrays.asList(prestamoMock);
 
-        Mockito.when(prestamoServiceMock.listarCodigoReservacion("1234ABCD")).thenReturn(prestamoMock);
-        Mockito.when(prestamoServiceMock.listPorEstado("ACTIVO")).thenReturn(miListMock);
-        Mockito.when(prestamoServiceMock.listPorEstado("RESERVADO")).thenReturn(miListMock);
-        Mockito.when(prestamoServiceMock.listarCarnet("201631722")).thenReturn(miListMock);
-        Mockito.when(prestamoServiceMock.listarDPI("1234567891234")).thenReturn(miListMock);
+        Mockito.when(prestamoServiceMock.listarCodigoReservacion(CODIGO_RESERVACION_TEST)).thenReturn(prestamoMock);
+        Mockito.when(prestamoServiceMock.listPorEstado(AppConstants.ESTADO_ACTIVO)).thenReturn(miListMock);
+        Mockito.when(prestamoServiceMock.listPorEstado(AppConstants.ESTADO_RESERVADO)).thenReturn(miListMock);
+        Mockito.when(prestamoServiceMock.listarCarnet(CARNET_TEST)).thenReturn(miListMock);
+        Mockito.when(prestamoServiceMock.listarDPI(DPI_TEST)).thenReturn(miListMock);
         Mockito.when(prestamoServiceMock.listarFechaInicio(miFecha)).thenReturn(miListMock);
-        Mockito.when(prestamoServiceMock.countReservacionesPrestamosActivos("1234567891234","201631722")).thenReturn(2);
-        Mockito.when(prestamoServiceMock.findPrestamoByBusquedaAndEstado("1","ACTIVO")).thenReturn(miListMock2);
+        Mockito.when(prestamoServiceMock.countReservacionesPrestamosActivos(DPI_TEST,CARNET_TEST)).thenReturn(2);
+        Mockito.when(prestamoServiceMock.findPrestamoByBusquedaAndEstado("1",AppConstants.ESTADO_ACTIVO)).thenReturn(miListMock2);
     }
 
     @Test
     void listarReservacion() {
         //Arrange
-        Prestamo respuestaServicio = new Prestamo();
+        Prestamo respuestaServicio;
         prestamoController.setPrestamoService(prestamoServiceMock);
         //Act
-        respuestaServicio = prestamoController.listarReservacion("1234ABCD");
+        respuestaServicio = prestamoController.listarReservacion(CODIGO_RESERVACION_TEST);
         //Assert
         Assertions.assertEquals(1, respuestaServicio.getId());
         Assertions.assertEquals("Brayan", respuestaServicio.getNombre());
         Assertions.assertEquals("Monzon", respuestaServicio.getApellido());
-        Assertions.assertEquals("1234567891234", respuestaServicio.getDpi());
-        Assertions.assertEquals("201631722", respuestaServicio.getCarnet());
-        Assertions.assertEquals("SISTEMAS", respuestaServicio.getCarrera());
+        Assertions.assertEquals(DPI_TEST, respuestaServicio.getDpi());
+        Assertions.assertEquals(CARNET_TEST, respuestaServicio.getCarnet());
+        Assertions.assertEquals(CARRERA_TEST, respuestaServicio.getCarrera());
         Assertions.assertEquals(0, respuestaServicio.getCosto());
-        Assertions.assertEquals("ACTIVO", respuestaServicio.getEstado());
-        Assertions.assertEquals("1234ABCD", respuestaServicio.getCodigoReservacion());
+        Assertions.assertEquals(AppConstants.ESTADO_ACTIVO, respuestaServicio.getEstado());
+        Assertions.assertEquals(CODIGO_RESERVACION_TEST, respuestaServicio.getCodigoReservacion());
         Assertions.assertEquals(true, respuestaServicio.isMora());
         Assertions.assertEquals(1, respuestaServicio.getDiasMoroso());
-        Assertions.assertEquals("123ABC", respuestaServicio.getCodigoLibro());
+        Assertions.assertEquals(CODIGO_LIBRO_TEST, respuestaServicio.getCodigoLibro());
     }
 
     @Test
@@ -172,18 +177,18 @@ class PrestamoControllerTest {
         prestamoMockDto.setId(1);
         prestamoMockDto.setNombre("Luis");
         prestamoMockDto.setApellido("Hernandez");
-        prestamoMockDto.setDpi("1234567891234");
-        prestamoMockDto.setCarnet("201631722");
-        prestamoMockDto.setCarrera("SISTEMAS");
+        prestamoMockDto.setDpi(DPI_TEST);
+        prestamoMockDto.setCarnet(CARNET_TEST);
+        prestamoMockDto.setCarrera(CARRERA_TEST);
         prestamoMockDto.setFechaReservacion(null);
         prestamoMockDto.setFechaInicio(null);
         prestamoMockDto.setFechaFin(null);
         prestamoMockDto.setCosto(0);
-        prestamoMockDto.setEstado("RESERVADO");
-        prestamoMockDto.setCodigoReservacion("1234ABCD");
+        prestamoMockDto.setEstado(AppConstants.ESTADO_RESERVADO);
+        prestamoMockDto.setCodigoReservacion(CODIGO_RESERVACION_TEST);
         prestamoMockDto.setMora(true);
         prestamoMockDto.setDiasMoroso(1);
-        prestamoMockDto.setCodigoLibro("123ABC");
+        prestamoMockDto.setCodigoLibro(CODIGO_LIBRO_TEST);
         respuesta = prestamoController.create(prestamoMockDto);
         Assertions.assertEquals(200,respuesta.getStatusCodeValue());
     }
@@ -194,7 +199,7 @@ class PrestamoControllerTest {
         prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoController.setService(infoBibliotecaServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
-        responseServicio = prestamoController.listarPrestamo(true,"ACTIVO");
+        responseServicio = prestamoController.listarPrestamo(true,AppConstants.ESTADO_ACTIVO);
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
     @Test
@@ -221,7 +226,7 @@ class PrestamoControllerTest {
         prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoController.setService(infoBibliotecaServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
-        responseServicio = prestamoController.listarPrestamos("ACTIVO");
+        responseServicio = prestamoController.listarPrestamos(AppConstants.ESTADO_ACTIVO);
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
@@ -230,7 +235,7 @@ class PrestamoControllerTest {
         prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoController.setService(infoBibliotecaServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
-        responseServicio = prestamoController.listarPrestamos("RESERVADO");
+        responseServicio = prestamoController.listarPrestamos(AppConstants.ESTADO_RESERVADO);
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
 
@@ -250,12 +255,12 @@ class PrestamoControllerTest {
     @Test
     void finalizarPrestamo(){
         //arrange
-        Mockito.when(prestamoServiceMock.getOne("1234ABCD")).thenReturn(prestamoMock);
+        Mockito.when(prestamoServiceMock.getOne(CODIGO_RESERVACION_TEST)).thenReturn(prestamoMock);
         prestamoController.setPrestamoService(prestamoServiceMock);
         prestamoMock.setEstado("FINALIZADO");
         prestamoMock.setFechaFin(null);
         //act
-        ResponseEntity<?> response = prestamoController.finalizarPrestamo("1234ABCD");
+        ResponseEntity<?> response = prestamoController.finalizarPrestamo(CODIGO_RESERVACION_TEST);
         //assert
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
@@ -264,12 +269,12 @@ class PrestamoControllerTest {
     @Test
     void iniciarPrestamo(){
         //arrange
-        Mockito.when(prestamoServiceMock.getOne("1234ABCD")).thenReturn(prestamoMock);
+        Mockito.when(prestamoServiceMock.getOne(CODIGO_RESERVACION_TEST)).thenReturn(prestamoMock);
         prestamoController.setPrestamoService(prestamoServiceMock);
-        prestamoMock.setEstado("ACTIVO");
+        prestamoMock.setEstado(AppConstants.ESTADO_ACTIVO);
         prestamoMock.setFechaFin(null);
         //act
-        ResponseEntity<?> response = prestamoController.iniciarPrestamo("1234ABCD");
+        ResponseEntity<?> response = prestamoController.iniciarPrestamo(CODIGO_RESERVACION_TEST);
         //assert
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
     }
@@ -280,7 +285,7 @@ class PrestamoControllerTest {
         prestamoController.setPrestamoService(prestamoServiceMock);
         ResponseEntity<Integer> responseServicio;
         //Act
-        responseServicio = prestamoController.contarPrestamosReservacionesActivas("1234567891234", "201631722");
+        responseServicio = prestamoController.contarPrestamosReservacionesActivas(DPI_TEST, CARNET_TEST);
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
@@ -291,7 +296,7 @@ class PrestamoControllerTest {
         prestamoController.setPrestamoService(prestamoServiceMock);
         ResponseEntity<List<Prestamo>> responseServicio;
         //Act
-        responseServicio = prestamoController.listarPrestamosPorBusquedayEstado("1", "ACTIVO");
+        responseServicio = prestamoController.listarPrestamosPorBusquedayEstado("1", AppConstants.ESTADO_ACTIVO);
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }

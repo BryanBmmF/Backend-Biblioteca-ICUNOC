@@ -1,6 +1,6 @@
 package com.icunoc.biblioteca.services;
 
-import com.icunoc.biblioteca.models.Libro;
+import com.icunoc.biblioteca.constants.AppConstants;
 import com.icunoc.biblioteca.models.Prestamo;
 import com.icunoc.biblioteca.repositories.PrestamoRepository;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -21,32 +20,38 @@ class PrestamoServiceImplTest {
     PrestamoServiceImpl prestamoServiceImpl = new PrestamoServiceImpl();
 
     Calendar fechaActual = Calendar.getInstance();
+
+    private static final String DPI_TEST = "1234567891234";
+    private static final String CARNET_TEST = "201631722";
+    private static final String CODIGO_RESERVACION_TEST = "1234ABCD";
+    private static final String CODIGO_LIBRO_TEST = "123ABC";
+
     @BeforeEach
     void setUp() {
         Prestamo prestamoMock = new Prestamo();
         prestamoMock.setId(1);
         prestamoMock.setNombre("Luis");
         prestamoMock.setApellido("Hernandez");
-        prestamoMock.setDpi("1234567891234");
-        prestamoMock.setCarnet("201631722");
+        prestamoMock.setDpi(DPI_TEST);
+        prestamoMock.setCarnet(CARNET_TEST);
         prestamoMock.setCarrera("SISTEMAS");
         prestamoMock.setFechaReservacion(fechaActual);
         prestamoMock.setFechaInicio(fechaActual);
         prestamoMock.setFechaFin(fechaActual);
         prestamoMock.setCosto(0);
-        prestamoMock.setEstado("RESERVADO");
-        prestamoMock.setCodigoReservacion("1234ABCD");
+        prestamoMock.setEstado(AppConstants.ESTADO_RESERVADO);
+        prestamoMock.setCodigoReservacion(CODIGO_RESERVACION_TEST);
         prestamoMock.setCodigoLibro("123ABC");
 
         List<Prestamo> miListMock = Arrays.asList(prestamoMock);
 
-        Mockito.when(prestamoRepository.findByCodigoReservacion("1234ABCD")).thenReturn(prestamoMock);
-        Mockito.when(prestamoRepository.findByCarnet("201631722")).thenReturn(List.of(prestamoMock));
-        Mockito.when(prestamoRepository.findByDpi("1234567891234")).thenReturn(List.of(prestamoMock));
+        Mockito.when(prestamoRepository.findByCodigoReservacion(CODIGO_RESERVACION_TEST)).thenReturn(prestamoMock);
+        Mockito.when(prestamoRepository.findByCarnet(CARNET_TEST)).thenReturn(List.of(prestamoMock));
+        Mockito.when(prestamoRepository.findByDpi(DPI_TEST)).thenReturn(List.of(prestamoMock));
         Mockito.when(prestamoRepository.findByFechaInicio(fechaActual)).thenReturn(List.of(prestamoMock));
-        Mockito.when(prestamoRepository.findByEstado("RESERVADO")).thenReturn(List.of(prestamoMock));
-        Mockito.when(prestamoRepository.countReservacionesPrestamosActivos("1234567891234", "201631722")).thenReturn(2);
-        Mockito.when(prestamoRepository.findPrestamoByBusquedaAndEstado("1","RESERVADO")).thenReturn(miListMock);
+        Mockito.when(prestamoRepository.findByEstado(AppConstants.ESTADO_RESERVADO)).thenReturn(List.of(prestamoMock));
+        Mockito.when(prestamoRepository.countReservacionesPrestamosActivos(DPI_TEST, CARNET_TEST)).thenReturn(2);
+        Mockito.when(prestamoRepository.findPrestamoByBusquedaAndEstado("1",AppConstants.ESTADO_RESERVADO)).thenReturn(miListMock);
     }
 
     @Test
@@ -54,9 +59,9 @@ class PrestamoServiceImplTest {
         //Arrange
         prestamoServiceImpl.setRepository(prestamoRepository);
         //Act
-        Prestamo prestamoRecivido = prestamoServiceImpl.listarCodigoReservacion("1234ABCD");
+        Prestamo prestamoRecivido = prestamoServiceImpl.listarCodigoReservacion(CODIGO_RESERVACION_TEST);
         //Assert
-        Assertions.assertEquals("1234ABCD",prestamoRecivido.getCodigoReservacion());
+        Assertions.assertEquals(CODIGO_RESERVACION_TEST,prestamoRecivido.getCodigoReservacion());
     }
 
     @Test
@@ -64,9 +69,9 @@ class PrestamoServiceImplTest {
         //Arrange
         prestamoServiceImpl.setRepository(prestamoRepository);
         //Act
-        Prestamo prestamoRecivido = prestamoServiceImpl.getOne("1234ABCD");
+        Prestamo prestamoRecivido = prestamoServiceImpl.getOne(CODIGO_RESERVACION_TEST);
         //Assert
-        Assertions.assertEquals("1234ABCD",prestamoRecivido.getCodigoReservacion());
+        Assertions.assertEquals(CODIGO_RESERVACION_TEST,prestamoRecivido.getCodigoReservacion());
     }
 
     @Test
@@ -74,7 +79,7 @@ class PrestamoServiceImplTest {
         //Arrange
         prestamoServiceImpl.setRepository(prestamoRepository);
         //Act
-        int conteo = prestamoServiceImpl.countReservacionesPrestamosActivos("1234567891234", "201631722");
+        int conteo = prestamoServiceImpl.countReservacionesPrestamosActivos(DPI_TEST, CARNET_TEST);
         //Assert
         Assertions.assertEquals(conteo,2);
     }
@@ -85,7 +90,7 @@ class PrestamoServiceImplTest {
         prestamoServiceImpl.setRepository(prestamoRepository);
         List<Prestamo> listPrestamo;
         //Act
-        listPrestamo = prestamoServiceImpl.listarCarnet("201631722");
+        listPrestamo = prestamoServiceImpl.listarCarnet(CARNET_TEST);
         //Assert
         Assertions.assertEquals("Luis", listPrestamo.get(0).getNombre());
     }
@@ -96,9 +101,9 @@ class PrestamoServiceImplTest {
         prestamoServiceImpl.setRepository(prestamoRepository);
         List<Prestamo> listPrestamo;
         //Act
-        listPrestamo = prestamoServiceImpl.listarDPI("1234567891234");
+        listPrestamo = prestamoServiceImpl.listarDPI(DPI_TEST);
         //Assert
-        Assertions.assertEquals("1234567891234", listPrestamo.get(0).getDpi());
+        Assertions.assertEquals(DPI_TEST, listPrestamo.get(0).getDpi());
     }
 
     @Test
@@ -107,9 +112,9 @@ class PrestamoServiceImplTest {
         prestamoServiceImpl.setRepository(prestamoRepository);
         List<Prestamo> listPrestamo;
         //Act
-        listPrestamo = prestamoServiceImpl.listPorEstado("RESERVADO");
+        listPrestamo = prestamoServiceImpl.listPorEstado(AppConstants.ESTADO_RESERVADO);
         //Assert
-        Assertions.assertEquals("RESERVADO", listPrestamo.get(0).getEstado());
+        Assertions.assertEquals(AppConstants.ESTADO_RESERVADO, listPrestamo.get(0).getEstado());
     }
 
     @Test
@@ -146,7 +151,7 @@ class PrestamoServiceImplTest {
         prestamoServiceImpl.setRepository(prestamoRepository);
         List<Prestamo> prestamos;
         //Act
-        prestamos = prestamoServiceImpl.findPrestamoByBusquedaAndEstado("1", "RESERVADO");
+        prestamos = prestamoServiceImpl.findPrestamoByBusquedaAndEstado("1", AppConstants.ESTADO_RESERVADO);
         //Assert
         Assertions.assertEquals("Luis", prestamos.get(0).getNombre());
     }
