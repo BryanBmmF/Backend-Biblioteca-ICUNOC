@@ -7,22 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MensajeTest {
+    private static final String MENSAJE_DEFAULT= "mensaje";
 
     @Autowired
-    Mensaje mensajeTest = new Mensaje("mensaje");
+    Mensaje mensajeTest;
 
     @BeforeEach
     void setUp() {
-        mensajeTest.setMensaje("mensaje");
+        mensajeTest = new Mensaje(MENSAJE_DEFAULT);
+        mensajeTest.setMensaje(MENSAJE_DEFAULT);
     }
 
     @Test
     void setMensaje() {
         //Arrange
-        Mensaje mensajeTestPrueba = new Mensaje("mensaje");
+        Mensaje mensajeTestPrueba = new Mensaje(MENSAJE_DEFAULT);
         //Act
-        mensajeTestPrueba.setMensaje("mensaje");
+        mensajeTestPrueba.setMensaje(MENSAJE_DEFAULT);
         //Arrange
-        assertTrue(mensajeTestPrueba.getMensaje() == "mensaje");
+        assertTrue(mensajeTestPrueba.getMensaje() == MENSAJE_DEFAULT);
     }
 }

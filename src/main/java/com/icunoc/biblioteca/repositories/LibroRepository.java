@@ -1,7 +1,6 @@
 package com.icunoc.biblioteca.repositories;
 
 import com.icunoc.biblioteca.models.Libro;
-import com.icunoc.biblioteca.models.Prestamo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,9 +14,6 @@ public interface LibroRepository extends JpaRepository<Libro, Integer>{
 
     @Query(value="SELECT * FROM libro l WHERE l.autor LIKE %:busqueda% OR l.codigo LIKE %:busqueda% OR l.nombre LIKE %:busqueda%", nativeQuery = true)
     List<Libro> findLibroByBusqueda(@Param("busqueda") String busqueda);
-
-
-    //List<Libro> findByAutorLikeOrNombreLikeOrCodigoLike(String busqueda1, String busqueda2, String busqueda3);
 
     //metodo extra para buscar libros por nombre
     Optional<Libro> findByNombre(String nombre);

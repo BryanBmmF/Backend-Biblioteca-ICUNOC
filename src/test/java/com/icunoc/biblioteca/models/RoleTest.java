@@ -1,6 +1,5 @@
 package com.icunoc.biblioteca.models;
 
-import com.icunoc.biblioteca.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoleTest {
+    private static final String ROLE_USER= "ROLE_USER";
     @Autowired
-    Role roleTest = new Role();
+    Role roleTest;
 
     @BeforeEach
     void setUp() {
+        roleTest = new Role();
         roleTest.setId((long)1);
-        roleTest.setRole("ROLE_USER");
+        roleTest.setRole(ROLE_USER);
     }
 
     @Test
@@ -32,9 +33,9 @@ class RoleTest {
         //Arrange
         Role rolePrueba = new Role();
         //Act
-        rolePrueba.setRole("ROLE_USER");
+        rolePrueba.setRole(ROLE_USER);
         //Arrange
-        assertTrue(rolePrueba.getRole() == "ROLE_USER");
-        assertTrue(rolePrueba.getAuthority() == "ROLE_USER");
+        assertTrue(rolePrueba.getRole() == ROLE_USER);
+        assertTrue(rolePrueba.getAuthority() == ROLE_USER);
     }
 }

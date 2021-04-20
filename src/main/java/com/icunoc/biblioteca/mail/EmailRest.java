@@ -14,7 +14,7 @@ public class EmailRest {
 
     @PostMapping(value = "/send")
     @ResponseBody
-    public ResponseEntity<?> SendEmail(@RequestBody EmailBody emailBody)  {
+    public ResponseEntity<Mensaje> sendEmail(@RequestBody EmailBody emailBody)  {
         if (emailPort.sendEmail(emailBody)){
             return new ResponseEntity(new Mensaje("El correo se envio correctamente !!!"), HttpStatus.OK);
         }

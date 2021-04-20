@@ -34,11 +34,8 @@ class UserServiceImplTest {
     @BeforeEach
     void setUp() {
 
-        //preparacion
         //declaramos una lista de authorities vacia para el user
         List<GrantedAuthority> listAuthorities= new ArrayList<>();
-        //declaramos un user por defecto, puede ser uno real o un mick, en este caso elegimos el real para comparar ciertos datos
-        //User mockUser = Mockito.mock(User.class);
         User mockUser = new User();
         mockUser.setId((long) 1);
         mockUser.setNombre("Juan");
@@ -74,7 +71,6 @@ class UserServiceImplTest {
         //si no existe un user segun su username
         Mockito.when(repositoryMock.existsByUsername("userJuanNo")).thenReturn(false);
 
-        //userService = new UserServiceImpl(repositoryMock,roleServiceMock,encoderMock);
         Mockito.when(encoderMock.encode("password")).thenReturn("passwordEncriptado");
 
         Role role = new Role();
@@ -166,7 +162,6 @@ class UserServiceImplTest {
         //Act
         userService.save(admin);
 
-        //Assert
 
     }
     @Test
@@ -185,7 +180,6 @@ class UserServiceImplTest {
         //Act
         userService.save(admin);
 
-        //Assert
 
     }
 
@@ -210,8 +204,6 @@ class UserServiceImplTest {
         //Act
         userService.delete(1);
 
-        //Assert
-        //Assertions.assertEquals(true, userExist);
     }
 
     @Test
@@ -276,8 +268,6 @@ class UserServiceImplTest {
 
         }
 
-        //Assert
-        //Assertions.assertNull(userDetails);
 
     }
 }

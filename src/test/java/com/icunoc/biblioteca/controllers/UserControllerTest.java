@@ -1,6 +1,5 @@
 package com.icunoc.biblioteca.controllers;
 
-import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.dto.UserDto;
 import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.services.UserService;
@@ -9,18 +8,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 class UserControllerTest {
-    /*Dependencias*/
+    /*Variables statics y Dependencias*/
+    private static final String NOMBRE_DEFAULT = "Juan";
+    private static final String NOMBRE_DEFAULT_2 = "Juan No";
+    private static final String CARNET_DEFAULT = "200809831";
+    private static final String USERNAME_DEFAULT = "userJuan";
+    private static final String USERNAME_DEFAULT_2 = "userJuanNo";
+    private static final String PASSWORD_DEFAULT = "password";
+    private static final String TIPO_DEFAULT = "Administrador";
+    private static final String CORREO_DEFAULT = "correo";
+
 
     //servicio mock de usuarios
     @Autowired
@@ -43,12 +48,12 @@ class UserControllerTest {
         //declaramos un user por defecto
         User mockUser = new User();
         mockUser.setId((long) 1);
-        mockUser.setNombre("Juan");
-        mockUser.setNumeroRegistro("200809831");
-        mockUser.setUsername("userJuan");
-        mockUser.setPassword("password");
-        mockUser.setTipo("Administrador");
-        mockUser.setCorreo("correo");
+        mockUser.setNombre(NOMBRE_DEFAULT);
+        mockUser.setNumeroRegistro(CARNET_DEFAULT);
+        mockUser.setUsername(USERNAME_DEFAULT);
+        mockUser.setPassword(PASSWORD_DEFAULT);
+        mockUser.setTipo(TIPO_DEFAULT);
+        mockUser.setCorreo(CORREO_DEFAULT);
         mockUser.setAuthorities(listAuthorities);
 
         //lista de users
@@ -60,21 +65,21 @@ class UserControllerTest {
         //un user basado en un id
         Mockito.when(userServiceMock.getOne(1)).thenReturn(Optional.of(mockUser));
         //un user basado en su nombre
-        Mockito.when(userServiceMock.getByNombre("Juan")).thenReturn(Optional.of(mockUser));
+        Mockito.when(userServiceMock.getByNombre(NOMBRE_DEFAULT)).thenReturn(Optional.of(mockUser));
         //un user basado en su nombre
-        Mockito.when(userServiceMock.getByUsername("userJuan")).thenReturn(Optional.of(mockUser));
+        Mockito.when(userServiceMock.getByUsername(USERNAME_DEFAULT)).thenReturn(Optional.of(mockUser));
         //si existe un id
         Mockito.when(userServiceMock.existsById(1)).thenReturn(true);
         //si no existe un user segun su id
         Mockito.when(userServiceMock.existsById(2)).thenReturn(false);
         //si existe un nombre
-        Mockito.when(userServiceMock.existsByNombre("Juan")).thenReturn(true);
+        Mockito.when(userServiceMock.existsByNombre(NOMBRE_DEFAULT)).thenReturn(true);
         //si no existe un user segun su nombre
-        Mockito.when(userServiceMock.existsByNombre("Juan No")).thenReturn(false);
+        Mockito.when(userServiceMock.existsByNombre(NOMBRE_DEFAULT_2)).thenReturn(false);
         //si existe un username
-        Mockito.when(userServiceMock.existsByUsername("userJuan")).thenReturn(true);
+        Mockito.when(userServiceMock.existsByUsername(USERNAME_DEFAULT)).thenReturn(true);
         //si no existe un user segun su username
-        Mockito.when(userServiceMock.existsByUsername("userJuanNo")).thenReturn(false);
+        Mockito.when(userServiceMock.existsByUsername(USERNAME_DEFAULT_2)).thenReturn(false);
 
     }
 
@@ -88,19 +93,18 @@ class UserControllerTest {
 
         //Act
         responseServicio = userController.listar();
-        System.out.println(responseServicio);
 
         //Asserts
         //respuesta del servidor ok
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
         //pruebas de getters
         Assertions.assertEquals(1, responseServicio.getBody().get(0).getId());
-        Assertions.assertEquals("Juan", responseServicio.getBody().get(0).getNombre());
-        Assertions.assertEquals("userJuan", responseServicio.getBody().get(0).getUsername());
-        Assertions.assertEquals("200809831", responseServicio.getBody().get(0).getNumeroRegistro());
-        Assertions.assertEquals("password", responseServicio.getBody().get(0).getPassword());
-        Assertions.assertEquals("Administrador", responseServicio.getBody().get(0).getTipo());
-        Assertions.assertEquals("correo", responseServicio.getBody().get(0).getCorreo());
+        Assertions.assertEquals(NOMBRE_DEFAULT, responseServicio.getBody().get(0).getNombre());
+        Assertions.assertEquals(USERNAME_DEFAULT, responseServicio.getBody().get(0).getUsername());
+        Assertions.assertEquals(CARNET_DEFAULT, responseServicio.getBody().get(0).getNumeroRegistro());
+        Assertions.assertEquals(PASSWORD_DEFAULT, responseServicio.getBody().get(0).getPassword());
+        Assertions.assertEquals(TIPO_DEFAULT, responseServicio.getBody().get(0).getTipo());
+        Assertions.assertEquals(CORREO_DEFAULT, responseServicio.getBody().get(0).getCorreo());
         Assertions.assertEquals(true, responseServicio.getBody().get(0).isAccountNonExpired());
         Assertions.assertEquals(true, responseServicio.getBody().get(0).isAccountNonLocked());
         Assertions.assertEquals(true, responseServicio.getBody().get(0).isCredentialsNonExpired());
@@ -121,7 +125,6 @@ class UserControllerTest {
         userServiceMock.existsById(1);
         //se manda el user como respuesta
         responseServicio = userController.getById(1);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -137,7 +140,6 @@ class UserControllerTest {
         userServiceMock.existsById(2);
         //se retona como respuesta un error 404 con un mensaje
         responseServicio = userController.getById(2);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
@@ -151,8 +153,8 @@ class UserControllerTest {
         ResponseEntity<User> responseServicio;
 
         //Act
-        userServiceMock.existsByNombre("Juan");
-        responseServicio = userController.getByNombre("Juan");
+        userServiceMock.existsByNombre(NOMBRE_DEFAULT);
+        responseServicio = userController.getByNombre(NOMBRE_DEFAULT);
         System.out.println(responseServicio);
 
         //Assert
@@ -165,9 +167,8 @@ class UserControllerTest {
         ResponseEntity<User> responseServicio;
 
         //Act
-        userServiceMock.existsByNombre("Juan No");
-        responseServicio = userController.getByNombre("Juan No");
-        System.out.println(responseServicio);
+        userServiceMock.existsByNombre(NOMBRE_DEFAULT_2);
+        responseServicio = userController.getByNombre(NOMBRE_DEFAULT_2);
 
         //Assert
         Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
@@ -180,9 +181,8 @@ class UserControllerTest {
         ResponseEntity<User> responseServicio;
 
         //Act
-        userServiceMock.existsByUsername("userJuan");
-        responseServicio = userController.getByUsername("userJuan");
-        System.out.println(responseServicio);
+        userServiceMock.existsByUsername(USERNAME_DEFAULT);
+        responseServicio = userController.getByUsername(USERNAME_DEFAULT);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -195,9 +195,8 @@ class UserControllerTest {
         ResponseEntity<User> responseServicio;
 
         //Act
-        userServiceMock.existsByUsername("userJuanNo");
-        responseServicio = userController.getByUsername("userJuanNo");
-        System.out.println(responseServicio);
+        userServiceMock.existsByUsername(USERNAME_DEFAULT_2);
+        responseServicio = userController.getByUsername(USERNAME_DEFAULT_2);
 
         //Assert
         Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
@@ -210,11 +209,7 @@ class UserControllerTest {
         ResponseEntity<?> responseServicio;
 
         //Act
-        //userDto.setNombre("    ");//provocamos el fallo de la primera rama cundo un campo esta en blanco
-        //el fallo se autoprovoca porque el userDto mock es falso
-
         responseServicio = userController.create(userDto);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(400, responseServicio.getStatusCodeValue());
@@ -227,17 +222,16 @@ class UserControllerTest {
 
         //Act
         UserDto userDto1 = new UserDto();
-        userDto1.setUsername("userJuan");//provocamos el fallo de la segunda rama cuando el user ya existe
-        userDto1.setNombre("Juan");
-        userDto1.setTipo("Administrador");
-        userDto1.setCorreo("correo");
-        userDto1.setNumeroRegistro("200809831");
-        userDto1.setPassword("password");
+        userDto1.setUsername(USERNAME_DEFAULT);//provocamos el fallo de la segunda rama cuando el user ya existe
+        userDto1.setNombre(NOMBRE_DEFAULT);
+        userDto1.setTipo(TIPO_DEFAULT);
+        userDto1.setCorreo(CORREO_DEFAULT);
+        userDto1.setNumeroRegistro(CARNET_DEFAULT);
+        userDto1.setPassword(PASSWORD_DEFAULT);
         userServiceMock.existsByUsername(userDto1.getUsername());
 
 
         responseServicio = userController.create(userDto1);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(400, responseServicio.getStatusCodeValue());
@@ -249,17 +243,9 @@ class UserControllerTest {
         ResponseEntity<?> responseServicio;
 
         //Act
-        //creamos un userDto verdadero sin username repetido, y con constructor para probarlo de una
-        UserDto userDto1 = new UserDto("Juan", "200809831", "userJuanSinRepetir", "password", "Administrador", "correo" );
-        //userDto1.setUsername("userJuanSinRepetir");
-        //userDto1.setNombre("Juan");
-        //userDto1.setTipo("Administrador");
-        //userDto1.setCorreo("correo");
-        //userDto1.setNumeroRegistro("200809831");
-        //userDto1.setPassword("password");
+        UserDto userDto1 = new UserDto(NOMBRE_DEFAULT, CARNET_DEFAULT, "userJuanSinRepetir", PASSWORD_DEFAULT, TIPO_DEFAULT, CORREO_DEFAULT );
 
         responseServicio = userController.create(userDto1);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -278,7 +264,6 @@ class UserControllerTest {
 
 
         responseServicio = userController.update(2,userDto);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
@@ -292,7 +277,6 @@ class UserControllerTest {
         //Act
         //el fallo se autoprovoca porque el userDto mock es falso
         responseServicio = userController.update(1,userDto);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(400, responseServicio.getStatusCodeValue());
@@ -305,18 +289,16 @@ class UserControllerTest {
 
         //Act
         UserDto userDto1 = new UserDto();
-        userDto1.setUsername("userJuan");//provocamos el fallo de la segunda rama cuando el user ya existe
-        userDto1.setNombre("Juan");
-        userDto1.setTipo("Administrador");
-        userDto1.setNumeroRegistro("200809831");
-        userDto1.setPassword("password");
-        //userServiceMock.getByUsername(userDto1.getUsername());
+        userDto1.setUsername(USERNAME_DEFAULT);//provocamos el fallo de la segunda rama cuando el user ya existe
+        userDto1.setNombre(NOMBRE_DEFAULT);
+        userDto1.setTipo(TIPO_DEFAULT);
+        userDto1.setNumeroRegistro(CARNET_DEFAULT);
+        userDto1.setPassword(PASSWORD_DEFAULT);
         userServiceMock.existsByUsername(userDto1.getUsername());
         userServiceMock.getByUsername(userDto1.getUsername()).get().getId();
 
 
         responseServicio = userController.update(1,userDto1);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -345,7 +327,6 @@ class UserControllerTest {
         user.setTipo(userDto1.getTipo());
 
         responseServicio = userController.update(1, userDto1);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -360,7 +341,6 @@ class UserControllerTest {
         //Act
         userServiceMock.existsById(1);
         responseServicio = userController.delete(1);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -374,7 +354,6 @@ class UserControllerTest {
         //Act
         userServiceMock.existsById(2);
         responseServicio = userController.delete(2);
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(404, responseServicio.getStatusCodeValue());

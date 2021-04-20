@@ -1,8 +1,6 @@
 package com.icunoc.biblioteca.dto;
 
 import com.icunoc.biblioteca.enums.RoleType;
-import com.icunoc.biblioteca.models.User;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDtoTest {
+    private static final String NOMBRE_DEFAULT = "Juan";
+    private static final String CARNET_DEFAULT = "201730159";
+    private static final String USERNAME_DEFAULT = "userJuan";
+    private static final String PASSWORD_DEFAULT = "password";
+    private static final String CORREO_DEFAULT = "correo";
+
     @Autowired
     UserDto userDtoTest = new UserDto();
 
     @BeforeEach
     void setUp() {
         /*Lo que se hara antes d ela prueba*/
-        userDtoTest.setUsername("userJuan");
-        userDtoTest.setNombre("Juan");
-        userDtoTest.setNumeroRegistro("201730159");
+        userDtoTest.setUsername(USERNAME_DEFAULT);
+        userDtoTest.setNombre(NOMBRE_DEFAULT);
+        userDtoTest.setNumeroRegistro(CARNET_DEFAULT);
         userDtoTest.setTipo(RoleType.ROLE_ADMIN.toString());
-        userDtoTest.setPassword("password");
-        userDtoTest.setCorreo("correo");
+        userDtoTest.setPassword(PASSWORD_DEFAULT);
+        userDtoTest.setCorreo(CORREO_DEFAULT);
 
     }
 

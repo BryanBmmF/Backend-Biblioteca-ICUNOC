@@ -11,11 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AuthTokenTest {
     @Autowired
-    AuthToken authTokenTest = new AuthToken();
+    AuthToken authTokenTest;
 
     @BeforeEach
     void setUp() {
         /*Lo que se hara antes d ela prueba*/
+        authTokenTest = new AuthToken();
         authTokenTest.setId("1");
         authTokenTest.setUser(new User());
         authTokenTest.setLastAccessTime(LocalDateTime.now());
@@ -26,11 +27,8 @@ class AuthTokenTest {
     void onPrePersist() {
         //Arrange
         AuthToken authTokenPrueba = new AuthToken();
-        //LocalDateTime spy = LocalDateTime.now();
         //Act
-        //authTokenPrueba.setLastAccessTime(spy);
         authTokenPrueba.onPrePersist();
-        //Arrange
     }
 
 

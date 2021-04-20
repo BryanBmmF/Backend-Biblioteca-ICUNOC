@@ -4,7 +4,6 @@ package com.icunoc.biblioteca.controllers;
 import com.icunoc.biblioteca.dto.CategoriaDto;
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.models.Categoria;
-import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.services.CategoriaService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

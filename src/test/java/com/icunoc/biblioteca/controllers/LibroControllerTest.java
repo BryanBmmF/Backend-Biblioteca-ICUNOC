@@ -1,30 +1,20 @@
 package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.dto.LibroDto;
-import com.icunoc.biblioteca.dto.UserDto;
 import com.icunoc.biblioteca.enums.Idioma;
 import com.icunoc.biblioteca.models.Libro;
-import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.services.LibrosService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LibroControllerTest {
 
@@ -142,12 +132,9 @@ class LibroControllerTest {
         //Act
         service.existsByCodigo("12345");
         responseServicio = libroController.getByNombre("12345");
-        System.out.println(responseServicio);
-
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
-        //Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
 
     }
     @Test
@@ -158,7 +145,6 @@ class LibroControllerTest {
         //Act
         service.existsByCodigo("12344");
         responseServicio = libroController.getByNombre("12344");
-        System.out.println(responseServicio);
 
         //Assert
         Assertions.assertEquals(404, responseServicio.getStatusCodeValue());

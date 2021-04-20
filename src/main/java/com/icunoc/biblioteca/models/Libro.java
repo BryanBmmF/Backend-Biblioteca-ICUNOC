@@ -1,7 +1,5 @@
 package com.icunoc.biblioteca.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.icunoc.biblioteca.enums.Idioma;
 import javax.persistence.*;
 import java.util.Calendar;

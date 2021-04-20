@@ -7,16 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InfoBibliotecaDtoTest {
+    private static final String CORREO_DEFAULT= "correo";
+    private static final String TELEFONO_DEFAULT= "telefono";
+    private static final String DIRECCION_DEFAULT= "direccion";
+    private static final String HORARIO_DEFAULT= "horario";
 
     @Autowired
-    InfoBibliotecaDto infoBibliotecaDtoTest = new InfoBibliotecaDto();
+    InfoBibliotecaDto infoBibliotecaDtoTest;
 
     @BeforeEach
     void setUp() {
-        infoBibliotecaDtoTest.setCorreo("correo");
-        infoBibliotecaDtoTest.setTelefono("telefono");
-        infoBibliotecaDtoTest.setDireccion("direccion");
-        infoBibliotecaDtoTest.setHorario("horario");
+        infoBibliotecaDtoTest = new InfoBibliotecaDto();
+        infoBibliotecaDtoTest.setCorreo(CORREO_DEFAULT);
+        infoBibliotecaDtoTest.setTelefono(TELEFONO_DEFAULT);
+        infoBibliotecaDtoTest.setDireccion(DIRECCION_DEFAULT);
+        infoBibliotecaDtoTest.setHorario(HORARIO_DEFAULT);
         infoBibliotecaDtoTest.setCostoDiaMoroso(5);
         infoBibliotecaDtoTest.setCostoGeneralPrestamo(5);
         infoBibliotecaDtoTest.setDiasHabilesPrestamo(7);
