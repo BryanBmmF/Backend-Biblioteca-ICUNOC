@@ -31,7 +31,7 @@ public class CategoriaController {
     @GetMapping("/lista/{id}")
     public ResponseEntity<Categoria> find(@PathVariable("id") int id) {
         if(!service.existsById(id)) {
-            return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje("No existe la categoria"), HttpStatus.NOT_FOUND);
         }
         Categoria categoria = service.find(id).get();
         return new ResponseEntity(categoria,HttpStatus.OK);
