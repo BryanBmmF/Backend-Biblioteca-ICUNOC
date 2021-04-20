@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoriaDtoTest {
 
-    private static final String success = "Valor obtenido ";
+    private static final String SUCCESS = "Valor obtenido ";
     private CategoriaDto categoriaDto;
     @Test
     void constructor() {
@@ -31,7 +31,7 @@ class CategoriaDtoTest {
         final int result = categoria.getId();
 
         //assert
-        assertEquals(158, result, success);
+        assertEquals(158, result, SUCCESS);
     }
 
     @Test
@@ -45,7 +45,7 @@ class CategoriaDtoTest {
         //assert
         final Field field = categoria.getClass().getDeclaredField("id");
         field.setAccessible(true);
-        assertEquals(1, field.get(categoria), success);
+        assertEquals(1, field.get(categoria), SUCCESS);
     }
 
     @Test
@@ -60,7 +60,7 @@ class CategoriaDtoTest {
         final String result = categoria.getNombre();
 
         //assert
-        assertEquals("Matematica", result, success);
+        assertEquals("Matematica", result, SUCCESS);
     }
 
     @Test
@@ -74,7 +74,7 @@ class CategoriaDtoTest {
         //assert
         final Field field = categoria.getClass().getDeclaredField("nombre");
         field.setAccessible(true);
-        assertEquals("Matematica", field.get(categoria), success);
+        assertEquals("Matematica", field.get(categoria), SUCCESS);
     }
 
     @Test
@@ -89,7 +89,7 @@ class CategoriaDtoTest {
         final String result = categoria.getDescripcion();
 
         //assert
-        assertEquals("Descripcion Categoria", result, success);
+        assertEquals("Descripcion Categoria", result, SUCCESS);
     }
 
     @Test
@@ -102,6 +102,6 @@ class CategoriaDtoTest {
         //assert
         final Field field = categoria.getClass().getDeclaredField("descripcion");
         field.setAccessible(true);
-        assertEquals("Descripcion Categoria", field.get(categoria), success);
+        assertEquals("Descripcion Categoria", field.get(categoria), SUCCESS);
     }
 }

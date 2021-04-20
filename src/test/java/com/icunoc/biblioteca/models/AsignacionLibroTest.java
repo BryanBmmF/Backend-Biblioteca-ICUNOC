@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AsignacionLibroTest {
-
+    private static final String SUCCESS = "Valor obtenido ";
     @Test
     void getIdAsignacionLibro() throws NoSuchFieldException, IllegalAccessException {
         //arrange
@@ -20,8 +20,7 @@ class AsignacionLibroTest {
         final int result = asignacionLibro.getIdAsignacionLibro();
 
         //assert
-        assertEquals(200, result, "Valor obtenido");
-        System.out.println("idAsignacionLibro obtenido con exito");
+        assertEquals(200, result, SUCCESS);
     }
 
     @Test
@@ -35,8 +34,8 @@ class AsignacionLibroTest {
         //assert
         final Field field = asignacionLibro.getClass().getDeclaredField("idAsignacionLibro");
         field.setAccessible(true);
-        assertEquals(250, field.get(asignacionLibro), "Valores coinciden en set");
-        System.out.println("idAsignacionLibro modificado con exito");
+        assertEquals(250, field.get(asignacionLibro), SUCCESS);
+
     }
 
     @Test
@@ -51,8 +50,8 @@ class AsignacionLibroTest {
         final int result = asignacionLibro.getIdCategoria();
 
         //assert
-        assertEquals(200, result, "Valor obtenido");
-        System.out.println("idCategoria obtenido con exito");
+        assertEquals(200, result, SUCCESS);
+
     }
 
     @Test
@@ -66,8 +65,8 @@ class AsignacionLibroTest {
         //assert
         final Field field = asignacionLibro.getClass().getDeclaredField("idCategoria");
         field.setAccessible(true);
-        assertEquals(250, field.get(asignacionLibro), "Valores coinciden en set");
-        System.out.println("IDCategoria modificado con exito");
+        assertEquals(250, field.get(asignacionLibro), SUCCESS);
+
     }
 
     @Test
@@ -82,8 +81,8 @@ class AsignacionLibroTest {
         final int result = asignacionLibro.getIdLibro();
 
         //assert
-        assertEquals(200, result, "Valor obtenido");
-        System.out.println("idLibro obtenido con exito");
+        assertEquals(200, result, SUCCESS);
+
     }
 
     @Test
@@ -97,7 +96,7 @@ class AsignacionLibroTest {
         //assert
         final Field field = asignacionLibro.getClass().getDeclaredField("idLibro");
         field.setAccessible(true);
-        assertEquals(250, field.get(asignacionLibro), "Valores coinciden en set");
-        System.out.println("idLibro modificado con exito");
+        assertEquals(250, field.get(asignacionLibro), SUCCESS);
+
     }
 }

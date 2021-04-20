@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AsignacionLibroDtoTest {
 
-    private static final String success = "Valor obtenido ";
+    private static final String SUCCESS = "Valor obtenido ";
     @Test
     void constructor() {
         //act
@@ -31,7 +31,7 @@ class AsignacionLibroDtoTest {
         final int result = asignacionLibro.getId();
 
         //assert
-        assertEquals(200, result, success);
+        assertEquals(200, result, SUCCESS);
     }
 
     @Test
@@ -45,7 +45,7 @@ class AsignacionLibroDtoTest {
         //assert
         final Field field = asignacionLibro.getClass().getDeclaredField("id");
         field.setAccessible(true);
-        assertEquals(250, field.get(asignacionLibro), success);
+        assertEquals(250, field.get(asignacionLibro), SUCCESS);
     }
 
     @Test
@@ -60,7 +60,7 @@ class AsignacionLibroDtoTest {
         final int result = asignacionLibro.getIdCategoria();
 
         //assert
-        assertEquals(200, result, success);
+        assertEquals(200, result, SUCCESS);
     }
 
     @Test
@@ -74,7 +74,7 @@ class AsignacionLibroDtoTest {
         //assert
         final Field field = asignacionLibro.getClass().getDeclaredField("idCategoria");
         field.setAccessible(true);
-        assertEquals(250, field.get(asignacionLibro), success);
+        assertEquals(250, field.get(asignacionLibro), SUCCESS);
     }
 
     @Test
@@ -89,7 +89,7 @@ class AsignacionLibroDtoTest {
         final int result = asignacionLibro.getIdLibro();
 
         //assert
-        assertEquals(200, result, success);
+        assertEquals(200, result, SUCCESS);
     }
 
     @Test
@@ -103,6 +103,6 @@ class AsignacionLibroDtoTest {
         //assert
         final Field field = asignacionLibro.getClass().getDeclaredField("idLibro");
         field.setAccessible(true);
-        assertEquals(250, field.get(asignacionLibro), success);
+        assertEquals(250, field.get(asignacionLibro), SUCCESS);
     }
 }
