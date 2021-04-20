@@ -2,7 +2,6 @@ package com.icunoc.biblioteca.controllers;
 
 
 import com.icunoc.biblioteca.dto.CategoriaDto;
-import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.models.Categoria;
 import com.icunoc.biblioteca.models.Libro;
@@ -55,7 +54,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody CategoriaDto categoriaDto){
+    public ResponseEntity<Mensaje> update(@PathVariable("id") int id, @RequestBody CategoriaDto categoriaDto){
         //evaluar si existe el libro
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe la categoria"), HttpStatus.NOT_FOUND);
@@ -78,7 +77,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id){
+    public ResponseEntity<Mensaje> delete(@PathVariable("id") int id){
         //comprobamos que exista
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe la categoria para eliminar"), HttpStatus.NOT_FOUND);
