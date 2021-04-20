@@ -27,19 +27,21 @@ class CategoriaControllerTest {
 
     Categoria mockCategoria;
     List<Categoria> mockCategorias;
+    private static final String NOMBRE_CATEGORIA = "Matematica";
+    private static final String DESCRIPCION_CATEGORIA = "Area de matematica";
     @BeforeEach
     void setUp() {
         mockCategoria = new Categoria();
         mockCategoria.setIdCategoria(1);
-        mockCategoria.setDescripcion("Area de matimatica");
-        mockCategoria.setNombre("Matematica");
+        mockCategoria.setDescripcion(DESCRIPCION_CATEGORIA);
+        mockCategoria.setNombre(NOMBRE_CATEGORIA);
         mockCategorias = new ArrayList<>();
         mockCategorias.add(mockCategoria);
 
         //Mock CategoriaDto
         Mockito.when(categoriaDto.getId()).thenReturn(1);
-        Mockito.when(categoriaDto.getNombre()).thenReturn("Matematica");
-        Mockito.when(categoriaDto.getDescripcion()).thenReturn("Area de Matematica");
+        Mockito.when(categoriaDto.getNombre()).thenReturn(NOMBRE_CATEGORIA);
+        Mockito.when(categoriaDto.getDescripcion()).thenReturn(DESCRIPCION_CATEGORIA);
 
 
 
@@ -55,7 +57,7 @@ class CategoriaControllerTest {
         //act
         ResponseEntity<Categoria> response = categoriaController.find(1);
         //assert
-        Assertions.assertEquals("Matematica",response.getBody().getNombre());
+        Assertions.assertEquals(NOMBRE_CATEGORIA,response.getBody().getNombre());
 
     }
 
@@ -80,7 +82,7 @@ class CategoriaControllerTest {
         //act
         ResponseEntity<List<Categoria>> response = categoriaController.listarCategorias();
         //assert
-        Assertions.assertEquals("Matematica",response.getBody().get(0).getNombre());
+        Assertions.assertEquals(NOMBRE_CATEGORIA,response.getBody().get(0).getNombre());
         Assertions.assertEquals(1,response.getBody().size());
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
     }

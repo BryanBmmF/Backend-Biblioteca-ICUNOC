@@ -40,7 +40,6 @@ public class TokenAuthenticationFilter implements Filter {
                     this.authTokenService.update(token);
                 }
             }
-            //TODO you can set to unauthorized if that is what you need.
         }
 
         chain.doFilter(request, response);

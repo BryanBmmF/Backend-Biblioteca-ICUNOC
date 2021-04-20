@@ -1,7 +1,6 @@
 package com.icunoc.biblioteca.services;
 
 import com.icunoc.biblioteca.models.Categoria;
-import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

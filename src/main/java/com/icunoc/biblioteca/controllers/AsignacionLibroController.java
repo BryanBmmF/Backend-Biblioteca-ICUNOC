@@ -1,7 +1,6 @@
 package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.dto.AsignacionLibroDto;
-import com.icunoc.biblioteca.dto.CategoriaDto;
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.models.AsignacionLibro;
 import com.icunoc.biblioteca.models.Categoria;
@@ -10,7 +9,6 @@ import com.icunoc.biblioteca.services.AsignacionLibroService;
 import com.icunoc.biblioteca.services.CategoriaService;
 import com.icunoc.biblioteca.services.LibrosService;
 import com.icunoc.biblioteca.services.LibrosServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,7 +86,7 @@ public class AsignacionLibroController {
     }
 
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id){
+    public ResponseEntity<Mensaje> delete(@PathVariable("id") int id){
         //comprobamos que exista
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el ID de la asignacion"), HttpStatus.NOT_FOUND);
@@ -98,7 +96,7 @@ public class AsignacionLibroController {
     }
 
     @DeleteMapping("/eliminarAsignaciones/{id}")
-    public ResponseEntity<?> deleteAssignations(@PathVariable("id") int id){
+    public ResponseEntity<Mensaje> deleteAssignations(@PathVariable("id") int id){
         //comprobamos que exista
         if(!librosService.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el ID del libro"), HttpStatus.NOT_FOUND);
