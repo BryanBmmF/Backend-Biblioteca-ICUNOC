@@ -6,14 +6,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class AsignacionLibroServiceTest {
 
@@ -21,7 +19,6 @@ class AsignacionLibroServiceTest {
     List<AsignacionLibro> asignaciones;
     AsignacionLibro asignacion = Mockito.mock(AsignacionLibro.class);
     AsignacionLibroService service = new AsignacionLibroService();
-
     @BeforeEach
     void setUp() {
         asignaciones = new ArrayList<>();
@@ -93,7 +90,7 @@ class AsignacionLibroServiceTest {
         //arrange
         Mockito.when(repository.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(asignacion));
         //act
-        AsignacionLibro asignacion = service.find(1).get();
+        AsignacionLibro retornoAsignacion = service.find(1).get();
         //assert
         Assertions.assertEquals(1,asignacion.getIdAsignacionLibro());
         Assertions.assertEquals(11,asignacion.getIdLibro());

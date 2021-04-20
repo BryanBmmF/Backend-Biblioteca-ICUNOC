@@ -1,10 +1,6 @@
 package com.icunoc.biblioteca.dto;
 
-import com.icunoc.biblioteca.models.Categoria;
-import com.icunoc.biblioteca.services.CategoriaService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -13,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoriaDtoTest {
 
+    private static final String SUCCESS = "Valor obtenido ";
     private CategoriaDto categoriaDto;
     @Test
     void constructor() {
@@ -34,8 +31,7 @@ class CategoriaDtoTest {
         final int result = categoria.getId();
 
         //assert
-        assertEquals(158, result, "Valor obtenido");
-        System.out.println("ID obtenido con exito");
+        assertEquals(158, result, SUCCESS);
     }
 
     @Test
@@ -49,8 +45,7 @@ class CategoriaDtoTest {
         //assert
         final Field field = categoria.getClass().getDeclaredField("id");
         field.setAccessible(true);
-        assertEquals(1, field.get(categoria), "Valores coinciden en set");
-        System.out.println("ID modificado con exito");
+        assertEquals(1, field.get(categoria), SUCCESS);
     }
 
     @Test
@@ -65,8 +60,7 @@ class CategoriaDtoTest {
         final String result = categoria.getNombre();
 
         //assert
-        assertEquals("Matematica", result, "Valor obtenido");
-        System.out.println("Nombre obtenido con exito");
+        assertEquals("Matematica", result, SUCCESS);
     }
 
     @Test
@@ -80,8 +74,7 @@ class CategoriaDtoTest {
         //assert
         final Field field = categoria.getClass().getDeclaredField("nombre");
         field.setAccessible(true);
-        assertEquals("Matematica", field.get(categoria), "Valores coinciden en set");
-        System.out.println("Nombre modificado con exito");
+        assertEquals("Matematica", field.get(categoria), SUCCESS);
     }
 
     @Test
@@ -96,8 +89,7 @@ class CategoriaDtoTest {
         final String result = categoria.getDescripcion();
 
         //assert
-        assertEquals("Descripcion Categoria", result, "Valor obtenido");
-        System.out.println("Descripcion obtenida con exito");
+        assertEquals("Descripcion Categoria", result, SUCCESS);
     }
 
     @Test
@@ -110,7 +102,6 @@ class CategoriaDtoTest {
         //assert
         final Field field = categoria.getClass().getDeclaredField("descripcion");
         field.setAccessible(true);
-        assertEquals("Descripcion Categoria", field.get(categoria), "Valores coinciden en set");
-        System.out.println("Descripcion modificada con exito");
+        assertEquals("Descripcion Categoria", field.get(categoria), SUCCESS);
     }
 }
