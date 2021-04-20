@@ -34,7 +34,7 @@ class EmailServiceTest {
     }
 
     @Test
-    void sendEmailSuccess() { //Escenario 1: todo va bien y se envia el mail
+    void sendEmailSuccess() { //Escenario 1: Va bien y se envia el mail
         //Arrage
         boolean resultEsperado = true;
         boolean result ;

@@ -1,9 +1,7 @@
 package com.icunoc.biblioteca.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Categoria")
