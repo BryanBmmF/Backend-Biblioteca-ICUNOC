@@ -1,14 +1,13 @@
 package com.icunoc.biblioteca.models;
 
-import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.enums.Idioma;
 import org.junit.jupiter.api.Test;
-
 import java.util.Calendar;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibroTest {
+
+    private static final String CODIGO_LIBRO_TEST = "123ABC";
 
     @Test
     void getIdLibro() {
@@ -27,43 +26,43 @@ class LibroTest {
     @Test
     void getCodigo() {
         Libro libro = new Libro();
-        libro.setCodigo("124Prueba");
-        assertTrue(libro.getCodigo() == "124Prueba");
+        libro.setCodigo(CODIGO_LIBRO_TEST);
+        assertTrue(libro.getCodigo() == CODIGO_LIBRO_TEST);
     }
 
     @Test
     void setCodigo() {
         Libro libro = new Libro();
-        libro.setCodigo("124Prueba");
-        assertTrue(libro.getCodigo() == "124Prueba");
+        libro.setCodigo(CODIGO_LIBRO_TEST);
+        assertTrue(libro.getCodigo() == CODIGO_LIBRO_TEST);
     }
 
     @Test
     void getNombre() {
         Libro libro = new Libro();
-        libro.setNombre("124Prueba");
-        assertTrue(libro.getNombre() == "124Prueba");
+        libro.setNombre(CODIGO_LIBRO_TEST);
+        assertTrue(libro.getNombre() == CODIGO_LIBRO_TEST);
     }
 
     @Test
     void setNombre() {
         Libro libro = new Libro();
-        libro.setNombre("124Prueba");
-        assertTrue(libro.getNombre() == "124Prueba");
+        libro.setNombre(CODIGO_LIBRO_TEST);
+        assertTrue(libro.getNombre() == CODIGO_LIBRO_TEST);
     }
 
     @Test
     void getAutor() {
         Libro libro = new Libro();
-        libro.setAutor("124Prueba");
-        assertTrue(libro.getAutor() == "124Prueba");
+        libro.setAutor(CODIGO_LIBRO_TEST);
+        assertTrue(libro.getAutor() == CODIGO_LIBRO_TEST);
     }
 
     @Test
     void setAutor() {
         Libro libro = new Libro();
-        libro.setAutor("124Prueba");
-        assertTrue(libro.getAutor() == "124Prueba");
+        libro.setAutor(CODIGO_LIBRO_TEST);
+        assertTrue(libro.getAutor() == CODIGO_LIBRO_TEST);
     }
 
     @Test

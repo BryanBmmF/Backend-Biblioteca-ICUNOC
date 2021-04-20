@@ -2,10 +2,7 @@ package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.enums.Idioma;
 import com.icunoc.biblioteca.models.Libro;
-import com.icunoc.biblioteca.models.Prestamo;
 import com.icunoc.biblioteca.services.LibrosService;
-import com.icunoc.biblioteca.services.PrestamoService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,7 +46,7 @@ class LibrosControllerTest {
     @Test
     void listarId() {
         //Arrange
-        Libro libroRespuesta = new Libro();
+        Libro libroRespuesta;
         librosController.setService(librosService);
         //Act
         libroRespuesta = librosController.listarId(1);

@@ -27,18 +27,21 @@ class LibroControllerTest {
     //libroDto Mock
     @Autowired
     LibroDto libroDto =  Mockito.mock(LibroDto.class);
+    //Constantes de prueba
+    private static final byte[] BYTES_IMAGEN = "bytes".getBytes();
+    private static final String CODIGO_TEST = "12345";
+    private static final String CODIGO_TEST_2 = "12344";
+    private static final String NOMBRE_TEST = "Nombre";
 
     @BeforeEach
     void setUp() {
-        //declaramos una lista de authorities vacia para el libro
-        List<GrantedAuthority> listAuthorities= new ArrayList<>();
         //declaramos un libro por defecto
         Calendar today = Calendar.getInstance();
-        byte[] imagenBytes = "bytes".getBytes();
+        byte[] imagenBytes = BYTES_IMAGEN;
         Libro mockLibro =  new Libro();
         mockLibro.setIdLibro(1);
-        mockLibro.setCodigo("12345");
-        mockLibro.setNombre("Nombre");
+        mockLibro.setCodigo(CODIGO_TEST);
+        mockLibro.setNombre(NOMBRE_TEST);
         mockLibro.setAutor("Autor");
         mockLibro.setStock(10);
         mockLibro.setEdicion(1);
@@ -51,19 +54,19 @@ class LibroControllerTest {
         //una lista de libros
         Mockito.when(service.list()).thenReturn(miListMock);
         //una lista de libros filtrada
-        Mockito.when(service.getByBusqueda("Nombre")).thenReturn(miListMock);
+        Mockito.when(service.getByBusqueda(NOMBRE_TEST)).thenReturn(miListMock);
         //un libro basado en un id
         Mockito.when(service.getOne(1)).thenReturn(Optional.of(mockLibro));
         //un libro basado en su codigo
-        Mockito.when(service.getByCodigo("12345")).thenReturn(Optional.of(mockLibro));
+        Mockito.when(service.getByCodigo(CODIGO_TEST)).thenReturn(Optional.of(mockLibro));
         //si existe un id
         Mockito.when(service.existsById(1)).thenReturn(true);
         //si no existe un libro segun su id
         Mockito.when(service.existsById(2)).thenReturn(false);
         //si existe un codigo
-        Mockito.when(service.existsByCodigo("12345")).thenReturn(true);
+        Mockito.when(service.existsByCodigo(CODIGO_TEST)).thenReturn(true);
         //si no existe un libro segun su codigo
-        Mockito.when(service.existsByCodigo("12344")).thenReturn(false);
+        Mockito.when(service.existsByCodigo(CODIGO_TEST_2)).thenReturn(false);
 
     }
 
@@ -73,7 +76,7 @@ class LibroControllerTest {
         libroController.setService(service);
         ResponseEntity<List<Libro>> responseServicio;
         //Act
-        responseServicio = libroController.listarLibrosPorBusqueda("Nombre");
+        responseServicio = libroController.listarLibrosPorBusqueda(NOMBRE_TEST);
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
@@ -130,8 +133,8 @@ class LibroControllerTest {
         ResponseEntity<Libro> responseServicio;
 
         //Act
-        service.existsByCodigo("12345");
-        responseServicio = libroController.getByNombre("12345");
+        service.existsByCodigo(CODIGO_TEST);
+        responseServicio = libroController.getByNombre(CODIGO_TEST);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
@@ -143,8 +146,8 @@ class LibroControllerTest {
         libroController.setService(service);
         ResponseEntity<Libro> responseServicio;
         //Act
-        service.existsByCodigo("12344");
-        responseServicio = libroController.getByNombre("12344");
+        service.existsByCodigo(CODIGO_TEST_2);
+        responseServicio = libroController.getByNombre(CODIGO_TEST_2);
 
         //Assert
         Assertions.assertEquals(404, responseServicio.getStatusCodeValue());
@@ -159,7 +162,6 @@ class LibroControllerTest {
         libroController.setService(service);
         ResponseEntity<?> responseServicio;
         responseServicio = libroController.create(libroDto);
-        System.out.println(responseServicio);
         //Assert
         Assertions.assertEquals(400, responseServicio.getStatusCodeValue());
     }
@@ -167,14 +169,14 @@ class LibroControllerTest {
     @Test
     void createLibroExistente() {
         Calendar today = Calendar.getInstance();
-        byte[] imagenBytes = "bytes".getBytes();
+        byte[] imagenBytes = BYTES_IMAGEN;
         ///Arrage
         libroController.setService(service);
         ResponseEntity<?> responseServicio;
 
         //Act
         LibroDto libroDto1 = new LibroDto();
-        libroDto1.setCodigo("12345");//provocamos el fallo
+        libroDto1.setCodigo(CODIGO_TEST);//provocamos el fallo
         libroDto1.setNombre("Nombre fallo");
         libroDto1.setAutor("Autor fallo");
         libroDto1.setStock(100);
@@ -191,7 +193,7 @@ class LibroControllerTest {
     @Test
     void createCorrecto() {
         Calendar today = Calendar.getInstance();
-        byte[] imagenBytes = "bytes".getBytes();
+        byte[] imagenBytes = BYTES_IMAGEN;
         libroController.setService(service);
         ResponseEntity<?> responseServicio;
         LibroDto libroDto1 = new LibroDto();
@@ -206,7 +208,6 @@ class LibroControllerTest {
         libroDto1.setStock(1);
 
         responseServicio = libroController.create(libroDto1);
-        System.out.println(responseServicio);
 
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
@@ -239,7 +240,7 @@ class LibroControllerTest {
     @Test
     void updateCorrecto() {
         Calendar today = Calendar.getInstance();
-        byte[] imagenBytes = "bytes".getBytes();
+        byte[] imagenBytes = BYTES_IMAGEN;
         libroController.setService(service);
         ResponseEntity<?> responseServicio;
 
@@ -264,7 +265,6 @@ class LibroControllerTest {
         libro.setStock(libroDto1.getStock());
 
         responseServicio = libroController.update(1, libroDto1);
-        System.out.println(responseServicio);
 
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
