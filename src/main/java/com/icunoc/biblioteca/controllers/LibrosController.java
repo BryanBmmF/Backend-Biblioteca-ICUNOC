@@ -2,7 +2,6 @@ package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.services.LibrosService;
-import com.icunoc.biblioteca.services.LibrosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

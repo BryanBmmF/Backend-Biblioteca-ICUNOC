@@ -17,6 +17,8 @@ import java.util.List;
 @RequestMapping({"/api/v1/admin/usuarios"})
 public class UserController {
 
+    private static final String USER_NO_EXISTE = "No existe el Usuario";
+
     @Autowired
     UserService service;
 
@@ -24,7 +26,6 @@ public class UserController {
     @GetMapping("/lista")
     public ResponseEntity<List<User>> listar(){
         List<User> list = service.list();
-        //mail.sendEmail("bryan.bmmf@gmail.com","Correo prueba desde spring","prueba prueba prueba");
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
@@ -33,7 +34,7 @@ public class UserController {
     public ResponseEntity<User> getById(@PathVariable("id") long id){
         //evaluamos si existe el usuario por id
         if(!service.existsById(id))
-            return new ResponseEntity(new Mensaje("No existe el Usuario"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(USER_NO_EXISTE), HttpStatus.NOT_FOUND);
         User user = service.getOne(id).get();
         return new ResponseEntity(user, HttpStatus.OK);
 
@@ -44,7 +45,7 @@ public class UserController {
     public ResponseEntity<User> getByNombre(@PathVariable("nombre") String nombre){
         //evaluamos si existe el usuario por nombre
         if(!service.existsByNombre(nombre))
-            return new ResponseEntity(new Mensaje("No existe el Usuario"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(USER_NO_EXISTE), HttpStatus.NOT_FOUND);
         User user = service.getByNombre(nombre).get();
         return new ResponseEntity(user, HttpStatus.OK);
     }
@@ -53,7 +54,7 @@ public class UserController {
     public ResponseEntity<User> getByUsername(@PathVariable("username") String username){
         //evaluamos si existe el usuario por nombre
         if(!service.existsByUsername(username))
-            return new ResponseEntity(new Mensaje("No existe el Usuario"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(USER_NO_EXISTE), HttpStatus.NOT_FOUND);
         User user = service.getByUsername(username).get();
         return new ResponseEntity(user, HttpStatus.OK);
 
@@ -61,7 +62,7 @@ public class UserController {
 
     //Nuevo: se pasa un Json User por medio de http y se valida
     @PostMapping("create")
-    public ResponseEntity<?> create(@RequestBody UserDto userDto){
+    public ResponseEntity<Mensaje> create(@RequestBody UserDto userDto){
         //validar campos no nulos
         if(StringUtils.isBlank(userDto.getUsername()) |
                 StringUtils.isBlank(userDto.getPassword()) |
@@ -81,7 +82,7 @@ public class UserController {
 
     //actualizacion
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") long id, @RequestBody UserDto userDto){
+    public ResponseEntity<Mensaje> update(@PathVariable("id") long id, @RequestBody UserDto userDto){
         //evaluar si existe el usuario
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el Usuario"), HttpStatus.NOT_FOUND);
@@ -111,7 +112,7 @@ public class UserController {
 
     //eliminar
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") long id){
+    public ResponseEntity<Mensaje> delete(@PathVariable("id") long id){
         //comprobamos que exista
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el Usuario"), HttpStatus.NOT_FOUND);

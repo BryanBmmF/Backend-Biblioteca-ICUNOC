@@ -1,18 +1,12 @@
 package com.icunoc.biblioteca.mail;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 class EmailServiceTest {
 

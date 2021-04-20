@@ -1,9 +1,7 @@
 package com.icunoc.biblioteca.controllers;
 
 import com.icunoc.biblioteca.dto.InfoBibliotecaDto;
-import com.icunoc.biblioteca.dto.UserDto;
 import com.icunoc.biblioteca.models.InfoBiblioteca;
-import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.services.InfoBibliotecaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,13 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class InfoBibliotecaControllerTest {
+
+    private static final String CORREO = "correo";
+    private static final String DIRECCION = "direccion";
+    private static final String TELEFONO = "telefono";
+    private static final String HORARIO = "horario";
 
     //mock service de infoBiblioteca
     @Autowired
@@ -30,11 +29,14 @@ class InfoBibliotecaControllerTest {
     @Autowired
     InfoBibliotecaController infoBibliotecaController = new InfoBibliotecaController();
 
+    //un DTO prueba
+    InfoBibliotecaDto infoBibliotecaDtoPrueba;
+
     @BeforeEach
     void setUp() {
 
         //InfoBibliotecaMock
-        InfoBiblioteca infoBibliotecaMock = new InfoBiblioteca("correo", "direccion", "telefono", "horario",7, 5, 5);
+        InfoBiblioteca infoBibliotecaMock = new InfoBiblioteca(CORREO, DIRECCION, TELEFONO, HORARIO,7, 5, 5);
         infoBibliotecaMock.setId((long)1);
 
         //retornar info con id 1
@@ -122,19 +124,19 @@ class InfoBibliotecaControllerTest {
 
         //Act
         //creamos un objeto InfoBiblioteca
-        InfoBibliotecaDto infoBibliotecaDto = new InfoBibliotecaDto("correo","direccion","telefono","horario",7,5,5);
+        infoBibliotecaDtoPrueba = new InfoBibliotecaDto("correo","direccion","telefono","horario",7,5,5);
 
         //traemos el InfoBiblioteca mock y le seteamos los nuevos valores del dto
         InfoBiblioteca infoBiblioteca = infoBibliotecaServiceMock.getOne(1).get();
-        infoBiblioteca.setCorreo(infoBibliotecaDto.getCorreo());
-        infoBiblioteca.setDireccion(infoBibliotecaDto.getDireccion());
-        infoBiblioteca.setTelefono(infoBibliotecaDto.getTelefono());
-        infoBiblioteca.setHorario(infoBibliotecaDto.getHorario());
-        infoBiblioteca.setCostoDiaMoroso(infoBibliotecaDto.getCostoDiaMoroso());
-        infoBiblioteca.setCostoGeneralPrestamo(infoBibliotecaDto.getCostoGeneralPrestamo());
-        infoBiblioteca.setDiasHabilesPrestamo(infoBibliotecaDto.getDiasHabilesPrestamo());
+        infoBiblioteca.setCorreo(infoBibliotecaDtoPrueba.getCorreo());
+        infoBiblioteca.setDireccion(infoBibliotecaDtoPrueba.getDireccion());
+        infoBiblioteca.setTelefono(infoBibliotecaDtoPrueba.getTelefono());
+        infoBiblioteca.setHorario(infoBibliotecaDtoPrueba.getHorario());
+        infoBiblioteca.setCostoDiaMoroso(infoBibliotecaDtoPrueba.getCostoDiaMoroso());
+        infoBiblioteca.setCostoGeneralPrestamo(infoBibliotecaDtoPrueba.getCostoGeneralPrestamo());
+        infoBiblioteca.setDiasHabilesPrestamo(infoBibliotecaDtoPrueba.getDiasHabilesPrestamo());
 
-        responseServicio = infoBibliotecaController.update(1, infoBibliotecaDto);
+        responseServicio = infoBibliotecaController.update(1, infoBibliotecaDtoPrueba);
 
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());

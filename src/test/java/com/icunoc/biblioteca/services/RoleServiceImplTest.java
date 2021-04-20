@@ -2,18 +2,14 @@ package com.icunoc.biblioteca.services;
 
 import com.icunoc.biblioteca.enums.RoleType;
 import com.icunoc.biblioteca.models.Role;
-import com.icunoc.biblioteca.models.User;
 import com.icunoc.biblioteca.repositories.RoleRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RoleServiceImplTest {
     @Autowired

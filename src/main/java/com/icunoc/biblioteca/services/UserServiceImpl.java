@@ -17,14 +17,14 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService{
-    private final String DEFAULT_ADMIN = "admin";
-    private final String DEFAULT_USER = "user";
-    private final String DEFAULT_PASSWORD = "password";
-    private final String DEFAULT_REGSITRO_1 = "111111111";
-    private final String DEFAULT_REGISTRO_2 = "222222222";
-    private final String DEFAULT_TIPO_ADMINISTRADOR = "Administrador";
-    private final String DEFAULT_TIPO_BIBLIOTECARIO = "Bibliotecario";
-    private final String DEFAULT_CORREO = "j3b.bank@gmail.com";
+    private static final String DEFAULT_ADMIN = "admin";
+    private static final String DEFAULT_USER = "user";
+    private static final String DEFAULT_PASSWORD = "password";
+    private static final String DEFAULT_REGSITRO_1 = "111111111";
+    private static final String DEFAULT_REGISTRO_2 = "222222222";
+    private static final String DEFAULT_TIPO_ADMINISTRADOR = "Administrador";
+    private static final String DEFAULT_TIPO_BIBLIOTECARIO = "Bibliotecario";
+    private static final String DEFAULT_CORREO = "j3b.bank@gmail.com";
 
     private  UserRepository repository;
     private  RoleService roleService;
@@ -170,9 +170,4 @@ public class UserServiceImpl implements UserService{
     public void setRoleServiceMock(RoleService roleService){
         this.roleService = roleService;
     }
-
-    /*json para crear user
-    *
-    * {"nombre": "admin3", "numeroRegistro": "333333333", "username": "admin3", "password": "password"}
-    * */
 }

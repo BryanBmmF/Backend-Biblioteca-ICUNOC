@@ -3,7 +3,6 @@ package com.icunoc.biblioteca.controllers;
 import com.icunoc.biblioteca.constants.AppConstants;
 import com.icunoc.biblioteca.dto.PrestamoDto;
 import com.icunoc.biblioteca.dto.Mensaje;
-import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
 import com.icunoc.biblioteca.services.InfoBibliotecaService;
 import com.icunoc.biblioteca.services.LibrosService;
@@ -12,10 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -82,7 +77,7 @@ public class PrestamoController {
     }
 
     @PutMapping("/finalizar/{codigoReservacion}")
-    public ResponseEntity<?> finalizarPrestamo(@PathVariable("codigoReservacion") String codigo){
+    public ResponseEntity<Mensaje> finalizarPrestamo(@PathVariable("codigoReservacion") String codigo){
         // si no hay problemas se guarda el usuario
         Calendar miFecha = Calendar.getInstance();
         Prestamo prestamo = prestamoService.getOne(codigo);
@@ -93,7 +88,7 @@ public class PrestamoController {
     }
 
     @PutMapping("/iniciar/{codigoReservacion}")
-    public ResponseEntity<?> iniciarPrestamo(@PathVariable("codigoReservacion") String codigo){
+    public ResponseEntity<Mensaje> iniciarPrestamo(@PathVariable("codigoReservacion") String codigo){
         // si no hay problemas se guarda el usuario
         Calendar miFecha = Calendar.getInstance();
         Prestamo prestamo = prestamoService.getOne(codigo);
@@ -110,7 +105,7 @@ public class PrestamoController {
 
     //Nuevo: se pasa un Json Libro por medio de http y se valida
     @PostMapping("/crearReservacion")
-    public ResponseEntity<?> create(@RequestBody PrestamoDto prestamoDto){
+    public ResponseEntity<Mensaje> create(@RequestBody PrestamoDto prestamoDto){
         // guardar reservacion
         Prestamo nuevoPrestamo = new Prestamo(
                 prestamoDto.getNombre(),
@@ -130,7 +125,7 @@ public class PrestamoController {
 
     //eliminar
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id){
+    public ResponseEntity<Mensaje> delete(@PathVariable("id") int id){
         prestamoService.delete(id);
         return new ResponseEntity(new Mensaje("El Usuario se elimino correctamente !!!"), HttpStatus.OK);
     }

@@ -1,9 +1,5 @@
 package com.icunoc.biblioteca.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.icunoc.biblioteca.enums.Idioma;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import java.util.Calendar;
 

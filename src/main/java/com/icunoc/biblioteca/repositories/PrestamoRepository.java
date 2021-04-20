@@ -1,15 +1,12 @@
 package com.icunoc.biblioteca.repositories;
 
-import com.icunoc.biblioteca.models.Libro;
 import com.icunoc.biblioteca.models.Prestamo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {

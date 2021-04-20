@@ -1,10 +1,7 @@
 package com.icunoc.biblioteca.dto;
 
 import com.icunoc.biblioteca.enums.Idioma;
-import com.icunoc.biblioteca.models.Categoria;
 import com.sun.istack.NotNull;
-
-import javax.persistence.*;
 import java.util.Calendar;
 
 public class LibroDto {

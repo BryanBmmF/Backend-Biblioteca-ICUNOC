@@ -28,13 +28,11 @@ public class SecurityController {
 
     @PostConstruct
     public void inPostConstruct() {
-        System.out.println("FILTERS");
         FilterChainProxy filterChainProxy = (FilterChainProxy) springSecurityFilterChain;
         List<SecurityFilterChain> list = filterChainProxy.getFilterChains();
         list.stream()
                 .flatMap(chain -> chain.getFilters().stream())
                 .forEach(filter -> System.out.println(filter.getClass() + " "));
-        System.out.println("!FILTERS");
     }
 
     @PostMapping("/authorize")

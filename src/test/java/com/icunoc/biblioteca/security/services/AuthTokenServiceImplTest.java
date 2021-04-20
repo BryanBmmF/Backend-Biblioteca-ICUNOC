@@ -7,10 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class AuthTokenServiceImplTest {
 
@@ -31,7 +29,6 @@ class AuthTokenServiceImplTest {
         //Act
         authTokenService.update(authToken);
 
-        //Assert
     }
 
     @Test
@@ -42,14 +39,12 @@ class AuthTokenServiceImplTest {
         //Act
         authTokenService.remove(authToken);
 
-        //Assert
     }
 
     @Test
     void isAuthTokenExpired() {
         //Arrage
         authTokenService.setRepositoryMock(repositoryMock);
-        //AuthToken authToken = Mockito.mock(AuthToken.class);
 
         AuthToken authToken = new AuthToken();
         AuthToken spy = Mockito.spy(authToken);
@@ -61,15 +56,13 @@ class AuthTokenServiceImplTest {
         boolean result;
         //Act
         result = authTokenService.isAuthTokenExpired(spy);
-        System.out.println(result);
-        //Assert
+
     }
 
     @Test
     void createToken() {
         //Arrage
         authTokenService.setRepositoryMock(repositoryMock);
-        //AuthToken authToken = Mockito.mock(AuthToken.class);
 
         AuthToken authToken = new AuthToken();
         AuthToken spy = Mockito.spy(authToken);
@@ -81,8 +74,6 @@ class AuthTokenServiceImplTest {
         AuthToken result;
         //Act
         result = authTokenService.createToken(user);
-        System.out.println(result);
-        //Assert
 
     }
 
@@ -93,7 +84,6 @@ class AuthTokenServiceImplTest {
         //Act
         authTokenService.findById("12345678asdfghjkl");
 
-        //Assert
     }
 
     @Test
@@ -105,7 +95,6 @@ class AuthTokenServiceImplTest {
         //Act
         authTokenService.findByUser(user);
 
-        //Assert
 
     }
 }

@@ -4,7 +4,6 @@ package com.icunoc.biblioteca.controllers;
 import com.icunoc.biblioteca.dto.LibroDto;
 import com.icunoc.biblioteca.dto.Mensaje;
 import com.icunoc.biblioteca.models.Libro;
-import com.icunoc.biblioteca.services.CategoriaService;
 import com.icunoc.biblioteca.services.LibrosService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import java.util.List;
 public class LibroController {
 
     private byte[] imagenBytes;
+    private static final String NO_EXISTE = "No existe el Libro";
 
     @Autowired
     LibrosService service;
@@ -43,7 +43,7 @@ public class LibroController {
     public ResponseEntity<Libro> getById(@PathVariable("id") int id){
         //evaluamos si existe el usuario por id
         if(!service.existsById(id))
-            return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(NO_EXISTE), HttpStatus.NOT_FOUND);
         Libro libro = service.getOne(id).get();
         return new ResponseEntity(libro, HttpStatus.OK);
     }
@@ -53,14 +53,14 @@ public class LibroController {
     public ResponseEntity<Libro> getByNombre(@PathVariable("codigo") String nombre){
         //evaluamos si existe el usuario por nombre
         if(!service.existsByCodigo(nombre))
-            return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(NO_EXISTE), HttpStatus.NOT_FOUND);
         Libro libro = service.getByCodigo(nombre).get();
         return new ResponseEntity(libro, HttpStatus.OK);
     }
 
     //Nuevo: se pasa un Json Libro por medio de http y se valida
     @PostMapping("/crearLibro")
-    public ResponseEntity<?> create(@RequestBody LibroDto libroDto){
+    public ResponseEntity<Mensaje> create(@RequestBody LibroDto libroDto){
         //validar campos no nulos
         if(StringUtils.isBlank(libroDto.getNombre())) {
             return new ResponseEntity(new Mensaje("Todos los campos son Obligatorios"), HttpStatus.BAD_REQUEST);
@@ -86,7 +86,7 @@ public class LibroController {
 
     //actualizacion
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody LibroDto libroDto){
+    public ResponseEntity<Mensaje> update(@PathVariable("id") int id, @RequestBody LibroDto libroDto){
         //evaluar si existe el libro
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
@@ -115,7 +115,7 @@ public class LibroController {
 
     //eliminar
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") int id){
+    public ResponseEntity<Mensaje> delete(@PathVariable("id") int id){
         //comprobamos que exista
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No existe el libro"), HttpStatus.NOT_FOUND);

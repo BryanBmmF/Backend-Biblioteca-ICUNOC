@@ -32,7 +32,7 @@ public class InfoBibliotecaController {
 
     //actualizacion
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody InfoBibliotecaDto bibliotecaDto){
+    public ResponseEntity<Mensaje> update(@PathVariable("id") int id, @RequestBody InfoBibliotecaDto bibliotecaDto){
         //evaluar si existe el libro
         if(!service.existsById(id))
             return new ResponseEntity(new Mensaje("No esta disponible la información de la Biblioteca"), HttpStatus.NOT_FOUND);
