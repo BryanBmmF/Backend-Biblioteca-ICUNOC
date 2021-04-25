@@ -1,8 +1,5 @@
 package com.icunoc.biblioteca.dto;
 
-import javax.persistence.*;
-
-
 public class InfoBibliotecaDto {
 
     private String correo;

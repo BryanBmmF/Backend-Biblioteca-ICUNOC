@@ -1,6 +1,9 @@
 package com.icunoc.biblioteca.security.controllers;
 
 import com.icunoc.biblioteca.constants.AppConstants;
+import com.icunoc.biblioteca.scheduleds.ScheduledTasks;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.AccessDeniedException;
@@ -22,6 +25,9 @@ import java.util.Map;
 @RequestMapping(value = "/api/v1", produces = "application/json")
 public class SecurityController {
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityController.class);
+    private Map<String, Object> MY_MAP = new HashMap<String, Object>();
+
     @Autowired
     @Qualifier("springSecurityFilterChain")
     private Filter springSecurityFilterChain;
@@ -32,56 +38,49 @@ public class SecurityController {
         List<SecurityFilterChain> list = filterChainProxy.getFilterChains();
         list.stream()
                 .flatMap(chain -> chain.getFilters().stream())
-                .forEach(filter -> System.out.println(filter.getClass() + " "));
+                .forEach(filter -> logger.info(filter.getClass() + " "));
     }
 
     @PostMapping("/authorize")
     @PreAuthorize("isFullyAuthenticated()")
     public Map<String, Object> authorizeAction(HttpSession session) {
-        return new HashMap<>() {{
-            put(AppConstants.AUTH_TOKEN_NAME, session.getAttribute(AppConstants.AUTH_TOKEN_NAME));
-        }};
+        return (Map<String, Object>) MY_MAP.put(AppConstants.AUTH_TOKEN_NAME, session.getAttribute(AppConstants.AUTH_TOKEN_NAME));
     }
 
     @GetMapping("/anon")
     @PreAuthorize("isAnonymous()")
     public Map<String, Object> anonAction() {
-        return new HashMap<>() {{
-            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, "You are anon!");
-        }};
+        return (Map<String, Object>) MY_MAP.put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, "You are anon!");
     }
 
     @GetMapping("/logged")
     @PreAuthorize("isFullyAuthenticated()")
     public Map<String, Object> loggedAction(Principal principal) {
-        return new HashMap<>() {{
-            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, principal.getName() + ", you are logged!");
-        }};
+        return (Map<String, Object>) MY_MAP.put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, principal.getName() + ", you are logged!");
+
     }
 
     //valida permiso de administrador
     @GetMapping("/permissionAdmin")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Map<String, Object> adminAction(Principal principal) {
-        return new HashMap<>() {{
-            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, principal.getName() + ", you are admin!");
-        }};
+        return (Map<String, Object>) MY_MAP.put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, principal.getName() + ", you are admin!");
     }
 
     //valida permiso de usuario
     @GetMapping("/permissionUser")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public Map<String, Object> userAction(Principal principal) {
-        return new HashMap<>() {{
-            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, principal.getName() + ", you are user!");
-        }};
+        return (Map<String, Object>) MY_MAP.put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, principal.getName() + ", you are user!");
     }
 
     //En caso de no permitir autorizacion
     @ExceptionHandler({AccessDeniedException.class})
     public Map<String, Object> accessDeniedHandlerAction(HttpServletResponse response) {
-        return new HashMap<>() {{
-            put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, AppConstants.NOT_AUTHORIZE);
-        }};
+        return (Map<String, Object>) MY_MAP.put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, AppConstants.NOT_AUTHORIZE);
+    }
+
+    public void setMY_MAP(Map<String, Object> MY_MAP){
+        this.MY_MAP=MY_MAP;
     }
 }

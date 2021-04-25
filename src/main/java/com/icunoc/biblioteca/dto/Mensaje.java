@@ -5,17 +5,17 @@ package com.icunoc.biblioteca.dto;
  * */
 
 public class Mensaje {
-    private String mensaje;
+    private String info;
 
-    public Mensaje(String mensaje) {
-        this.mensaje = mensaje;
+    public Mensaje(String info) {
+        this.info = info;
     }
 
-    public String getMensaje() {
-        return mensaje;
+    public String getInfo() {
+        return info;
     }
 
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
+    public void setInfo(String info) {
+        this.info = info;
     }
 }

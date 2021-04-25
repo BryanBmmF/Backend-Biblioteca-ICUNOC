@@ -15,7 +15,7 @@ class MensajeTest {
     @BeforeEach
     void setUp() {
         mensajeTest = new Mensaje(MENSAJE_DEFAULT);
-        mensajeTest.setMensaje(MENSAJE_DEFAULT);
+        mensajeTest.setInfo(MENSAJE_DEFAULT);
     }
 
     @Test
@@ -23,8 +23,8 @@ class MensajeTest {
         //Arrange
         Mensaje mensajeTestPrueba = new Mensaje(MENSAJE_DEFAULT);
         //Act
-        mensajeTestPrueba.setMensaje(MENSAJE_DEFAULT);
+        mensajeTestPrueba.setInfo(MENSAJE_DEFAULT);
         //Arrange
-        assertTrue(mensajeTestPrueba.getMensaje() == MENSAJE_DEFAULT);
+        assertTrue(mensajeTestPrueba.getInfo() == MENSAJE_DEFAULT);
     }
 }

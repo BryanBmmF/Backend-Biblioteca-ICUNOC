@@ -85,7 +85,7 @@ public class UserController {
     public ResponseEntity<Mensaje> update(@PathVariable("id") long id, @RequestBody UserDto userDto){
         //evaluar si existe el usuario
         if(!service.existsById(id))
-            return new ResponseEntity(new Mensaje("No existe el Usuario"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(USER_NO_EXISTE), HttpStatus.NOT_FOUND);
 
         //validar campos no nulos
         if(StringUtils.isBlank(userDto.getUsername()) |

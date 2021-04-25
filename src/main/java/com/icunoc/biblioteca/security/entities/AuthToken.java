@@ -23,7 +23,7 @@ public class AuthToken {
     private User user;
 
     public AuthToken() {
-
+        //Constructor vacio de prueba
     }
 
     @PrePersist

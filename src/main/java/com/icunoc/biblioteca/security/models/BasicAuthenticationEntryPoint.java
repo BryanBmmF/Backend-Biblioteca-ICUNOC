@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class BasicAuthenticationEntryPoint implements AuthenticationEntryPoint{
+    private Map<String, Object> MY_MAP = new HashMap<String, Object>();
     private Gson gson;
 
     public BasicAuthenticationEntryPoint(Gson gson) {
@@ -30,9 +32,8 @@ public class BasicAuthenticationEntryPoint implements AuthenticationEntryPoint{
         response.addHeader("Access-Control-Allow-Methods", "HEAD,GET,PUT,POST,DELETE,PATCH");
         response.addHeader("Access-Control-Allow-Origin", "*");
 
-        response.getWriter().println(this.gson.toJson(new HashMap<String, Object>() {{
-                    put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, "Invalid Credentials");
-                }})
+        response.getWriter().println(this.gson.toJson(
+            (Map<String, Object>) MY_MAP.put(AppConstants.RESPONSE_BODY_MESSAGE_KEY, "Invalid Credentials"))
         );
     }
 

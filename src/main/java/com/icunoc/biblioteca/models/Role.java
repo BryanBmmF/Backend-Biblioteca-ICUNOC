@@ -15,7 +15,7 @@ public class Role implements GrantedAuthority {
     private String role;
 
     public Role() {
-
+        //Constructor vacio para pruebas
     }
 
     public Long getId() {

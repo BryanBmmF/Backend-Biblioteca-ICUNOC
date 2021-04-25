@@ -1,5 +1,6 @@
 package com.icunoc.biblioteca.security.controllers;
 
+import com.icunoc.biblioteca.constants.AppConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -8,6 +9,8 @@ import javax.servlet.Filter;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 class SecurityControllerTest {
     @Autowired
@@ -15,8 +18,11 @@ class SecurityControllerTest {
 
     SecurityController securityController = new SecurityController();
 
+    Map<String, Object> MY_MAP = new HashMap<String, Object>();
+
     @BeforeEach
     void setUp() {
+        MY_MAP.put(AppConstants.AUTH_TOKEN_NAME, AppConstants.AUTH_TOKEN_NAME);
     }
 
     @Test
