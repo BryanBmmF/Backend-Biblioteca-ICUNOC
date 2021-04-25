@@ -17,6 +17,10 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {
     @Query(value="SELECT * FROM Prestamo p WHERE (p.dpi LIKE %:busqueda% or p.carnet LIKE %:busqueda% or p.codigoReservacion LIKE %:busqueda%) AND (p.estado = :estado);\n", nativeQuery = true)
     List<Prestamo> findPrestamoByBusquedaAndEstado(@Param("busqueda") String busqueda, @Param("estado") String estado);
 
+    //Bitacora de reservaciones y prestamos segun carnet o dpi
+    @Query(value="SELECT * FROM Prestamo p WHERE (p.dpi LIKE %:busqueda% or p.carnet LIKE %:busqueda% );\n", nativeQuery = true)
+    List<Prestamo> findPrestamoByBitacora(@Param("busqueda") String busqueda);
+
     //metodo para buscar un prestamo por codigo de reservacion
     Prestamo findByCodigoReservacion(String codigoReservacion);
     List<Prestamo> findByCarnet(String carnet);
