@@ -21,6 +21,7 @@ class BibliotecaApplicationTests {
         Assertions.assertEquals("message", appConstants.RESPONSE_BODY_MESSAGE_KEY);
         Assertions.assertEquals("authToken", appConstants.AUTH_TOKEN_NAME);
         Assertions.assertEquals("NO_AUTORIZADO", appConstants.NOT_AUTHORIZE);
+        Assertions.assertEquals("http://localhost:4200/", appConstants.URL_APP);
 
     }
 
