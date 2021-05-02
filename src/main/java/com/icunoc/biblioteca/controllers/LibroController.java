@@ -48,7 +48,7 @@ public class LibroController {
         return new ResponseEntity(libro, HttpStatus.OK);
     }
 
-    //busqueda de libro por nombre
+    //busqueda de libro por codigo
     @GetMapping("/detalleLibroC/{codigo}")
     public ResponseEntity<Libro> getByNombre(@PathVariable("codigo") String nombre){
         //evaluamos si existe el usuario por nombre
