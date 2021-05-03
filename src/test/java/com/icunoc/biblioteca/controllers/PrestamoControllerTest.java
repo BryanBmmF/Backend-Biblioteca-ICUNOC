@@ -194,6 +194,31 @@ class PrestamoControllerTest {
         Assertions.assertEquals(200,respuesta.getStatusCodeValue());
     }
 
+    @Test
+    void crearPrestamo() {
+        ResponseEntity<?> respuesta;
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        //respuesta = prestamoController.create()
+        PrestamoDto prestamoMockDto = new PrestamoDto();
+        prestamoMockDto.setId(1);
+        prestamoMockDto.setNombre("Luis");
+        prestamoMockDto.setApellido("Hernandez");
+        prestamoMockDto.setDpi(DPI_TEST);
+        prestamoMockDto.setCarnet(CARNET_TEST);
+        prestamoMockDto.setCarrera(CARRERA_TEST);
+        prestamoMockDto.setFechaReservacion(null);
+        prestamoMockDto.setFechaInicio(null);
+        prestamoMockDto.setFechaFin(null);
+        prestamoMockDto.setCosto(0);
+        prestamoMockDto.setEstado(AppConstants.ESTADO_RESERVADO);
+        prestamoMockDto.setCodigoReservacion(CODIGO_RESERVACION_TEST);
+        prestamoMockDto.setMora(true);
+        prestamoMockDto.setDiasMoroso(1);
+        prestamoMockDto.setCodigoLibro(CODIGO_LIBRO_TEST);
+        respuesta = prestamoController.crearPrestamo(prestamoMockDto);
+        Assertions.assertEquals(200,respuesta.getStatusCodeValue());
+    }
+
     //Test para la busqueda general por estado
     @Test
     void listarPrestamo(){
@@ -287,6 +312,17 @@ class PrestamoControllerTest {
         ResponseEntity<Integer> responseServicio;
         //Act
         responseServicio = prestamoController.contarPrestamosReservacionesActivas(DPI_TEST, CARNET_TEST);
+        //Assert
+        Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
+    }
+
+    @Test
+    void contarPrestamosReservacionesActivasConVacios(){
+        //Arrange
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        ResponseEntity<Integer> responseServicio;
+        //Act
+        responseServicio = prestamoController.contarPrestamosReservacionesActivas("NA", "NA");
         //Assert
         Assertions.assertEquals(200, responseServicio.getStatusCodeValue());
     }
