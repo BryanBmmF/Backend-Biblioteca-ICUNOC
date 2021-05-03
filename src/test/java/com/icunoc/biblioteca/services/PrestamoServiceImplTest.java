@@ -52,6 +52,7 @@ class PrestamoServiceImplTest {
         Mockito.when(prestamoRepository.findByEstado(AppConstants.ESTADO_RESERVADO)).thenReturn(List.of(prestamoMock));
         Mockito.when(prestamoRepository.countReservacionesPrestamosActivos(DPI_TEST, CARNET_TEST)).thenReturn(2);
         Mockito.when(prestamoRepository.findPrestamoByBusquedaAndEstado("1",AppConstants.ESTADO_RESERVADO)).thenReturn(miListMock);
+        Mockito.when(prestamoRepository.findPrestamoByBitacora("1")).thenReturn(miListMock);
     }
 
     @Test
@@ -152,6 +153,17 @@ class PrestamoServiceImplTest {
         List<Prestamo> prestamos;
         //Act
         prestamos = prestamoServiceImpl.findPrestamoByBusquedaAndEstado("1", AppConstants.ESTADO_RESERVADO);
+        //Assert
+        Assertions.assertEquals("Luis", prestamos.get(0).getNombre());
+    }
+
+    @Test
+    void findPrestamoByBitacora() {
+        //Arrange
+        prestamoServiceImpl.setRepository(prestamoRepository);
+        List<Prestamo> prestamos;
+        //Act
+        prestamos = prestamoServiceImpl.findPrestamoByBitacora("1");
         //Assert
         Assertions.assertEquals("Luis", prestamos.get(0).getNombre());
     }

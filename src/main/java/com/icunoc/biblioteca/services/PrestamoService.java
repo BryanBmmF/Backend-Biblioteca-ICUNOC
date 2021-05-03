@@ -10,6 +10,7 @@ public interface PrestamoService {
     Prestamo listarCodigoReservacion(String codigo);
     Prestamo getOne(String id);
     List<Prestamo> findPrestamoByBusquedaAndEstado(String busqueda, String estado);
+    List<Prestamo> findPrestamoByBitacora(String busqueda);
     List<Prestamo> listarCarnet(String carnet);
     List<Prestamo> listarDPI(String dpi);
     List<Prestamo> listarFechaInicio(Calendar fechaInicio);

@@ -172,6 +172,13 @@ public class PrestamoController {
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
+    //metodo para mandar una lista de libros al cliente
+    @GetMapping("/bitacoraPrestamos/{busqueda}")
+    public ResponseEntity<List<Prestamo>> listarPrestamosPorBitacora(@PathVariable("busqueda") String busqueda){
+        List<Prestamo> list = prestamoService.findPrestamoByBitacora(busqueda);
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
     //para el mock
     public void setService(InfoBibliotecaService bibliotecaService){
         this.serviceInfo = bibliotecaService;
