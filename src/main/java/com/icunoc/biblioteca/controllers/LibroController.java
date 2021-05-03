@@ -48,7 +48,7 @@ public class LibroController {
         return new ResponseEntity(libro, HttpStatus.OK);
     }
 
-    //busqueda de libro por nombre
+    //busqueda de libro por codigo
     @GetMapping("/detalleLibroC/{codigo}")
     public ResponseEntity<Libro> getByNombre(@PathVariable("codigo") String nombre){
         //evaluamos si existe el usuario por nombre
@@ -89,7 +89,7 @@ public class LibroController {
     public ResponseEntity<Mensaje> update(@PathVariable("id") int id, @RequestBody LibroDto libroDto){
         //evaluar si existe el libro
         if(!service.existsById(id))
-            return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(NO_EXISTE), HttpStatus.NOT_FOUND);
         //validar campos no nulos
         if(StringUtils.isBlank(libroDto.getNombre()) |
                 StringUtils.isBlank(libroDto.getAutor()))

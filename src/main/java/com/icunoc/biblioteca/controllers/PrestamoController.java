@@ -120,6 +120,29 @@ public class PrestamoController {
                 prestamoDto.getCarnet(),
                 prestamoDto.getCarrera(),
                 Calendar.getInstance(),
+                null,
+                null,
+                prestamoDto.getEstado(),
+                prestamoDto.getCodigoReservacion(),
+                prestamoDto.isMora(),
+                prestamoDto.getCodigoLibro()
+        );
+        prestamoService.save(nuevoPrestamo);
+        return new ResponseEntity(new Mensaje("Se registro correctamente."), HttpStatus.OK);
+    }
+
+    @PostMapping("/crearPrestamo")
+    public ResponseEntity<Mensaje> crearPrestamo(@RequestBody PrestamoDto prestamoDto){
+        // guardar reservacion
+        Prestamo nuevoPrestamo = new Prestamo(
+                prestamoDto.getNombre(),
+                prestamoDto.getApellido(),
+                prestamoDto.getDpi(),
+                prestamoDto.getCarnet(),
+                prestamoDto.getCarrera(),
+                null,
+                Calendar.getInstance(),
+                null,
                 prestamoDto.getEstado(),
                 prestamoDto.getCodigoReservacion(),
                 prestamoDto.isMora(),
@@ -138,6 +161,12 @@ public class PrestamoController {
 
     @GetMapping(path = {"/verificacion/{dpi}/{carnet}"})
     public ResponseEntity<Integer> contarPrestamosReservacionesActivas(@PathVariable("dpi") String dpi, @PathVariable("carnet") String carnet){
+        if (dpi.equals("NA")){
+            dpi = "";
+        }
+        if (carnet.equals("NA")){
+            carnet = "";
+        }
         long conteo = prestamoService.countReservacionesPrestamosActivos(dpi,carnet);
         return new ResponseEntity(conteo,HttpStatus.OK);
     }

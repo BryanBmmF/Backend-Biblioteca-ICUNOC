@@ -56,6 +56,16 @@ CREATE TABLE Categoria(
     nombre VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE Comentario(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    comentario VARCHAR(1000) NULL,
+    puntuacion INT NOT NULL,
+    fecha DATE NULL,
+    idLibro VARCHAR(50) NOT NULL,
+    FOREIGN KEY(idLibro) REFERENCES Libro(codigo)
+);
+
 CREATE TABLE Libro(
     id INT AUTO_INCREMENT PRIMARY KEY,
     autor VARCHAR(150) NULL,

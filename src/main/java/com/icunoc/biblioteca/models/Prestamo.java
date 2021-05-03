@@ -59,8 +59,7 @@ public class Prestamo {
 
     public Prestamo(){}
 
-    public Prestamo(int idPrestamo, String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, Calendar fechaInicio, Calendar fechaFin, double costo, String estado, String codigoReservacion, String codigoLibro) {
-        this.id = idPrestamo;
+    public Prestamo(String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, Calendar fechaInicio, Calendar fechaFin,  String estado, String codigoReservacion, boolean mora, String codigoLibro) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dpi = dpi;
@@ -69,19 +68,6 @@ public class Prestamo {
         this.fechaReservacion = fechaReservacion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
-        this.costo = costo;
-        this.estado = estado;
-        this.codigoReservacion = codigoReservacion;
-        this.codigoLibro = codigoLibro;
-    }
-
-    public Prestamo(String nombre, String apellido, String dpi, String carnet, String carrera, Calendar fechaReservacion, String estado, String codigoReservacion, boolean mora, String codigoLibro) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dpi = dpi;
-        this.carnet = carnet;
-        this.carrera = carrera;
-        this.fechaReservacion = fechaReservacion;
         this.estado = estado;
         this.codigoReservacion = codigoReservacion;
         this.mora=mora;
