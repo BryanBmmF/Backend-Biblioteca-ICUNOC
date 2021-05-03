@@ -89,7 +89,7 @@ public class LibroController {
     public ResponseEntity<Mensaje> update(@PathVariable("id") int id, @RequestBody LibroDto libroDto){
         //evaluar si existe el libro
         if(!service.existsById(id))
-            return new ResponseEntity(new Mensaje("No existe el Libro"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(NO_EXISTE), HttpStatus.NOT_FOUND);
         //validar campos no nulos
         if(StringUtils.isBlank(libroDto.getNombre()) |
                 StringUtils.isBlank(libroDto.getAutor()))

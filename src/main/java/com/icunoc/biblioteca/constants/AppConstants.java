@@ -1,6 +1,11 @@
 package com.icunoc.biblioteca.constants;
 
 public class AppConstants {
+
+    private AppConstants(){
+        //Este es un contructor vacio
+    }
+
     public static final long MAX_USER_TOKEN_INACTIVITY_MIN = 5;
     public static final String RESPONSE_BODY_MESSAGE_KEY = "message";
     public static final String AUTH_TOKEN_NAME = "authToken";

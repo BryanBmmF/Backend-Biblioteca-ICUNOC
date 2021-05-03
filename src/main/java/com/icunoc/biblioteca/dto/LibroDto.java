@@ -1,14 +1,11 @@
 package com.icunoc.biblioteca.dto;
 
 import com.icunoc.biblioteca.enums.Idioma;
-import com.sun.istack.NotNull;
 import java.util.Calendar;
 
 public class LibroDto {
     private int id;
-    @NotNull
     private String nombre;
-    @NotNull
     private String autor;
     private String codigo;
     private int stock;
