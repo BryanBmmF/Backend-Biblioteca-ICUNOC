@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {
 
+    @Query(value="SELECT * FROM Prestamo p WHERE (p.dpi = ?1 or p.carnet = ?2) AND (p.estado = ?4) AND (p.codigoLibro = ?3)", nativeQuery = true)
+    List<Prestamo> findByDpiOrCarnetAndCodigoLibroAndEstado(String dpi, String carnet, String codigoLibro, String estado);
+
     @Query(value="SELECT count(*) FROM Prestamo p WHERE (p.dpi = ?1 or p.carnet = ?2) AND (p.estado = 'RESERVADO' or p.estado = 'ACTIVO')", nativeQuery = true)
     int countReservacionesPrestamosActivos(String dpi, String carnet);
 

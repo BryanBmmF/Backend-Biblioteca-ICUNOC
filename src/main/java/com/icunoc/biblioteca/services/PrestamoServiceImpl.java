@@ -87,4 +87,8 @@ public class PrestamoServiceImpl implements PrestamoService {
         return repository.countReservacionesPrestamosActivos(dpi, carne);
     }
 
+    public List<Prestamo> findByCarnetOrDPIOfBook(String identification,String book, String status) {
+        return repository.findByDpiOrCarnetAndCodigoLibroAndEstado(identification,identification,book,status);
+    }
+
 }
