@@ -16,12 +16,12 @@ class BibliotecaApplicationTests {
 
     @Test
     void constants(){
-        AppConstants appConstants = Mockito.spy(AppConstants.class);
-        Assertions.assertEquals(5, appConstants.MAX_USER_TOKEN_INACTIVITY_MIN);
-        Assertions.assertEquals("message", appConstants.RESPONSE_BODY_MESSAGE_KEY);
-        Assertions.assertEquals("authToken", appConstants.AUTH_TOKEN_NAME);
-        Assertions.assertEquals("NO_AUTORIZADO", appConstants.NOT_AUTHORIZE);
-        Assertions.assertEquals("http://localhost:4200/", appConstants.URL_APP);
+        //AppConstants appConstants = Mockito.spy(AppConstants.class);
+        Assertions.assertEquals(5, AppConstants.MAX_USER_TOKEN_INACTIVITY_MIN);
+        Assertions.assertEquals("message", AppConstants.RESPONSE_BODY_MESSAGE_KEY);
+        Assertions.assertEquals("authToken", AppConstants.AUTH_TOKEN_NAME);
+        Assertions.assertEquals("NO_AUTORIZADO", AppConstants.NOT_AUTHORIZE);
+        Assertions.assertEquals("http://localhost:4200/", AppConstants.URL_APP);
 
     }
 
