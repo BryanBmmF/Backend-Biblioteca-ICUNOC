@@ -57,7 +57,7 @@ class PrestamoControllerTest {
         Calendar miFecha = Calendar.getInstance();
 
         Calendar moraFecha = new GregorianCalendar(2021, Calendar.MARCH, 22, 23, 11, 44);
-        Calendar sinMoraFecha = new GregorianCalendar(2021, Calendar.APRIL, 14, 23, 11, 44);
+        Calendar sinMoraFecha = new GregorianCalendar(2021, Calendar.APRIL, 29, 23, 11, 44);
         //mock para validar que un prestamo tiene mora
         prestamoMock = new Prestamo();
         prestamoMock.setId(1);
@@ -287,6 +287,19 @@ class PrestamoControllerTest {
         prestamoMock.setFechaFin(null);
         //act
         ResponseEntity<?> response = prestamoController.finalizarPrestamo(CODIGO_RESERVACION_TEST);
+        //assert
+        Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+
+    //testa para cancelar una reservacion y cambiar su estado
+    @Test
+    void cancelarReservacion(){
+        //arrange
+        Mockito.when(prestamoServiceMock.getOne(CODIGO_RESERVACION_TEST)).thenReturn(prestamoMock);
+        prestamoController.setPrestamoService(prestamoServiceMock);
+        prestamoMock.setEstado("CANCELADO");
+        //act
+        ResponseEntity<?> response = prestamoController.cancelarReservacion(CODIGO_RESERVACION_TEST);
         //assert
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
     }

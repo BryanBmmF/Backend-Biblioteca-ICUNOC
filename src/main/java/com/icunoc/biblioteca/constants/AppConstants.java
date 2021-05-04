@@ -17,6 +17,5 @@ public class AppConstants {
     public static final String ESTADO_FINALIZADO="FINALIZADO";
     public static final String ESTADO_EXPIRADO="EXPIRADO";
     public static final String ESTADO_RESERVADO="RESERVADO";
-
-
+    public static final String ESTADO_CANCELADO="CANCELADO";
 }

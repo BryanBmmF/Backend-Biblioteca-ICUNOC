@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface LibroRepository extends JpaRepository<Libro, Integer>{
 
-    @Query(value="SELECT * FROM libro l WHERE l.autor LIKE %:busqueda% OR l.codigo LIKE %:busqueda% OR l.nombre LIKE %:busqueda%", nativeQuery = true)
+    @Query(value="SELECT * FROM Libro l WHERE l.autor LIKE %:busqueda% OR l.codigo LIKE %:busqueda% OR l.nombre LIKE %:busqueda%", nativeQuery = true)
     List<Libro> findLibroByBusqueda(@Param("busqueda") String busqueda);
 
     //metodo extra para buscar libros por nombre

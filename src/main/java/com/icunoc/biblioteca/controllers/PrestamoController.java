@@ -78,7 +78,6 @@ public class PrestamoController {
 
     @PutMapping("/finalizar/{codigoReservacion}")
     public ResponseEntity<Mensaje> finalizarPrestamo(@PathVariable("codigoReservacion") String codigo){
-        // si no hay problemas se guarda el usuario
         Calendar miFecha = Calendar.getInstance();
         Prestamo prestamo = prestamoService.getOne(codigo);
         prestamo.setEstado(AppConstants.ESTADO_FINALIZADO);
@@ -87,9 +86,16 @@ public class PrestamoController {
         return new ResponseEntity(new Mensaje("El prestamo finalizo correctamente !!!"), HttpStatus.OK);
     }
 
+    @PutMapping("/cancelar/{codigoReservacion}")
+    public ResponseEntity<Mensaje> cancelarReservacion(@PathVariable("codigoReservacion") String codigo){
+        Prestamo prestamo = prestamoService.getOne(codigo);
+        prestamo.setEstado(AppConstants.ESTADO_CANCELADO);
+        prestamoService.save(prestamo);
+        return new ResponseEntity(new Mensaje("La reservacion finalizo con exito!!!"), HttpStatus.OK);
+    }
+
     @PutMapping("/iniciar/{codigoReservacion}")
     public ResponseEntity<Mensaje> iniciarPrestamo(@PathVariable("codigoReservacion") String codigo){
-        // si no hay problemas se guarda el usuario
         Calendar miFecha = Calendar.getInstance();
         Prestamo prestamo = prestamoService.getOne(codigo);
         prestamo.setEstado(AppConstants.ESTADO_ACTIVO);
