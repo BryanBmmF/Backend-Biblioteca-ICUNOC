@@ -62,7 +62,7 @@ public class ReportesPrestamoEndToEndTest {
         // Instanciamos la variable de tipo WebDriverWait para gestionar la espera explícita de 5 segundos hasta que nos muestre la nueva pagina
         WebDriverWait wait2 = new WebDriverWait(driver,5);
         // Usamos la espera explícita bajo una condicion esperada, en este caso esperamos hasta que nos redirija a la nueva url de un user admin
-        wait2.until(ExpectedConditions.urlToBe(URL_APP+"reportesPrestamos"));
+        wait2.until(ExpectedConditions.urlToBe(URL_APP+"reportesPrestamo"));
 
         //Media vez se completa la espera de maximo 5 segundos para que redirija a la nueva URL declaramos un elemento que esperamos en la nueva vista
         By cardTittle = By.id("misReportes");
