@@ -140,7 +140,7 @@ public class PrestamoController {
                 prestamoDto.getDpi(),
                 prestamoDto.getCarnet(),
                 prestamoDto.getCarrera(),
-                null,
+                Calendar.getInstance(),
                 Calendar.getInstance(),
                 null,
                 prestamoDto.getEstado(),
